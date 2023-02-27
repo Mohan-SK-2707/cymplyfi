@@ -41,6 +41,9 @@ public class WebConfig {
         return httpSecurity.cors().and().csrf().disable().authorizeHttpRequests()
                 .requestMatchers("/employee/add**").permitAll()
                 .requestMatchers("/employee/login**").permitAll()
+                .requestMatchers("/employee/**").hasAuthority("ADMIN")
+                .requestMatchers("/employee/update/**").hasAuthority("ADMIN")
+                .requestMatchers("/employee/remove/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and().exceptionHandling()
                 .authenticationEntryPoint(authenticationEntry).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).build();
