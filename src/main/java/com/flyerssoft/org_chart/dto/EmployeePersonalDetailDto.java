@@ -68,6 +68,19 @@ public class EmployeePersonalDetailDto {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @NotBlank(message = "Designation is mandatory for employee")
+    @Pattern(regexp = "[a-zA-Z]+", message = "Designation must not contain special characters & numerics")
+    private String designation;
+
+    @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+    @NotBlank(message = "Email cannot be empty")
+    @Column(name = "Office_email", unique = true)
+    private String officeEmail;
+    @NotNull(message = "EmployeeId cannot be blank")
+   // @Pattern(regexp = "[0-9]+", message = " EmployeeId allows only numeric values")
+    @Column(name = "EmployeeId")
+    private String employeeId;
+
     private List<EmployeeAddressDto> employeeAddresses;
     private List<EmployeeJobHistoryDto> jobHistories;
     private List<EmployeeEducationalDetailsDto> educationalDetails;

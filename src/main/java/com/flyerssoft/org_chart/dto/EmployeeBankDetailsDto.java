@@ -41,7 +41,7 @@ public class EmployeeBankDetailsDto {
     @NotBlank(message = "Aadhaar is mandatory")
     @Size(min = 12,max = 12, message = "AadhaarNumber should be 12 Digits")
     @Pattern(regexp = "[0-9]+", message = "Aadhaar must not contain special characters & alphabets")
-    private String adharNumber;
+    private String aadharNumber;
 
     @NotBlank(message = "PAN is mandatory")
     @Pattern(regexp = "[a-zA-Z0-9]+", message = "PAN must not contain special characters")

@@ -33,12 +33,16 @@ public class EmployeePersonalDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private String designation;
+    private String officeEmail;
+    private String employeeId;
     private String contactNumber;
     private String emergencyContactNumber;
     @Enumerated(EnumType.STRING)
     private EmployeeGender employeeGender;
     @Enumerated(EnumType.STRING)
     private EmployeeMartialStatus employeeMartialStatus;
+
 
     @OneToOne(cascade = CascadeType.ALL)//, orphanRemoval = true
     @JsonIgnore

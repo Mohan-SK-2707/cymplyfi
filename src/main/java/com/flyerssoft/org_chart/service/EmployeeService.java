@@ -41,5 +41,12 @@ public interface EmployeeService {
   */
  String deleteEmployee(Long id) throws Exception;
 
+ /**
+  * Login - To view the employee details
+  * @param email
+  * @param password
+  * @return employee details
+  * @throws Exception
+  */
  LoginResponse userLogin(String email, String password) throws Exception;
 }

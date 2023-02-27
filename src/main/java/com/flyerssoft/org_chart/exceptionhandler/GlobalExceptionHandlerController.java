@@ -57,4 +57,5 @@ public class GlobalExceptionHandlerController {
         response.setMessage(ex.getMessage());
         return response;
     }
+
 }

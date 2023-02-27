@@ -23,7 +23,7 @@ public class EmployeeBankDetails {
     private Long bankAccountNumber;
     private String bankIfscCode;
     private String bankBranchLocation;
-    private String adharNumber;
+    private String aadharNumber;
     private String panNumber;
     @Enumerated(EnumType.STRING)
     private EmployeeBankAccountType employeeBankAccountType;

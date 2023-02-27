@@ -40,6 +40,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Add employee details - employee need to fill all the requested fields to Signup
+     * @param employeePersonalDetailDto employeePersonalDetailDto
+     * @return employee details will be added
+     */
+
     @Override
     public EmployeePersonalDetailDto addEmployeeDetail(EmployeePersonalDetailDto employeePersonalDetailDto) {
         //modelMapper.map(employeePersonalDetailDto, EmployeePersonalDetails.class);
@@ -54,6 +60,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return utils.mapEntityToDtos(employeeDetailResponse);
     }
 
+    /**
+     * Fetch employee details but before fetching it will check employee credentials are correct, after that
+     * employee details will be shown
+     * @param id id
+     * @return requested employee details will be shown
+     * @throws Exception
+     */
     @Override
     public EmployeePersonalDetailDto getEmployeeDetailsById(Long id) throws Exception {
         Optional<EmployeePersonalDetails> existingEmployeeDetailsResponse = employeeRepository.findById(id);
@@ -66,6 +79,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * To update the employee details, employee details will be requested to check already exits.
+     * if it existed it will allow to update the details
+     * but update can be done by admin
+     * @param id id
+     * @param employeePersonalDetailDto employeePersonalDetailDto
+     * @return updated employee details
+     */
     @Override
     public EmployeePersonalDetailDto updateEmployee(Long id, EmployeePersonalDetailDto employeePersonalDetailDto) {
         Optional<EmployeePersonalDetails> existsEmployeePersonalDetails = employeeRepository.findById(id);
@@ -82,6 +103,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * To Delete the employee details, employee details will be requested to check already exits.
+     * if it existed it will allow to Delete the details
+     * Employee details can be deleted by Admin
+     * @param id id
+     * @return employee details will be deleted
+     * @throws Exception
+     */
     @Override
     public String deleteEmployee(Long id) throws Exception {
         try {
@@ -93,6 +122,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * To login email and password will be need, and it will check employee already exits
+     * If employee exists it will allow to log in
+     * @param email
+     * @param password
+     * @return employee details
+     * @throws Exception
+     */
     @Override
     public LoginResponse userLogin(String email, String password) throws Exception {
         EmployeePersonalDetails existUser = employeeRepository.findByEmail(email);

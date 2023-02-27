@@ -24,23 +24,50 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    /**
+     * Signup Api, Employee needs to Signup with all the requested credentials.
+     * @param employeePersonalDetailDto
+     * @return employeeDetails
+     */
     @PostMapping("/employee/add")
     public ResponseEntity<EmployeePersonalDetailDto> addEmployeeDetail(@Valid @RequestBody EmployeePersonalDetailDto employeePersonalDetailDto) {
         log.info("Add Employee Controller Accessed");
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.addEmployeeDetail(employeePersonalDetailDto));
     }
 
+    /**
+     * Fetch employee details by using employee id
+     * @param id
+     * @return employee details
+     * @throws Exception
+     */
     @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeePersonalDetailDto> getEmployeeById(@PathVariable(required = true) Long id) throws Exception {
         log.info("Fetch Employee Controller Accessed");
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.getEmployeeDetailsById(id));
     }
 
+    /**
+     * Update api,To update Employee details, employee should already exist
+     * Employee details can be updated by Admin
+     * @param id
+     * @param employeePersonalDetailDto
+     * @return Updated employee credentials
+     * @throws Exception
+     */
     @PutMapping("/employee/update")
     public ResponseEntity<EmployeePersonalDetailDto> updateEmployee(@RequestParam(required = true) Long id, @RequestBody EmployeePersonalDetailDto employeePersonalDetailDto) throws Exception {
         log.info("Update Employee Controller Accessed");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.updateEmployee(id, employeePersonalDetailDto));
     }
+
+    /**
+     * To delete employee details,employee should already exist
+     * Employee details can be deleted by Admin
+     * @param id
+     * @return employee details will be deleted
+     * @throws Exception
+     */
 
     @DeleteMapping("/employee/remove/{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable(required = true) Long id) throws Exception {
@@ -48,6 +75,12 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(employeeService.deleteEmployee(id));
     }
 
+    /**
+     *  To login, employee need to Signup and employee can be login with his username and password.
+     * @param loginRequestDto
+     * @return employee credential
+     * @throws Exception
+     */
     @PostMapping("/employee/login")
     public ResponseEntity<LoginResponse> userLogin(@RequestBody LoginRequestDto loginRequestDto) throws Exception {
     log.info("Login Request Accessed");

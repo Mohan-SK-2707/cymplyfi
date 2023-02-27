@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-27T10:26:17+0530",
+    date = "2023-02-27T15:16:35+0530",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -37,6 +37,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeePersonalDetails.setEmail( employeePersonalDetailDto.getEmail() );
         employeePersonalDetails.setPassword( employeePersonalDetailDto.getPassword() );
         employeePersonalDetails.setRole( employeePersonalDetailDto.getRole() );
+        employeePersonalDetails.setDesignation( employeePersonalDetailDto.getDesignation() );
+        employeePersonalDetails.setOfficeEmail( employeePersonalDetailDto.getOfficeEmail() );
+        employeePersonalDetails.setEmployeeId( employeePersonalDetailDto.getEmployeeId() );
         employeePersonalDetails.setContactNumber( employeePersonalDetailDto.getContactNumber() );
         employeePersonalDetails.setEmergencyContactNumber( employeePersonalDetailDto.getEmergencyContactNumber() );
         employeePersonalDetails.setEmployeeGender( employeePersonalDetailDto.getEmployeeGender() );
@@ -69,6 +72,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeePersonalDetailDto.setEmployeeGender( employeeDetailResponse.getEmployeeGender() );
         employeePersonalDetailDto.setEmployeeMartialStatus( employeeDetailResponse.getEmployeeMartialStatus() );
         employeePersonalDetailDto.setRole( employeeDetailResponse.getRole() );
+        employeePersonalDetailDto.setDesignation( employeeDetailResponse.getDesignation() );
+        employeePersonalDetailDto.setOfficeEmail( employeeDetailResponse.getOfficeEmail() );
+        employeePersonalDetailDto.setEmployeeId( employeeDetailResponse.getEmployeeId() );
         employeePersonalDetailDto.setEmployeeAddresses( entityAddrrToDto( employeeDetailResponse.getEmployeeAddresses() ) );
         employeePersonalDetailDto.setJobHistories( jobHistoryEntityToDto( employeeDetailResponse.getJobHistories() ) );
         employeePersonalDetailDto.setEducationalDetails( educationalEntityToDto( employeeDetailResponse.getEducationalDetails() ) );
@@ -90,31 +96,11 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeBankDetailsDto.setBankAccountNumber( employeeBankDetails.getBankAccountNumber() );
         employeeBankDetailsDto.setBankIfscCode( employeeBankDetails.getBankIfscCode() );
         employeeBankDetailsDto.setBankBranchLocation( employeeBankDetails.getBankBranchLocation() );
-        employeeBankDetailsDto.setAdharNumber( employeeBankDetails.getAdharNumber() );
+        employeeBankDetailsDto.setAadharNumber( employeeBankDetails.getAadharNumber() );
         employeeBankDetailsDto.setPanNumber( employeeBankDetails.getPanNumber() );
         employeeBankDetailsDto.setEmployeeBankAccountType( employeeBankDetails.getEmployeeBankAccountType() );
 
         return employeeBankDetailsDto;
-    }
-
-    @Override
-    public EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetailsDto) {
-        if ( employeeBankDetailsDto == null ) {
-            return null;
-        }
-
-        EmployeeBankDetails employeeBankDetails = new EmployeeBankDetails();
-
-        employeeBankDetails.setId( employeeBankDetailsDto.getId() );
-        employeeBankDetails.setBankName( employeeBankDetailsDto.getBankName() );
-        employeeBankDetails.setBankAccountNumber( employeeBankDetailsDto.getBankAccountNumber() );
-        employeeBankDetails.setBankIfscCode( employeeBankDetailsDto.getBankIfscCode() );
-        employeeBankDetails.setBankBranchLocation( employeeBankDetailsDto.getBankBranchLocation() );
-        employeeBankDetails.setAdharNumber( employeeBankDetailsDto.getAdharNumber() );
-        employeeBankDetails.setPanNumber( employeeBankDetailsDto.getPanNumber() );
-        employeeBankDetails.setEmployeeBankAccountType( employeeBankDetailsDto.getEmployeeBankAccountType() );
-
-        return employeeBankDetails;
     }
 
     @Override
@@ -199,6 +185,26 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetails) {
+        if ( employeeBankDetails == null ) {
+            return null;
+        }
+
+        EmployeeBankDetails employeeBankDetails1 = new EmployeeBankDetails();
+
+        employeeBankDetails1.setId( employeeBankDetails.getId() );
+        employeeBankDetails1.setBankName( employeeBankDetails.getBankName() );
+        employeeBankDetails1.setBankAccountNumber( employeeBankDetails.getBankAccountNumber() );
+        employeeBankDetails1.setBankIfscCode( employeeBankDetails.getBankIfscCode() );
+        employeeBankDetails1.setBankBranchLocation( employeeBankDetails.getBankBranchLocation() );
+        employeeBankDetails1.setAadharNumber( employeeBankDetails.getAadharNumber() );
+        employeeBankDetails1.setPanNumber( employeeBankDetails.getPanNumber() );
+        employeeBankDetails1.setEmployeeBankAccountType( employeeBankDetails.getEmployeeBankAccountType() );
+
+        return employeeBankDetails1;
     }
 
     protected EmployeeEducationalDetailsDto employeeEducationalDetailsToEmployeeEducationalDetailsDto(EmployeeEducationalDetails employeeEducationalDetails) {

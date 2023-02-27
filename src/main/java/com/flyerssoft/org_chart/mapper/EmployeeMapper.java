@@ -22,8 +22,7 @@ public interface EmployeeMapper {
 
 
     EmployeeBankDetailsDto bankEntityToDto(EmployeeBankDetails employeeBankDetails);
-
-    EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetailsDto);
+    
 
     List<EmployeeEducationalDetailsDto> educationalEntityToDto(List<EmployeeEducationalDetails> employeeEducationalDetails);
 
@@ -99,4 +98,6 @@ public interface EmployeeMapper {
     List<EmployeeAddress> dtoAddrToEntity(List<EmployeeAddressDto> addressDtos);
 
     List<EmployeeAddressDto> entityAddrrToDto(List<EmployeeAddress> employeeAddresses);
+
+    EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetails);
 }
