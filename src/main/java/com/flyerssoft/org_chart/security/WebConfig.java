@@ -38,7 +38,7 @@ public class WebConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.cors().and().csrf().disable().authorizeHttpRequests()
+        return httpSecurity.csrf().disable().authorizeHttpRequests()
                 .requestMatchers("/employee/add**").permitAll()
                 .requestMatchers("/employee/login**").permitAll()
                 .requestMatchers("/employee/**").hasAuthority("ADMIN")

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 //@RequestMapping("/flyers-soft")
 @Slf4j
 @Validated
+@CrossOrigin(origins = "http://localhost:8081")
 public class EmployeeController {
 
     @Autowired
