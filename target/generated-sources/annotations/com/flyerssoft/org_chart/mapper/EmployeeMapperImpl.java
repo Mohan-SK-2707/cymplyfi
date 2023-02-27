@@ -10,6 +10,7 @@ import com.flyerssoft.org_chart.model.EmployeeBankDetails;
 import com.flyerssoft.org_chart.model.EmployeeEducationalDetails;
 import com.flyerssoft.org_chart.model.EmployeeJobHistory;
 import com.flyerssoft.org_chart.model.EmployeePersonalDetails;
+import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -17,46 +18,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-<<<<<<< Updated upstream
-    date = "2023-02-27T15:16:35+0530",
-=======
-    date = "2023-02-27T12:05:45+0530",
->>>>>>> Stashed changes
+    date = "2023-02-27T17:49:54+0530",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
 public class EmployeeMapperImpl implements EmployeeMapper {
-
-    @Override
-    public EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto) {
-        if ( employeePersonalDetailDto == null ) {
-            return null;
-        }
-
-        EmployeePersonalDetails employeePersonalDetails = new EmployeePersonalDetails();
-
-        employeePersonalDetails.setId( employeePersonalDetailDto.getId() );
-        employeePersonalDetails.setFirstName( employeePersonalDetailDto.getFirstName() );
-        employeePersonalDetails.setLastName( employeePersonalDetailDto.getLastName() );
-        employeePersonalDetails.setEmail( employeePersonalDetailDto.getEmail() );
-        employeePersonalDetails.setPassword( employeePersonalDetailDto.getPassword() );
-        employeePersonalDetails.setRole( employeePersonalDetailDto.getRole() );
-        employeePersonalDetails.setDesignation( employeePersonalDetailDto.getDesignation() );
-        employeePersonalDetails.setOfficeEmail( employeePersonalDetailDto.getOfficeEmail() );
-        employeePersonalDetails.setEmployeeId( employeePersonalDetailDto.getEmployeeId() );
-        employeePersonalDetails.setContactNumber( employeePersonalDetailDto.getContactNumber() );
-        employeePersonalDetails.setEmergencyContactNumber( employeePersonalDetailDto.getEmergencyContactNumber() );
-        employeePersonalDetails.setEmployeeGender( employeePersonalDetailDto.getEmployeeGender() );
-        employeePersonalDetails.setEmployeeMartialStatus( employeePersonalDetailDto.getEmployeeMartialStatus() );
-        employeePersonalDetails.setEmployeeBankDetails( dtoToBankEntity( employeePersonalDetailDto.getEmployeeBankDetails() ) );
-        employeePersonalDetails.setEducationalDetails( dtoToEducationalEntity( employeePersonalDetailDto.getEducationalDetails() ) );
-        employeePersonalDetails.setJobHistories( dtoTojobJobHistories( employeePersonalDetailDto.getJobHistories() ) );
-        employeePersonalDetails.setEmployeeAddresses( dtoAddrToEntity( employeePersonalDetailDto.getEmployeeAddresses() ) );
-
-        EmployeeMapper.mapEnums( employeePersonalDetails );
-
-        return employeePersonalDetails;
-    }
 
     @Override
     public EmployeePersonalDetailDto entityToDto(EmployeePersonalDetails employeeDetailResponse) {
@@ -77,7 +43,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeePersonalDetailDto.setEmployeeMartialStatus( employeeDetailResponse.getEmployeeMartialStatus() );
         employeePersonalDetailDto.setRole( employeeDetailResponse.getRole() );
         employeePersonalDetailDto.setDesignation( employeeDetailResponse.getDesignation() );
-        employeePersonalDetailDto.setOfficeEmail( employeeDetailResponse.getOfficeEmail() );
+        employeePersonalDetailDto.setOfficialEmail( employeeDetailResponse.getOfficialEmail() );
         employeePersonalDetailDto.setEmployeeId( employeeDetailResponse.getEmployeeId() );
         employeePersonalDetailDto.setEmployeeAddresses( entityAddrrToDto( employeeDetailResponse.getEmployeeAddresses() ) );
         employeePersonalDetailDto.setJobHistories( jobHistoryEntityToDto( employeeDetailResponse.getJobHistories() ) );
@@ -211,6 +177,51 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return employeeBankDetails1;
     }
 
+    @Override
+    public List<CustomEmployeeResponseDto> entityToCustomListDto(List<EmployeePersonalDetails> employeePersonalDetailsList) {
+        if ( employeePersonalDetailsList == null ) {
+            return null;
+        }
+
+        List<CustomEmployeeResponseDto> list = new ArrayList<CustomEmployeeResponseDto>( employeePersonalDetailsList.size() );
+        for ( EmployeePersonalDetails employeePersonalDetails : employeePersonalDetailsList ) {
+            list.add( employeePersonalDetailsToCustomEmployeeResponseDto( employeePersonalDetails ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto) {
+        if ( employeePersonalDetailDto == null ) {
+            return null;
+        }
+
+        EmployeePersonalDetails employeePersonalDetails = new EmployeePersonalDetails();
+
+        employeePersonalDetails.setId( employeePersonalDetailDto.getId() );
+        employeePersonalDetails.setFirstName( employeePersonalDetailDto.getFirstName() );
+        employeePersonalDetails.setLastName( employeePersonalDetailDto.getLastName() );
+        employeePersonalDetails.setEmail( employeePersonalDetailDto.getEmail() );
+        employeePersonalDetails.setPassword( employeePersonalDetailDto.getPassword() );
+        employeePersonalDetails.setRole( employeePersonalDetailDto.getRole() );
+        employeePersonalDetails.setDesignation( employeePersonalDetailDto.getDesignation() );
+        employeePersonalDetails.setOfficialEmail( employeePersonalDetailDto.getOfficialEmail() );
+        employeePersonalDetails.setEmployeeId( employeePersonalDetailDto.getEmployeeId() );
+        employeePersonalDetails.setContactNumber( employeePersonalDetailDto.getContactNumber() );
+        employeePersonalDetails.setEmergencyContactNumber( employeePersonalDetailDto.getEmergencyContactNumber() );
+        employeePersonalDetails.setEmployeeGender( employeePersonalDetailDto.getEmployeeGender() );
+        employeePersonalDetails.setEmployeeMartialStatus( employeePersonalDetailDto.getEmployeeMartialStatus() );
+        employeePersonalDetails.setEmployeeBankDetails( dtoToBankEntity( employeePersonalDetailDto.getEmployeeBankDetails() ) );
+        employeePersonalDetails.setEducationalDetails( dtoToEducationalEntity( employeePersonalDetailDto.getEducationalDetails() ) );
+        employeePersonalDetails.setJobHistories( dtoTojobJobHistories( employeePersonalDetailDto.getJobHistories() ) );
+        employeePersonalDetails.setEmployeeAddresses( dtoAddrToEntity( employeePersonalDetailDto.getEmployeeAddresses() ) );
+
+        EmployeeMapper.mapEnums( employeePersonalDetails );
+
+        return employeePersonalDetails;
+    }
+
     protected EmployeeEducationalDetailsDto employeeEducationalDetailsToEmployeeEducationalDetailsDto(EmployeeEducationalDetails employeeEducationalDetails) {
         if ( employeeEducationalDetails == null ) {
             return null;
@@ -313,5 +324,26 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeAddressDto.setPinCode( employeeAddress.getPinCode() );
 
         return employeeAddressDto;
+    }
+
+    protected CustomEmployeeResponseDto employeePersonalDetailsToCustomEmployeeResponseDto(EmployeePersonalDetails employeePersonalDetails) {
+        if ( employeePersonalDetails == null ) {
+            return null;
+        }
+
+        CustomEmployeeResponseDto customEmployeeResponseDto = new CustomEmployeeResponseDto();
+
+        customEmployeeResponseDto.setId( employeePersonalDetails.getId() );
+        customEmployeeResponseDto.setFirstName( employeePersonalDetails.getFirstName() );
+        customEmployeeResponseDto.setLastName( employeePersonalDetails.getLastName() );
+        customEmployeeResponseDto.setOfficialEmail( employeePersonalDetails.getOfficialEmail() );
+        customEmployeeResponseDto.setDesignation( employeePersonalDetails.getDesignation() );
+        if ( employeePersonalDetails.getRole() != null ) {
+            customEmployeeResponseDto.setRole( employeePersonalDetails.getRole().name() );
+        }
+        customEmployeeResponseDto.setEmployeeId( employeePersonalDetails.getEmployeeId() );
+        customEmployeeResponseDto.setContactNumber( employeePersonalDetails.getContactNumber() );
+
+        return customEmployeeResponseDto;
     }
 }

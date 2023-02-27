@@ -3,6 +3,7 @@ package com.flyerssoft.org_chart.utility;
 import com.flyerssoft.org_chart.dto.*;
 import com.flyerssoft.org_chart.mapper.EmployeeMapper;
 import com.flyerssoft.org_chart.model.*;
+import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -111,4 +112,8 @@ public class AppUtils {
     }
 
 
+    public List<CustomEmployeeResponseDto> mapEntityToCustomDtos(List<EmployeePersonalDetails> employeePersonalDetailsList) {
+        List<CustomEmployeeResponseDto> employeePersonalDetailDtos = mapper.entityToCustomListDto(employeePersonalDetailsList);
+        return employeePersonalDetailDtos;
+    }
 }

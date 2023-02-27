@@ -3,6 +3,7 @@ package com.flyerssoft.org_chart.mapper;
 import com.flyerssoft.org_chart.dto.*;
 import com.flyerssoft.org_chart.enums.*;
 import com.flyerssoft.org_chart.model.*;
+import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import com.flyerssoft.org_chart.utility.AppUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -15,8 +16,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
-
-    EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto);
+    
 
     EmployeePersonalDetailDto entityToDto(EmployeePersonalDetails employeeDetailResponse);
 
@@ -100,4 +100,8 @@ public interface EmployeeMapper {
     List<EmployeeAddressDto> entityAddrrToDto(List<EmployeeAddress> employeeAddresses);
 
     EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetails);
+
+    List<CustomEmployeeResponseDto> entityToCustomListDto(List<EmployeePersonalDetails> employeePersonalDetailsList);
+
+    EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto);
 }

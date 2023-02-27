@@ -34,7 +34,7 @@ public class EmployeePersonalDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String designation;
-    private String officeEmail;
+    private String officialEmail;
     private String employeeId;
     private String contactNumber;
     private String emergencyContactNumber;

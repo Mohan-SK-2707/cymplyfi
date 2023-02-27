@@ -75,7 +75,7 @@ public class EmployeePersonalDetailDto {
     @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @NotBlank(message = "Email cannot be empty")
     @Column(name = "Office_email", unique = true)
-    private String officeEmail;
+    private String officialEmail;
     @NotNull(message = "EmployeeId cannot be blank")
    // @Pattern(regexp = "[0-9]+", message = " EmployeeId allows only numeric values")
     @Column(name = "EmployeeId")

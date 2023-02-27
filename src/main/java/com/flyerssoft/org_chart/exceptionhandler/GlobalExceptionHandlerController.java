@@ -21,24 +21,20 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleEntityNotFound(NotFoundException ex) {
-        ErrorResponse apiError = new ErrorResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
-        apiError.setMessage(ex.getMessage());
-        apiError.setTimestamp(LocalDateTime.now());
-        return apiError;
+        return new ErrorResponse(false, ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse handleBadCredential(BadCredentialException ex) {
-        ErrorResponse apiError = new ErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
-        apiError.setMessage(ex.getMessage());
-        return apiError;
+        return new ErrorResponse(false, ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse customValidation(MethodArgumentNotValidException e) {
-        ErrorResponse apiError = new ErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+        ErrorResponse apiError = new ErrorResponse();
+        apiError.setErrorResults(false);
         String errorMessage = "Request has Invalid input.";
         Optional<FieldError> error = e.getBindingResult().getFieldErrors().stream().findFirst();
         if (error.isPresent()) {
@@ -51,19 +47,14 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse notReadableMessageValidation(HttpMessageNotReadableException ex) {
-        ErrorResponse apiError = new ErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
-        apiError.setMessage(ex.getMessage());
-        apiError.setTimestamp(LocalDateTime.now());
-        return apiError;
+        return new ErrorResponse(false, ex.getMessage());
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
     public ErrorResponse resourceAlreadyExistException(ResourceAlreadyExistsException ex) {
-        ErrorResponse response = new ErrorResponse(HttpStatus.NOT_ACCEPTABLE,HttpStatus.NOT_ACCEPTABLE.value());
-        response.setMessage(ex.getMessage());
-        return response;
+        return new ErrorResponse(false, ex.getMessage());
     }
 
 }

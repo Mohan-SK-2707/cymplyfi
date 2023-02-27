@@ -1,7 +1,11 @@
 package com.flyerssoft.org_chart.service;
 
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
-import com.flyerssoft.org_chart.dto.LoginResponse;
+import com.flyerssoft.org_chart.response.AppResponse;
+import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
+import com.flyerssoft.org_chart.response.LoginResponse;
+
+import java.util.List;
 
 public interface EmployeeService {
 
@@ -11,7 +15,7 @@ public interface EmployeeService {
   * @param employeePersonalDetailDto employeePersonalDetailDto
   * @return employee details
   */
- EmployeePersonalDetailDto addEmployeeDetail(EmployeePersonalDetailDto employeePersonalDetailDto);
+ AppResponse<EmployeePersonalDetailDto> addEmployeeDetail(EmployeePersonalDetailDto employeePersonalDetailDto);
 
  /**
   * Get employee details.
@@ -20,7 +24,7 @@ public interface EmployeeService {
   * @return employee details
   * @throws Exception employee not found
   */
- EmployeePersonalDetailDto getEmployeeDetailsById (Long id) throws Exception;
+ AppResponse<EmployeePersonalDetailDto> getEmployeeDetailsById (Long id) throws Exception;
 
  /**
   * Update employee details.
@@ -30,7 +34,7 @@ public interface EmployeeService {
   * @return updated employee details
   *  @throws Exception employee not found
   */
- EmployeePersonalDetailDto updateEmployee(Long id, EmployeePersonalDetailDto employeePersonalDetailDto) throws Exception ;
+ AppResponse<EmployeePersonalDetailDto> updateEmployee(Long id, EmployeePersonalDetailDto employeePersonalDetailDto) throws Exception ;
 
  /**
   * Delete employee details.
@@ -39,7 +43,7 @@ public interface EmployeeService {
   * @return successful message
   * @throws Exception employee not found
   */
- String deleteEmployee(Long id) throws Exception;
+ AppResponse<String> deleteEmployee(Long id) throws Exception;
 
  /**
   * Login - To view the employee details
@@ -48,5 +52,7 @@ public interface EmployeeService {
   * @return employee details
   * @throws Exception
   */
- LoginResponse userLogin(String email, String password) throws Exception;
+ AppResponse<LoginResponse> userLogin(String email, String password) throws Exception;
+
+ AppResponse<List<CustomEmployeeResponseDto>> allEmployeeDtoResponse();
 }
