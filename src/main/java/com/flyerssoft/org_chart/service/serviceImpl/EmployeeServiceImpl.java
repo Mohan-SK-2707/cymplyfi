@@ -150,6 +150,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 throw new BadCredentialException("Bad Credentials");
             }
         } else {
+            log.error("User not exist with this username : {}",email);
             throw new NotFoundException("User doesn't exist with this username - " + email);
         }
     }
