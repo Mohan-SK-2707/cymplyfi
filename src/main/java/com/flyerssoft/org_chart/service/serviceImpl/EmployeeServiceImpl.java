@@ -1,6 +1,8 @@
 package com.flyerssoft.org_chart.service.serviceImpl;
 
 import com.flyerssoft.org_chart.dto.*;
+import com.flyerssoft.org_chart.exceptionhandler.BadCredentialException;
+import com.flyerssoft.org_chart.exceptionhandler.ErrorResponse;
 import com.flyerssoft.org_chart.exceptionhandler.NotFoundException;
 import com.flyerssoft.org_chart.exceptionhandler.ResourceAlreadyExistsException;
 import com.flyerssoft.org_chart.model.*;
@@ -31,8 +33,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     UserDataService userDataService;
-    @Autowired
-    WebConfig webConfig;
 
     @Autowired
     JwtTokenUtils jwtTokenUtils;
@@ -138,11 +138,14 @@ public class EmployeeServiceImpl implements EmployeeService {
             if (passwordEncoder.matches(password, existUser.getPassword())) {
                 userDataService.authenticate(email, password);
                 return loginToken(existUser);
+            } else{
+                log.error("Password Incorrect");
+                throw new BadCredentialException("Bad Credentials");
             }
+
         } else {
             throw new NotFoundException("User doesn't exist with this username - " + email);
         }
-        return null;
     }
 
     public LoginResponse loginToken(EmployeePersonalDetails user) {

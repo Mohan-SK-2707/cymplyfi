@@ -27,6 +27,14 @@ public class GlobalExceptionHandlerController {
         return apiError;
     }
 
+    @ExceptionHandler(BadCredentialException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleBadCredential(BadCredentialException ex) {
+        ErrorResponse apiError = new ErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+        apiError.setMessage(ex.getMessage());
+        return apiError;
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse customValidation(MethodArgumentNotValidException e) {

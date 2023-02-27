@@ -82,7 +82,7 @@ public class EmployeeController {
      * @throws Exception
      */
     @PostMapping("/employee/login")
-    public ResponseEntity<LoginResponse> userLogin(@RequestBody LoginRequestDto loginRequestDto) throws Exception {
+    public ResponseEntity<LoginResponse> userLogin(@RequestBody @Valid LoginRequestDto loginRequestDto) throws Exception {
     log.info("Login Request Accessed");
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.userLogin(loginRequestDto.getEmail(),loginRequestDto.getPassword()));
     }
