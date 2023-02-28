@@ -20,7 +20,7 @@ public class EmployeeBankDetails {
     @Column(name = "id", nullable = false)
     private Long id;
     private String bankName;
-    private Long bankAccountNumber;
+    private String bankAccountNumber;
     private String bankIfscCode;
     private String bankBranchLocation;
     private String aadharNumber;

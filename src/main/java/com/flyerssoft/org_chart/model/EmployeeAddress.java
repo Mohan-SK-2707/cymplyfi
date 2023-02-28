@@ -25,6 +25,6 @@ public class EmployeeAddress {
     private String Line2;
     private String city;
     private String state;
-    private Long pinCode;
+    private String pinCode;
 
 }
