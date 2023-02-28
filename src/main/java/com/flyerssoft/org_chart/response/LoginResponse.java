@@ -13,12 +13,16 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class LoginResponse {
 
+    private Long userId;
+
     private String firstName;
 
     private String lastName;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private String designation;
 
     private String token;
 }

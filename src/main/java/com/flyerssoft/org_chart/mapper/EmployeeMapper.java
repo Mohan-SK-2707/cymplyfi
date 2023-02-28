@@ -16,13 +16,13 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
-    
+
 
     EmployeePersonalDetailDto entityToDto(EmployeePersonalDetails employeeDetailResponse);
 
 
     EmployeeBankDetailsDto bankEntityToDto(EmployeeBankDetails employeeBankDetails);
-    
+
 
     List<EmployeeEducationalDetailsDto> educationalEntityToDto(List<EmployeeEducationalDetails> employeeEducationalDetails);
 

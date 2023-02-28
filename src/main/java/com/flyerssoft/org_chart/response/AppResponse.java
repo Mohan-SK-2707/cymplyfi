@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class AppResponse<T> {
 
-    private Integer statusCode;
+    private Integer status;
 
-    private Boolean responseResults;
+    private Boolean success;
 
     private T data;
 }

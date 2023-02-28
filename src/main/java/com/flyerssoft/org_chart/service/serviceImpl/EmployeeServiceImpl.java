@@ -169,7 +169,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             claims.put("userId", user.getId());
         }
         final String loginToken = jwtTokenUtils.generateToken(new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities), claims);
-        return new LoginResponse(user.getFirstName(), user.getLastName(), user.getRole(), loginToken);
+        return new LoginResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getRole(), user.getDesignation(), loginToken);
     }
 
     private void checkEmployeeExistsByCredentials(String emailId, String contactNum) {
@@ -191,7 +191,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public AppResponse<List<CustomEmployeeResponseDto>> allEmployeeDtoResponse() {
         List<CustomEmployeeResponseDto> employeePersonalDetailsList = employeeRepository.findAll().stream().map(employeePersonalDetails -> utils.mapEntityToCustomDtos(employeePersonalDetails)).collect(Collectors.toList());
-        log.info("Users size from DB : {}",employeePersonalDetailsList.size());
+        log.info("Users size from DB : {}", employeePersonalDetailsList.size());
         return new AppResponse<>(200, true, employeePersonalDetailsList);
     }
 }
