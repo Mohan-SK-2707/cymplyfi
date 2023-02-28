@@ -100,7 +100,6 @@ public interface EmployeeMapper {
     List<EmployeeAddressDto> entityAddrrToDto(List<EmployeeAddress> employeeAddresses);
 
     EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetails);
-
     EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto);
 
     CustomEmployeeResponseDto entityToCustomListDto(EmployeePersonalDetails employeePersonalDetailsList);

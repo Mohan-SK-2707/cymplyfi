@@ -9,10 +9,12 @@ import com.flyerssoft.org_chart.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -47,13 +49,13 @@ public class EmployeePersonalDetailDto {
     @NotBlank(message = "Password is mandatory")
     private String password;
 
-    @NotNull(message = "Contact number cannot be blank")
+    @NotBlank(message = "Contact number cannot be blank")
     @Size(min = 10, max = 10, message = "Contact number size must be 10")
     @Pattern(regexp = "[0-9]+", message = "Contact number allows only numeric values")
     @Column(name = "contact_num")
     private String contactNumber;
 
-    @NotNull(message = "Emergency contact number cannot be blank")
+    @NotBlank(message = "Emergency contact number cannot be blank")
     @Size(min = 10, max = 10, message = "Emergency contact size must be 10")
     @Pattern(regexp = "[0-9]+", message = "Emergency contact allows only numeric values")
     @Column(name = "emergency_contact_num")
@@ -72,17 +74,20 @@ public class EmployeePersonalDetailDto {
     @Pattern(regexp = "[a-zA-Z]+", message = "Designation must not contain special characters & numerics")
     private String designation;
 
-    @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @NotBlank(message = "Email cannot be empty")
+    @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @Column(name = "Office_email", unique = true)
     private String officialEmail;
-    @NotNull(message = "EmployeeId cannot be blank")
-   // @Pattern(regexp = "[0-9]+", message = " EmployeeId allows only numeric values")
+
+    @NotBlank(message = "EmployeeId cannot be blank")
     @Column(name = "EmployeeId")
     private String employeeId;
-
+    @Valid
     private List<EmployeeAddressDto> employeeAddresses;
+    @Valid
     private List<EmployeeJobHistoryDto> jobHistories;
+    @Valid
     private List<EmployeeEducationalDetailsDto> educationalDetails;
+    @Valid
     private EmployeeBankDetailsDto employeeBankDetails;
 }

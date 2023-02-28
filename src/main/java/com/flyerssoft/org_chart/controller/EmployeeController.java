@@ -34,7 +34,7 @@ public class EmployeeController {
      * @return employeeDetails
      */
     @PostMapping("/employee/add")
-    public ResponseEntity<AppResponse<EmployeePersonalDetailDto>> addEmployeeDetail(@Valid @RequestBody EmployeePersonalDetailDto employeePersonalDetailDto) {
+    public ResponseEntity<AppResponse<EmployeePersonalDetailDto>> addEmployeeDetail(@RequestBody @Valid EmployeePersonalDetailDto employeePersonalDetailDto) {
         log.info("Add Employee Controller Accessed");
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.addEmployeeDetail(employeePersonalDetailDto));
     }
@@ -60,7 +60,7 @@ public class EmployeeController {
      * @throws Exception
      */
     @PutMapping("/employee/update")
-    public ResponseEntity<AppResponse<EmployeePersonalDetailDto>> updateEmployee(@RequestParam(required = true) Long id, @RequestBody EmployeePersonalDetailDto employeePersonalDetailDto) throws Exception {
+    public ResponseEntity<AppResponse<EmployeePersonalDetailDto>> updateEmployee(@Valid @RequestParam(required = true) Long id, @RequestBody EmployeePersonalDetailDto employeePersonalDetailDto) throws Exception {
         log.info("Update Employee Controller Accessed");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.updateEmployee(id, employeePersonalDetailDto));
     }

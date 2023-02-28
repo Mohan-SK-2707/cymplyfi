@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * The employee bank details dto
@@ -21,13 +22,13 @@ public class EmployeeBankDetailsDto {
 
     @NotBlank(message = "Bank name is mandatory")
     @Size(min = 3, max = 30, message = "Bank name size must be between 3 to 30")
-    @Pattern(regexp = "[a-zA-Z]+", message = "Must not contain special characters & numerics")
+    @Pattern(regexp = "[a-zA-Z]+", message = "Bank Name must not contain special characters & numerics")
     private String bankName;
 
     @NotBlank(message = "Account number is mandatory")
     @Size(min = 3, max = 17, message = "Account number size must be between 3 to 17")
     @Pattern(regexp = "[0-9]+", message = "Account number must not contain special characters & alphabets")
-    private Long bankAccountNumber;
+    private String bankAccountNumber;
 
     @NotBlank(message = "IFSC is mandatory")
     @Size(min = 3, max = 10, message = "IFSC size must be between 3 to 10")

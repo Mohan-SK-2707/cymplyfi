@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * The employee address details dto
@@ -23,21 +24,21 @@ public class EmployeeAddressDto {
     private AddressType addressType;
 
     @NotBlank(message = "Field is mandatory")
-    @Size(min = 10, max = 30, message = "size must be between 10 to 30")
+    @Size(min = 10, max = 30, message = "Address size must be between 10 to 30")
     private String Line1;
 
     private String Line2;
 
     @NotBlank(message = "City is mandatory")
-    @Size(min = 3, max = 30, message = "size must be between 3 to 30")
+    @Size(min = 3, max = 30, message = "City size must be between 3 to 30")
     private String city;
 
     @NotBlank(message = "State is mandatory")
-    @Size(min = 10, max = 30, message = "size must be between 10 to 30")
+    @Size(min = 3, max = 30, message = "State size must be between 10 to 30")
     private String state;
 
-    @NotNull(message = "PinCode is mandatory")
-    @Size(min = 6, max = 6, message = "Invalid PinCode")
-    private Long pinCode;
+    @NotBlank(message = "PinCode is mandatory")
+    @Size(min = 6, max = 6, message = "PinCode must in 6 digit")
+    private String pinCode;
 
 }
