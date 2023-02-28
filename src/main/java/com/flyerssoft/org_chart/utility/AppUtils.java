@@ -112,8 +112,7 @@ public class AppUtils {
     }
 
 
-    public List<CustomEmployeeResponseDto> mapEntityToCustomDtos(List<EmployeePersonalDetails> employeePersonalDetailsList) {
-        List<CustomEmployeeResponseDto> employeePersonalDetailDtos = mapper.entityToCustomListDto(employeePersonalDetailsList);
-        return employeePersonalDetailDtos;
+    public CustomEmployeeResponseDto mapEntityToCustomDtos(EmployeePersonalDetails employeePersonalDetailsList) {
+        return mapper.entityToCustomListDto(employeePersonalDetailsList);
     }
 }

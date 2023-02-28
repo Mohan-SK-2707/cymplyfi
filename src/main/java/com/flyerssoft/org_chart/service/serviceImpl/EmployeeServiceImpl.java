@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -150,7 +151,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 throw new BadCredentialException("Bad Credentials");
             }
         } else {
-            log.error("User not exist with this username : {}",email);
+            log.error("User not exist with this username : {}", email);
             throw new NotFoundException("User doesn't exist with this username - " + email);
         }
     }
@@ -162,10 +163,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (ObjectUtils.isNotEmpty(user.getRole())) {
             authorities.add(new SimpleGrantedAuthority(String.valueOf(user.getRole())));
             claims.put("role", user.getRole());
-            claims.put("userId",user.getId());
+            claims.put("userId", user.getId());
         } else {
             claims.put("role", "EMPLOYEE");
-            claims.put("userId",user.getId());
+            claims.put("userId", user.getId());
         }
         final String loginToken = jwtTokenUtils.generateToken(new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities), claims);
         return new LoginResponse(user.getFirstName(), user.getLastName(), user.getRole(), loginToken);
@@ -189,7 +190,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public AppResponse<List<CustomEmployeeResponseDto>> allEmployeeDtoResponse() {
-        List<EmployeePersonalDetails> employeePersonalDetailsList = employeeRepository.findAll();
-        return new AppResponse<>(200, true, utils.mapEntityToCustomDtos(employeePersonalDetailsList));
+        List<CustomEmployeeResponseDto> employeePersonalDetailsList = employeeRepository.findAll().stream().map(employeePersonalDetails -> utils.mapEntityToCustomDtos(employeePersonalDetails)).collect(Collectors.toList());
+        log.info("Users size from DB : {}",employeePersonalDetailsList.size());
+        return new AppResponse<>(200, true, employeePersonalDetailsList);
     }
 }

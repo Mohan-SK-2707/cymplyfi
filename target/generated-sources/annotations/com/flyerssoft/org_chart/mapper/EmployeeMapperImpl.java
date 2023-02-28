@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-27T17:49:54+0530",
+    date = "2023-02-28T11:25:03+0530",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -178,20 +178,6 @@ public class EmployeeMapperImpl implements EmployeeMapper {
     }
 
     @Override
-    public List<CustomEmployeeResponseDto> entityToCustomListDto(List<EmployeePersonalDetails> employeePersonalDetailsList) {
-        if ( employeePersonalDetailsList == null ) {
-            return null;
-        }
-
-        List<CustomEmployeeResponseDto> list = new ArrayList<CustomEmployeeResponseDto>( employeePersonalDetailsList.size() );
-        for ( EmployeePersonalDetails employeePersonalDetails : employeePersonalDetailsList ) {
-            list.add( employeePersonalDetailsToCustomEmployeeResponseDto( employeePersonalDetails ) );
-        }
-
-        return list;
-    }
-
-    @Override
     public EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto) {
         if ( employeePersonalDetailDto == null ) {
             return null;
@@ -220,6 +206,28 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         EmployeeMapper.mapEnums( employeePersonalDetails );
 
         return employeePersonalDetails;
+    }
+
+    @Override
+    public CustomEmployeeResponseDto entityToCustomListDto(EmployeePersonalDetails employeePersonalDetailsList) {
+        if ( employeePersonalDetailsList == null ) {
+            return null;
+        }
+
+        CustomEmployeeResponseDto customEmployeeResponseDto = new CustomEmployeeResponseDto();
+
+        customEmployeeResponseDto.setId( employeePersonalDetailsList.getId() );
+        customEmployeeResponseDto.setFirstName( employeePersonalDetailsList.getFirstName() );
+        customEmployeeResponseDto.setLastName( employeePersonalDetailsList.getLastName() );
+        customEmployeeResponseDto.setOfficialEmail( employeePersonalDetailsList.getOfficialEmail() );
+        customEmployeeResponseDto.setDesignation( employeePersonalDetailsList.getDesignation() );
+        if ( employeePersonalDetailsList.getRole() != null ) {
+            customEmployeeResponseDto.setRole( employeePersonalDetailsList.getRole().name() );
+        }
+        customEmployeeResponseDto.setEmployeeId( employeePersonalDetailsList.getEmployeeId() );
+        customEmployeeResponseDto.setContactNumber( employeePersonalDetailsList.getContactNumber() );
+
+        return customEmployeeResponseDto;
     }
 
     protected EmployeeEducationalDetailsDto employeeEducationalDetailsToEmployeeEducationalDetailsDto(EmployeeEducationalDetails employeeEducationalDetails) {
@@ -324,26 +332,5 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeAddressDto.setPinCode( employeeAddress.getPinCode() );
 
         return employeeAddressDto;
-    }
-
-    protected CustomEmployeeResponseDto employeePersonalDetailsToCustomEmployeeResponseDto(EmployeePersonalDetails employeePersonalDetails) {
-        if ( employeePersonalDetails == null ) {
-            return null;
-        }
-
-        CustomEmployeeResponseDto customEmployeeResponseDto = new CustomEmployeeResponseDto();
-
-        customEmployeeResponseDto.setId( employeePersonalDetails.getId() );
-        customEmployeeResponseDto.setFirstName( employeePersonalDetails.getFirstName() );
-        customEmployeeResponseDto.setLastName( employeePersonalDetails.getLastName() );
-        customEmployeeResponseDto.setOfficialEmail( employeePersonalDetails.getOfficialEmail() );
-        customEmployeeResponseDto.setDesignation( employeePersonalDetails.getDesignation() );
-        if ( employeePersonalDetails.getRole() != null ) {
-            customEmployeeResponseDto.setRole( employeePersonalDetails.getRole().name() );
-        }
-        customEmployeeResponseDto.setEmployeeId( employeePersonalDetails.getEmployeeId() );
-        customEmployeeResponseDto.setContactNumber( employeePersonalDetails.getContactNumber() );
-
-        return customEmployeeResponseDto;
     }
 }
