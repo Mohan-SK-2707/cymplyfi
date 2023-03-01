@@ -2,6 +2,7 @@ package com.flyerssoft.org_chart.controller;
 
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
 import com.flyerssoft.org_chart.dto.LoginRequestDto;
+import com.flyerssoft.org_chart.dto.OrganisationDepartmentResponse;
 import com.flyerssoft.org_chart.response.AppResponse;
 import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import com.flyerssoft.org_chart.response.LoginResponse;
@@ -97,4 +98,9 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.allEmployeeDtoResponse());
     }
 
+    @GetMapping("/hierarchy")
+    public ResponseEntity<AppResponse<OrganisationDepartmentResponse>> getDepartmentsForHierarchy () {
+        log.info("get all departments for super admin api accessed");
+        return null;
+    }
 }

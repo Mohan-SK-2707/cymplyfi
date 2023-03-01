@@ -38,11 +38,7 @@ public class EmployeeAddressDto {
     private String state;
 
     @NotBlank(message = "PinCode is mandatory")
-<<<<<<< Updated upstream
     @Size(min = 6, max = 6, message = "PinCode must in 6 digit")
-=======
-    @Size(min = 6, max = 6, message = "Invalid PinCode")
->>>>>>> Stashed changes
     private String pinCode;
 
 }

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Repository
 public interface EmployeeDetailRepository extends JpaRepository<EmployeePersonalDetails,Long> {
 
@@ -13,4 +15,8 @@ public interface EmployeeDetailRepository extends JpaRepository<EmployeePersonal
     EmployeePersonalDetails findByEmail(String personalEmailId);
 
     EmployeePersonalDetails findByContactNumber(String contactNumber);
+
+    EmployeePersonalDetails findByRole(String role);
+
+    List<EmployeePersonalDetails> findByDepartmentAndRole(Long departmentId, String role);
 }

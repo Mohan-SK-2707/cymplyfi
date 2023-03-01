@@ -107,4 +107,8 @@ public interface EmployeeMapper {
     EmployeeDepartmentDto departmentEntityToDto(EmployeeDepartment department);
 
     EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment);
+
+    List<EmployeeDepartmentDto> departmentEntityListToDto(List<EmployeeDepartment> departments);
+
+    List<EmployeePersonalDetailDto> employeePersonalDetailEntityListToDto(List<EmployeePersonalDetails> employees);
 }

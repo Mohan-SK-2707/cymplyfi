@@ -1,9 +1,11 @@
 package com.flyerssoft.org_chart.service;
 
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
+import com.flyerssoft.org_chart.dto.OrganisationDepartmentResponse;
 import com.flyerssoft.org_chart.response.AppResponse;
 import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import com.flyerssoft.org_chart.response.LoginResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -55,4 +57,10 @@ public interface EmployeeService {
  AppResponse<LoginResponse> userLogin(String email, String password) throws Exception;
 
  AppResponse<List<CustomEmployeeResponseDto>> allEmployeeDtoResponse();
-}
+
+ AppResponse<OrganisationDepartmentResponse> getCeoAndAllDepartments();
+
+ AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId);
+
+ AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId);
+ }

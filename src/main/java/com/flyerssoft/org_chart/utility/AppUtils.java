@@ -121,4 +121,14 @@ public class AppUtils {
     public CustomEmployeeResponseDto mapEntityToCustomDtos(EmployeePersonalDetails employeePersonalDetailsList) {
         return mapper.entityToCustomListDto(employeePersonalDetailsList);
     }
+
+    public List<EmployeeDepartmentDto> deptEntityListToDto(List<EmployeeDepartment> departments) {
+        List<EmployeeDepartmentDto> departmentDtos = mapper.departmentEntityListToDto(departments);
+        return departmentDtos;
+    }
+
+    public List<EmployeePersonalDetailDto> employeePersonalEntityListToDto(List<EmployeePersonalDetails> employees) {
+        List<EmployeePersonalDetailDto> employeesDto= mapper.employeePersonalDetailEntityListToDto(employees);
+        return employeesDto;
+    }
 }
