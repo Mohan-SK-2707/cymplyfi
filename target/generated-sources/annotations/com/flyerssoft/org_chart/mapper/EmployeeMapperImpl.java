@@ -2,11 +2,13 @@ package com.flyerssoft.org_chart.mapper;
 
 import com.flyerssoft.org_chart.dto.EmployeeAddressDto;
 import com.flyerssoft.org_chart.dto.EmployeeBankDetailsDto;
+import com.flyerssoft.org_chart.dto.EmployeeDepartmentDto;
 import com.flyerssoft.org_chart.dto.EmployeeEducationalDetailsDto;
 import com.flyerssoft.org_chart.dto.EmployeeJobHistoryDto;
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
 import com.flyerssoft.org_chart.model.EmployeeAddress;
 import com.flyerssoft.org_chart.model.EmployeeBankDetails;
+import com.flyerssoft.org_chart.model.EmployeeDepartment;
 import com.flyerssoft.org_chart.model.EmployeeEducationalDetails;
 import com.flyerssoft.org_chart.model.EmployeeJobHistory;
 import com.flyerssoft.org_chart.model.EmployeePersonalDetails;
@@ -19,9 +21,13 @@ import org.springframework.stereotype.Component;
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     date = "2023-02-28T12:58:25+0530",
 =======
     date = "2023-02-28T12:10:12+0530",
+>>>>>>> Stashed changes
+=======
+    date = "2023-03-01T11:38:59+0530",
 >>>>>>> Stashed changes
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
@@ -47,6 +53,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeePersonalDetailDto.setEmployeeMartialStatus( employeeDetailResponse.getEmployeeMartialStatus() );
         employeePersonalDetailDto.setRole( employeeDetailResponse.getRole() );
         employeePersonalDetailDto.setDesignation( employeeDetailResponse.getDesignation() );
+        employeePersonalDetailDto.setPrimaryReportingManager( employeeDetailResponse.getPrimaryReportingManager() );
+        employeePersonalDetailDto.setReportingManager( employeeDetailResponse.getReportingManager() );
         employeePersonalDetailDto.setOfficialEmail( employeeDetailResponse.getOfficialEmail() );
         employeePersonalDetailDto.setEmployeeId( employeeDetailResponse.getEmployeeId() );
         employeePersonalDetailDto.setEmployeeAddresses( entityAddrrToDto( employeeDetailResponse.getEmployeeAddresses() ) );
@@ -67,7 +75,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         employeeBankDetailsDto.setId( employeeBankDetails.getId() );
         employeeBankDetailsDto.setBankName( employeeBankDetails.getBankName() );
-        employeeBankDetailsDto.setBankAccountNumber( employeeBankDetails.getBankAccountNumber() );
+        if ( employeeBankDetails.getBankAccountNumber() != null ) {
+            employeeBankDetailsDto.setBankAccountNumber( String.valueOf( employeeBankDetails.getBankAccountNumber() ) );
+        }
         employeeBankDetailsDto.setBankIfscCode( employeeBankDetails.getBankIfscCode() );
         employeeBankDetailsDto.setBankBranchLocation( employeeBankDetails.getBankBranchLocation() );
         employeeBankDetailsDto.setAadharNumber( employeeBankDetails.getAadharNumber() );
@@ -171,7 +181,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         employeeBankDetails1.setId( employeeBankDetails.getId() );
         employeeBankDetails1.setBankName( employeeBankDetails.getBankName() );
-        employeeBankDetails1.setBankAccountNumber( employeeBankDetails.getBankAccountNumber() );
+        if ( employeeBankDetails.getBankAccountNumber() != null ) {
+            employeeBankDetails1.setBankAccountNumber( Long.parseLong( employeeBankDetails.getBankAccountNumber() ) );
+        }
         employeeBankDetails1.setBankIfscCode( employeeBankDetails.getBankIfscCode() );
         employeeBankDetails1.setBankBranchLocation( employeeBankDetails.getBankBranchLocation() );
         employeeBankDetails1.setAadharNumber( employeeBankDetails.getAadharNumber() );
@@ -196,6 +208,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeePersonalDetails.setPassword( employeePersonalDetailDto.getPassword() );
         employeePersonalDetails.setRole( employeePersonalDetailDto.getRole() );
         employeePersonalDetails.setDesignation( employeePersonalDetailDto.getDesignation() );
+        employeePersonalDetails.setPrimaryReportingManager( employeePersonalDetailDto.getPrimaryReportingManager() );
+        employeePersonalDetails.setReportingManager( employeePersonalDetailDto.getReportingManager() );
         employeePersonalDetails.setOfficialEmail( employeePersonalDetailDto.getOfficialEmail() );
         employeePersonalDetails.setEmployeeId( employeePersonalDetailDto.getEmployeeId() );
         employeePersonalDetails.setContactNumber( employeePersonalDetailDto.getContactNumber() );
@@ -232,6 +246,36 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         customEmployeeResponseDto.setContactNumber( employeePersonalDetailsList.getContactNumber() );
 
         return customEmployeeResponseDto;
+    }
+
+    @Override
+    public EmployeeDepartmentDto departmentEntityToDto(EmployeeDepartment department) {
+        if ( department == null ) {
+            return null;
+        }
+
+        EmployeeDepartmentDto employeeDepartmentDto = new EmployeeDepartmentDto();
+
+        employeeDepartmentDto.setId( department.getId() );
+        employeeDepartmentDto.setDepartmentName( department.getDepartmentName() );
+        employeeDepartmentDto.setHeadOfDepartment( department.getHeadOfDepartment() );
+
+        return employeeDepartmentDto;
+    }
+
+    @Override
+    public EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment) {
+        if ( employeeDepartment == null ) {
+            return null;
+        }
+
+        EmployeeDepartment employeeDepartment1 = new EmployeeDepartment();
+
+        employeeDepartment1.setId( employeeDepartment.getId() );
+        employeeDepartment1.setDepartmentName( employeeDepartment.getDepartmentName() );
+        employeeDepartment1.setHeadOfDepartment( employeeDepartment.getHeadOfDepartment() );
+
+        return employeeDepartment1;
     }
 
     protected EmployeeEducationalDetailsDto employeeEducationalDetailsToEmployeeEducationalDetailsDto(EmployeeEducationalDetails employeeEducationalDetails) {
@@ -315,7 +359,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeAddress.setLine2( employeeAddressDto.getLine2() );
         employeeAddress.setCity( employeeAddressDto.getCity() );
         employeeAddress.setState( employeeAddressDto.getState() );
-        employeeAddress.setPinCode( employeeAddressDto.getPinCode() );
+        if ( employeeAddressDto.getPinCode() != null ) {
+            employeeAddress.setPinCode( Long.parseLong( employeeAddressDto.getPinCode() ) );
+        }
 
         return employeeAddress;
     }
@@ -333,7 +379,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeAddressDto.setLine2( employeeAddress.getLine2() );
         employeeAddressDto.setCity( employeeAddress.getCity() );
         employeeAddressDto.setState( employeeAddress.getState() );
-        employeeAddressDto.setPinCode( employeeAddress.getPinCode() );
+        if ( employeeAddress.getPinCode() != null ) {
+            employeeAddressDto.setPinCode( String.valueOf( employeeAddress.getPinCode() ) );
+        }
 
         return employeeAddressDto;
     }

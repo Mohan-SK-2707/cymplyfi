@@ -23,6 +23,7 @@ public class AppUtils {
     public EmployeePersonalDetailDto mapEntityToDtos(EmployeePersonalDetails employeePersonalDetails) {
         List<EmployeeEducationalDetailsDto> educationalDetailsDto = mapper.educationalEntityToDto(employeePersonalDetails.getEducationalDetails());
         EmployeeBankDetailsDto bankDetailsDetails = mapper.bankEntityToDto(employeePersonalDetails.getEmployeeBankDetails());
+        EmployeeDepartmentDto departmentDto = mapper.departmentEntityToDto(employeePersonalDetails.getDepartment());
         List<EmployeeJobHistoryDto> jobHistoriesDto = mapper.jobHistoryEntityToDto(employeePersonalDetails.getJobHistories());
         List<EmployeeAddressDto> addressDetails = mapper.entityAddrrToDto(employeePersonalDetails.getEmployeeAddresses());
         EmployeePersonalDetailDto personalDetailDto = new EmployeePersonalDetailDto();
@@ -35,6 +36,9 @@ public class AppUtils {
         personalDetailDto.setEmployeeMartialStatus(employeePersonalDetails.getEmployeeMartialStatus());
         personalDetailDto.setEmployeeGender(employeePersonalDetails.getEmployeeGender());
         personalDetailDto.setRole(employeePersonalDetails.getRole());
+        personalDetailDto.setPrimaryReportingManager(employeePersonalDetails.getPrimaryReportingManager());
+        personalDetailDto.setReportingManager(employeePersonalDetails.getReportingManager());
+        personalDetailDto.setEmployeeDepartment(departmentDto);
         personalDetailDto.setEmployeeAddresses(addressDetails);
         personalDetailDto.setEducationalDetails(educationalDetailsDto);
         personalDetailDto.setEmployeeBankDetails(bankDetailsDetails);
@@ -45,9 +49,11 @@ public class AppUtils {
     public EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto) {
         List<EmployeeEducationalDetails> employeeEducationalDetails = mapper.dtoToEducationalEntity(employeePersonalDetailDto.getEducationalDetails());
         EmployeeBankDetails employeeBankDetails = mapper.dtoToBankEntity(employeePersonalDetailDto.getEmployeeBankDetails());
+        EmployeeDepartment employeeDepartment = mapper.dtoToDepartmentEntity(employeePersonalDetailDto.getEmployeeDepartment());
         List<EmployeeJobHistory> employeeJobHistories = mapper.dtoTojobJobHistories(employeePersonalDetailDto.getJobHistories());
         List<EmployeeAddress> employeeAddresses = mapper.dtoAddrToEntity(employeePersonalDetailDto.getEmployeeAddresses());
         EmployeePersonalDetails employeePersonalDetails = mapper.dtoToEntity(employeePersonalDetailDto);
+        employeePersonalDetails.setDepartment(employeeDepartment);
         employeePersonalDetails.setEducationalDetails(employeeEducationalDetails);
         employeePersonalDetails.setEmployeeBankDetails(employeeBankDetails);
         employeePersonalDetails.setJobHistories(employeeJobHistories);
