@@ -1,6 +1,7 @@
 package com.flyerssoft.org_chart.service.serviceImpl;
 
 import com.flyerssoft.org_chart.dto.*;
+import com.flyerssoft.org_chart.enums.Role;
 import com.flyerssoft.org_chart.enums.AddressType;
 import com.flyerssoft.org_chart.exceptionhandler.AddressAlreadyExistException;
 import com.flyerssoft.org_chart.exceptionhandler.BadCredentialException;
@@ -15,6 +16,7 @@ import com.flyerssoft.org_chart.security.JwtTokenUtils;
 import com.flyerssoft.org_chart.security.UserDataService;
 import com.flyerssoft.org_chart.service.EmployeeService;
 import com.flyerssoft.org_chart.utility.AppUtils;
+import com.flyerssoft.org_chart.utility.StoreRoleBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static ch.qos.logback.core.joran.spi.ConsoleTarget.findByName;
 
 @Service
 @Slf4j
@@ -40,7 +44,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     UserDataService userDataService;
 
     @Autowired
+    EmployeeDepartmentRepository employeeDepartmentRepository;
+
+    @Autowired
     JwtTokenUtils jwtTokenUtils;
+
+    @Autowired
+    StoreRoleBean storeRoleBean;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -206,4 +216,52 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.info("Users size from DB : {}", employeePersonalDetailsList.size());
         return new AppResponse<>(200, true, employeePersonalDetailsList);
     }
+
+    @Override
+    public AppResponse<OrganisationDepartmentResponse> getCeoAndAllDepartments() {
+        EmployeePersonalDetails ceoDetails = employeeRepository.findByRole(Role.SUPER_ADMIN);
+        if (ObjectUtils.isNotEmpty(ceoDetails)) {
+            List<EmployeeDepartment> departments = employeeDepartmentRepository.findAll();
+            List<EmployeeDepartmentDto> departmentDtos = utils.deptEntityListToDto(departments);
+            return new AppResponse<>(200, true, new OrganisationDepartmentResponse(utils.mapEntityToDtos(ceoDetails), departmentDtos));
+        } else {
+            log.error("Super admin doesn't exist");
+            throw new NotFoundException("Super admin doesn't exist");
+        }
+    }
+
+    @Override
+    public AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId) {
+       List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartment(departmentId, Role.ADMIN.toString());
+       if (ObjectUtils.isNotEmpty(listOfManagerDetails)) {
+           List<EmployeePersonalDetails> managers=employeeRepository.findAll();
+           return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(managers));
+       }
+        return null;
+    }
+    //    @Query(value = "SELECT * FROM employee_personal_details
+    //    WHERE department_id = :departmentId AND role = :role", nativeQuery = true)
+
+    @Override
+    public AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId) {
+        String role = storeRoleBean.role;
+        if(role == "SUPER_ADMIN") {
+            List<EmployeePersonalDetails> childEmployees = employeeRepository.findByPrimaryReportingManager(reporteeId);
+            return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(childEmployees));
+        } else {
+            Optional<EmployeePersonalDetails> optionalEmployeePersonalDetails = employeeRepository.findById(reporteeId);
+            if(optionalEmployeePersonalDetails.isPresent()) {
+                // todo: need to get the details in single query
+                EmployeePersonalDetailDto userDetails = utils.mapEntityToDtos(optionalEmployeePersonalDetails.get());
+                EmployeePersonalDetailDto primaryReporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
+                EmployeePersonalDetailDto reporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
+                return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReporteeManager,reporteeManager, userDetails));
+            } else {
+                log.error("Employee not found");
+                throw new NotFoundException("Employee not found");
+            }
+        }
+    }
+
+
 }

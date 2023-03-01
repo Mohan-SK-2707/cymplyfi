@@ -127,6 +127,16 @@ public class AppUtils {
         return mapper.entityToCustomListDto(employeePersonalDetailsList);
     }
 
+    public List<EmployeeDepartmentDto> deptEntityListToDto(List<EmployeeDepartment> departments) {
+        List<EmployeeDepartmentDto> departmentDtos = mapper.departmentEntityListToDto(departments);
+        return departmentDtos;
+    }
+
+    public List<EmployeePersonalDetailDto> employeePersonalEntityListToDto(List<EmployeePersonalDetails> employees) {
+        List<EmployeePersonalDetailDto> employeesDto= mapper.employeePersonalDetailEntityListToDto(employees);
+        return employeesDto;
+    }
+
     public Boolean addressTypesValidation(EmployeePersonalDetails employeePersonalDetails, AddressType type) {
         List<EmployeeAddress> employeeAddressList = employeePersonalDetails.getEmployeeAddresses().stream().filter(address -> address.getAddressType().equals(type)).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(employeeAddressList)) {

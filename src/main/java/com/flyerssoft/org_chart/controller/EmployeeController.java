@@ -2,6 +2,7 @@ package com.flyerssoft.org_chart.controller;
 
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
 import com.flyerssoft.org_chart.dto.LoginRequestDto;
+import com.flyerssoft.org_chart.dto.OrganisationDepartmentResponse;
 import com.flyerssoft.org_chart.response.AppResponse;
 import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import com.flyerssoft.org_chart.response.LoginResponse;
@@ -103,6 +104,21 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.allEmployeeDtoResponse());
     }
 
+    @GetMapping("/hierarchy")
+    public ResponseEntity<AppResponse<OrganisationDepartmentResponse>> getDepartmentsForHierarchy () {
+        log.info("get all ceos and departments for super admin api accessed");
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getCeoAndAllDepartments());
+    }
 
+    @GetMapping(value = "/hierarchy", params = "departmentId")
+    public ResponseEntity<AppResponse<List<EmployeePersonalDetailDto>>> getListOfManagers (@RequestParam("departmentId") Long departmentId ) {
+        log.info("get all Managers of department for super admin api accessed");
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getManagersOfDepartment(departmentId));
+    }
 
+    @GetMapping(value = "/hierarchy", params = "id")
+    public ResponseEntity<AppResponse<?>> getDepartmentsForHierarchy (@RequestParam("id") Long employeeId) {
+        log.info("get all departments for super admin api accessed");
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getChildEmployeesOrReportingManagers(employeeId));
+    }
 }

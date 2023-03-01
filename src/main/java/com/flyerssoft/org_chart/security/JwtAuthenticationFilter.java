@@ -1,5 +1,6 @@
 package com.flyerssoft.org_chart.security;
 
+import com.flyerssoft.org_chart.utility.StoreRoleBean;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     UserDataService userDataService;
 
+    @Autowired
+    StoreRoleBean storeRoleBean;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -47,7 +51,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDataService.loadUserByUsername(userName);
+            UserDetails userDetails = userDataService.loadUserByUsername(userName);// if token is valid configure Spring Security to manually set// authentication
+            storeRoleBean.role = userDetails.getAuthorities().iterator().next().getAuthority();
             if (jwtTokenUtils.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));// After setting the Authentication in the context, we specify// that the current user is authenticated. So it passes the// Spring Security Configurations successfully.
