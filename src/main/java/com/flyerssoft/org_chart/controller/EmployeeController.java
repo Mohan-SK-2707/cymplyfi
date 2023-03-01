@@ -22,7 +22,7 @@ import java.util.List;
 //@RequestMapping("/flyers-soft")
 @Slf4j
 @Validated
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 public class EmployeeController {
 
     @Autowired
@@ -68,9 +68,9 @@ public class EmployeeController {
     /**
      * To delete employee details,employee should already exist
      * Employee details can be deleted by Admin
-     * @param id
+     * @param id employee id
      * @return employee details will be deleted
-     * @throws Exception
+     * @throws Exception Employee not found
      */
 
     @DeleteMapping("/employee/remove/{id}")
@@ -81,9 +81,9 @@ public class EmployeeController {
 
     /**
      *  To login, employee need to Signup and employee can be login with his username and password.
-     * @param loginRequestDto
+     * @param loginRequestDto login request dto
      * @return employee credential
-     * @throws Exception
+     * @throws Exception Bad credential exception
      */
     @PostMapping("/employee/login")
     public ResponseEntity<AppResponse<LoginResponse>> userLogin(@RequestBody @Valid LoginRequestDto loginRequestDto) throws Exception {
@@ -96,5 +96,7 @@ public class EmployeeController {
         log.info("Find all employee api accessed    ");
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.allEmployeeDtoResponse());
     }
+
+
 
 }

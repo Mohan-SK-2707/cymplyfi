@@ -25,12 +25,12 @@ public class EmployeeEducationalDetailsDto {
 
     @NotBlank(message = "Qualification is mandatory")
     @Size(min = 3, max = 30, message = "Qualification size must be between 3 to 30")
-    @Pattern(regexp = "[a-zA-Z]+", message = "Qualification must not contain special characters & numerics")
+    @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Qualification must not contain special characters & numerics")
     private String qualification;
 
     @NotBlank(message = "Stream is mandatory")
     @Size(min = 3, max = 30, message = "Stream size must be between 3 to 30")
-    @Pattern(regexp = "[a-zA-Z]+", message = "Stream must not contain special characters & numerics")
+    @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Stream must not contain special characters & numerics")
     private String stream;
 
     @NotNull(message = "Percentage is mandatory")

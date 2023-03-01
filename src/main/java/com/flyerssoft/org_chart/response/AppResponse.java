@@ -15,4 +15,5 @@ public class AppResponse<T> {
     private Boolean success;
 
     private T data;
+
 }
