@@ -15,7 +15,7 @@ public interface EmployeeDetailRepository extends JpaRepository<EmployeePersonal
 
     Boolean deleteUserById(Long id);
 
-    EmployeePersonalDetails findByEmail(String personalEmailId);
+    EmployeePersonalDetails findByOfficialEmail(String officialEmail);
 
     EmployeePersonalDetails findByContactNumber(String contactNumber);
 

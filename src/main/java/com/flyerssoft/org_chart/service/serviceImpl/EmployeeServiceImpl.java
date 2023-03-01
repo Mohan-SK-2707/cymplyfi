@@ -2,6 +2,8 @@ package com.flyerssoft.org_chart.service.serviceImpl;
 
 import com.flyerssoft.org_chart.dto.*;
 import com.flyerssoft.org_chart.enums.Role;
+import com.flyerssoft.org_chart.enums.AddressType;
+import com.flyerssoft.org_chart.exceptionhandler.AddressAlreadyExistException;
 import com.flyerssoft.org_chart.exceptionhandler.BadCredentialException;
 import com.flyerssoft.org_chart.exceptionhandler.NotFoundException;
 import com.flyerssoft.org_chart.exceptionhandler.ResourceAlreadyExistsException;
@@ -69,10 +71,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDetailRequest.setPassword(passwordEncoder.encode(employeePersonalDetailDto.getPassword()));
         employeeDetailRequest.setRole(employeePersonalDetailDto.getRole());
         log.info("Requested details for persisting after mapping : {} ", employeeDetailRequest);
+        this.checkAddressAndPersist(employeeDetailRequest);
         EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
         log.info("Employee details saved to the db");
         return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
     }
+
+    private void checkAddressAndPersist(EmployeePersonalDetails employeePersonalDetails) {
+        if (utils.addressTypesValidation(employeePersonalDetails, AddressType.PERMANENT)) {
+            throw new AddressAlreadyExistException("Permanent address can't be more than one");
+        }
+        if (utils.addressTypesValidation(employeePersonalDetails, AddressType.CURRENT)) {
+            throw new AddressAlreadyExistException("Current address can't be more than one");
+        }
+    }
+
 
     /**
      * Fetch employee details but before fetching it will check employee credentials are correct, after that
@@ -80,7 +93,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @param id id
      * @return requested employee details will be shown
-     * @throws Exception
+     * @throws Exception Employee not found
      */
     @Override
     public AppResponse<EmployeePersonalDetailDto> getEmployeeDetailsById(Long id) throws Exception {
@@ -99,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * if it existed it will allow to update the details
      * but update can be done by admin
      *
-     * @param id                        id
+     * @param id id
      * @param employeePersonalDetailDto employeePersonalDetailDto
      * @return updated employee details
      */
@@ -126,7 +139,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @param id id
      * @return employee details will be deleted
-     * @throws Exception
+     * @throws Exception employee not found
      */
     @Override
     public AppResponse<String> deleteEmployee(Long id) throws Exception {
@@ -142,27 +155,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * To login email and password will be need, and it will check employee already exits
      * If employee exists it will allow to log in
-     *
-     * @param email
-     * @param password
+     * @param officialEmail officialEmail
+     * @param password password
      * @return employee details
-     * @throws Exception
+     * @throws Exception Bad credential exception
      */
     @Override
-    public AppResponse<LoginResponse> userLogin(String email, String password) throws Exception {
-        EmployeePersonalDetails existUser = employeeRepository.findByEmail(email);
+    public AppResponse<LoginResponse> userLogin(String officialEmail, String password) throws Exception {
+        EmployeePersonalDetails existUser = employeeRepository.findByOfficialEmail(officialEmail);
         System.out.println("user - " + existUser);
         if (ObjectUtils.isNotEmpty(existUser)) {
             if (passwordEncoder.matches(password, existUser.getPassword())) {
-                userDataService.authenticate(email, password);
+                userDataService.authenticate(officialEmail, password);
                 return new AppResponse<>(200, true, loginToken(existUser));
             } else {
                 log.error("Password Incorrect");
                 throw new BadCredentialException("Bad Credentials");
             }
         } else {
-            log.error("User not exist with this username : {}", email);
-            throw new NotFoundException("User doesn't exist with this username - " + email);
+            log.error("User not exist with this username : {}", officialEmail);
+            throw new BadCredentialException("Bad Credentials");
         }
     }
 
@@ -183,7 +195,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private void checkEmployeeExistsByCredentials(String emailId, String contactNum) {
-        EmployeePersonalDetails findEmployeeByEmail = employeeRepository.findByEmail(emailId);
+        EmployeePersonalDetails findEmployeeByEmail = employeeRepository.findByOfficialEmail(emailId);
         if (ObjectUtils.isEmpty(findEmployeeByEmail)) {
             EmployeePersonalDetails findEmployeeByContactNum = employeeRepository.findByContactNumber(contactNum);
             if (ObjectUtils.isNotEmpty(findEmployeeByContactNum)) {

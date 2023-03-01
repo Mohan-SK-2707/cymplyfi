@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -30,19 +32,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        if (ObjectUtils.isEmpty(request.getHeader("Authorization"))) {
+            if (request.getMethod().equalsIgnoreCase("PUT") || request.getMethod().equalsIgnoreCase("GET") || request.getMethod().equalsIgnoreCase("DELETE")) {
+                logger.error("Token Is missing");
+            }
+        }
+
         String header = request.getHeader("Authorization");
         String token = null;
         String userName = null;
         if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7);
-            try {
-                userName = jwtTokenUtils.getUsernameFromToken(token);
-            }catch (IllegalArgumentException e){
-                System.out.println("Unable to get JWT Token");
+            userName = jwtTokenUtils.getUsernameFromToken(token);
+            if (ObjectUtils.isEmpty(userName)) {
+                logger.error("Invalid Token");
+                throw new AccessDeniedException("Invalid Token");
             }
-        }
-        else {
-            logger.warn("JWT Token does not begin with Bearer String");
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -54,7 +59,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

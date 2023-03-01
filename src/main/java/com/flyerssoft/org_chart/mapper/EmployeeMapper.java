@@ -2,15 +2,21 @@ package com.flyerssoft.org_chart.mapper;
 
 import com.flyerssoft.org_chart.dto.*;
 import com.flyerssoft.org_chart.enums.*;
+import com.flyerssoft.org_chart.exceptionhandler.FieldException;
 import com.flyerssoft.org_chart.model.*;
 import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import com.flyerssoft.org_chart.utility.AppUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import java.time.DateTimeException;
+import java.time.Month;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -33,6 +39,53 @@ public interface EmployeeMapper {
     List<EmployeeJobHistory> dtoTojobJobHistories(List<EmployeeJobHistoryDto> employeeJobHistoriesDto);
 
 //    EmployeePersonalDetails mapPersonalDetailsToUpdatedEmployeePersonalDetails(EmployeePersonalDetailDto employeePersonalDetailsDto);
+
+    List<EmployeeAddress> dtoAddrToEntity(List<EmployeeAddressDto> addressDtos);
+
+    List<EmployeeAddressDto> entityAddrrToDto(List<EmployeeAddress> employeeAddresses);
+
+    EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetails);
+
+    EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto);
+
+    CustomEmployeeResponseDto entityToCustomListDto(EmployeePersonalDetails employeePersonalDetailsList);
+
+    EmployeeDepartmentDto departmentEntityToDto(EmployeeDepartment department);
+
+    EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment);
+
+    @BeforeMapping
+    default void validateDateAndMonth(@MappingTarget final EmployeePersonalDetails details) {
+        //Job history date validations
+        if (ObjectUtils.isNotEmpty(details)) {
+            if (CollectionUtils.isNotEmpty(details.getJobHistories())) {
+                details.getJobHistories().stream().forEach(job -> {
+                    if (ObjectUtils.isNotEmpty(job)) {
+                        if (ObjectUtils.isNotEmpty(job.getJobStartDate()) && ObjectUtils.isNotEmpty(job.getJobEndDate())) {
+                            this.checkValidMonth(job);
+                            this.checkValidYear(job.getJobStartDate().getYear(), job.getJobEndDate().getYear());
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    default void checkValidMonth(EmployeeJobHistory jobHistory) {
+        if (jobHistory.getJobStartDate().getMonth() < 1 || jobHistory.getJobStartDate().getMonth() > 12) {
+            throw new FieldException("Invalid value for MonthOfYear");
+        }
+
+        if (jobHistory.getJobStartDate().getMonth() < 1 || jobHistory.getJobEndDate().getMonth() > 12) {
+            throw new FieldException("Invalid value for MonthOfYear");
+        }
+    }
+
+    default void checkValidYear(int startYear, int endYear) {
+        if (startYear < endYear) {
+            throw new FieldException("Job history dates are not valid");
+        }
+    }
 
     @AfterMapping
     static void mapEnums(@MappingTarget final EmployeePersonalDetails details) {

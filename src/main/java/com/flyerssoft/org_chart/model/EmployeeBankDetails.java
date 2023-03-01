@@ -27,7 +27,6 @@ public class EmployeeBankDetails {
     private String panNumber;
     @Enumerated(EnumType.STRING)
     private EmployeeBankAccountType employeeBankAccountType;
-//    @OneToOne
-//    @JsonIgnore
-//    private EmployeePersonalDetails employeePersonalDetails;
+
+
 }
