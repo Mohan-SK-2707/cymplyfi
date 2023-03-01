@@ -17,7 +17,7 @@ public class JwtAuthenticationEntry implements AuthenticationEntryPoint, Seriali
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        log.error("403-FORBIDDEN ERROR");
+        log.error("403 - Forbidden Error");
         response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized entry");
     }
 }

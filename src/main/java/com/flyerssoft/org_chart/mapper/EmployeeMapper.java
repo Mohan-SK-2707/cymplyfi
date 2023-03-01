@@ -103,4 +103,8 @@ public interface EmployeeMapper {
     EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto);
 
     CustomEmployeeResponseDto entityToCustomListDto(EmployeePersonalDetails employeePersonalDetailsList);
+
+    EmployeeDepartmentDto departmentEntityToDto(EmployeeDepartment department);
+
+    EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment);
 }
