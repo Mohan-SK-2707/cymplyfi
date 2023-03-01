@@ -1,8 +1,5 @@
 package com.flyerssoft.org_chart.exceptionhandler;
 
-import com.flyerssoft.org_chart.exceptionhandler.ErrorResponse;
-import com.flyerssoft.org_chart.exceptionhandler.NotFoundException;
-import com.flyerssoft.org_chart.exceptionhandler.ResourceAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -11,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestControllerAdvice
@@ -30,12 +27,13 @@ public class GlobalExceptionHandlerController {
         return new ErrorResponse(403,false, ex.getMessage());
     }
 
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse customValidation(MethodArgumentNotValidException e) {
         ErrorResponse apiError = new ErrorResponse();
         apiError.setStatus(400);
-        apiError.setErrorResults(false);
+        apiError.setSuccess(false);
         String errorMessage = "Request has Invalid input.";
         Optional<FieldError> error = e.getBindingResult().getFieldErrors().stream().findFirst();
         if (error.isPresent()) {
@@ -68,8 +66,9 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(FieldException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
-    public ErrorResponse addressNotAcceptableState(FieldException ex){
-        return new ErrorResponse(406,false, ex.getMessage());
+    public ErrorResponse addressNotAcceptableState(FieldException ex) {
+        return new ErrorResponse(406, false, ex.getMessage());
     }
+
 
 }

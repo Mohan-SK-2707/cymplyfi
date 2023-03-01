@@ -12,7 +12,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -69,10 +68,9 @@ public class EmployeePersonalDetailDto {
     private Role role;
 
     @NotBlank(message = "Designation is mandatory for employee")
-    @Pattern(regexp = "[a-zA-Z]+", message = "Designation must not contain special characters & numerics")
+    @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Designation must not contain special characters & numerics")
     private String designation;
 
-//    @NotNull(message = "primary reporting manager shouldn't be null")
     private Long primaryReportingManager;
     private Long reportingManager;
     @Valid
@@ -85,12 +83,17 @@ public class EmployeePersonalDetailDto {
     @NotBlank(message = "EmployeeId cannot be blank")
     @Column(name = "employeeId")
     private String employeeId;
+
     @Valid
     private List<EmployeeAddressDto> employeeAddresses;
+
     @Valid
     private List<EmployeeJobHistoryDto> jobHistories;
+
     @Valid
     private List<EmployeeEducationalDetailsDto> educationalDetails;
+
     @Valid
     private EmployeeBankDetailsDto employeeBankDetails;
+
 }

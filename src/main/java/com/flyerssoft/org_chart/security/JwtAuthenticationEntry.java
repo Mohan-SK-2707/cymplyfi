@@ -1,6 +1,7 @@
 package com.flyerssoft.org_chart.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,24 +16,19 @@ import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.HandlerMapping;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Component
 @Slf4j
-public class JwtAuthenticationEntry implements AuthenticationEntryPoint, Serializable {
-
-//    @Override
-//    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-//        log.error("403 - Forbidden Error");
-//        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized entry");
-//    }
+public class JwtAuthenticationEntry implements AuthenticationEntryPoint {
 
     @Autowired
     private DispatcherServlet servlet;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        log.error("403 - Forbidden Error");
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized entry");
         log.error("403 Forbidden Error :{}", authException.toString());
         if (this.isEndpointExist(request)) {
             ObjectMapper mapper = new ObjectMapper();

@@ -22,7 +22,8 @@ public class EmployeeBankDetailsDto {
 
     @NotBlank(message = "Bank name is mandatory")
     @Size(min = 3, max = 30, message = "Bank name size must be between 3 to 30")
-//    @Pattern(regexp = "^[a-zA-Z]+", message = "Bank Name must not contain special characters & numerics")
+
+    @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Bank Name must not contain special characters & numerics")
     private String bankName;
 
     @NotBlank(message = "Account number is mandatory")
