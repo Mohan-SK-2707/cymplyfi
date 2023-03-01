@@ -71,7 +71,7 @@ public class EmployeePersonalDetailDto {
     private Role role;
 
     @NotBlank(message = "Designation is mandatory for employee")
-    @Pattern(regexp = "[a-zA-Z]+", message = "Designation must not contain special characters & numerics")
+    @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Designation must not contain special characters & numerics")
     private String designation;
 
     @NotBlank(message = "Email cannot be empty")
@@ -82,6 +82,7 @@ public class EmployeePersonalDetailDto {
     @NotBlank(message = "EmployeeId cannot be blank")
     @Column(name = "EmployeeId")
     private String employeeId;
+
     @Valid
     private List<EmployeeAddressDto> employeeAddresses;
     @Valid
@@ -90,4 +91,5 @@ public class EmployeePersonalDetailDto {
     private List<EmployeeEducationalDetailsDto> educationalDetails;
     @Valid
     private EmployeeBankDetailsDto employeeBankDetails;
+
 }

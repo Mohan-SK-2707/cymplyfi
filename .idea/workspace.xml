@@ -4,30 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75282ba2-fb54-449a-8a5d-94c947a955ac" name="Changes" comment="">
+    <list default="true" id="03b9171f-7238-4c5b-bdf6-56448aed6030" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/controller/EmployeeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeAddressDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeAddressDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeBankDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeBankDetailsDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeEducationalDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeEducationalDetailsDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeJobHistoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeeJobHistoryDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeePersonalDetailDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/dto/EmployeePersonalDetailDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/mapper/EmployeeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/mapper/EmployeeMapper.java" afterDir="false" />
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/response/AppResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/response/AppResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/response/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/response/LoginResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/service/serviceImpl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/service/serviceImpl/EmployeeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/enums/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/enums/Role.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/response/AppResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/response/AppResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/response/LoginResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/response/LoginResponse.class" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/model/EmployeeAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/model/EmployeeAddress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/exceptionhandler/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/exceptionhandler/ErrorResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/exceptionhandler/GlobalExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/exceptionhandler/GlobalExceptionHandlerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/model/EmployeeBankDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/model/EmployeeBankDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/mapper/EmployeeMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/mapper/EmployeeMapperImpl.class" afterDir="false" />
->>>>>>> Stashed changes
-      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/service/serviceImpl/EmployeeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/service/serviceImpl/EmployeeServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/model/EmployeePersonalDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/model/EmployeePersonalDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/response/AppResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/response/AppResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/JwtAuthenticationEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/JwtAuthenticationEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/JwtTokenUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/JwtTokenUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/service/OrgChartService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/service/serviceImpl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/service/serviceImpl/EmployeeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/service/serviceImpl/OrgChartServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeeAddressDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeeAddressDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeeBankDetailsDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeeBankDetailsDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeeEducationalDetailsDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeeEducationalDetailsDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeePersonalDetailDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/dto/EmployeePersonalDetailDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/exceptionhandler/ErrorResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/exceptionhandler/ErrorResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/exceptionhandler/GlobalExceptionHandlerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/exceptionhandler/GlobalExceptionHandlerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/model/EmployeePersonalDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/model/EmployeePersonalDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/JwtAuthenticationEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/JwtAuthenticationEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/JwtTokenUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/JwtTokenUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/security/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/service/OrgChartService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flyerssoft/org_chart/service/serviceImpl/OrgChartServiceImpl.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/flyerssoft/org_chart/mapper/EmployeeMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/flyerssoft/org_chart/mapper/EmployeeMapperImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,41 +60,16 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectId" id="2MLzCFraY3XaJ1snX43dqddOYBh" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2MPA2LVVE571xCWHkqwJrPLhxd7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
-=======
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "D:/cymplyfi",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
->>>>>>> Stashed changes
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/New/cymplyfi&quot;
   }
 }</component>
   <component name="RunManager">
@@ -111,11 +95,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="75282ba2-fb54-449a-8a5d-94c947a955ac" name="Changes" comment="" />
-      <created>1677498110353</created>
+      <changelist id="03b9171f-7238-4c5b-bdf6-56448aed6030" name="Changes" comment="" />
+      <created>1677597600546</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1677498110353</updated>
+      <updated>1677597600546</updated>
     </task>
     <servers />
   </component>
@@ -129,5 +113,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/flyerssoft/org_chart/security/JwtAuthenticationEntry.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

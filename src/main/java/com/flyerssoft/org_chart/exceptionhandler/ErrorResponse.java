@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ErrorResponse {
-    private Boolean errorResults;
+
+    private Integer status;
+    private Boolean success;
     private String message;
 }

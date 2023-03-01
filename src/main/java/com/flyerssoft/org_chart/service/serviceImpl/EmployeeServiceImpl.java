@@ -89,7 +89,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * if it existed it will allow to update the details
      * but update can be done by admin
      *
-     * @param id                        id
+     * @param id id
      * @param employeePersonalDetailDto employeePersonalDetailDto
      * @return updated employee details
      */
@@ -116,7 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @param id id
      * @return employee details will be deleted
-     * @throws Exception
+     * @throws Exception employee not found
      */
     @Override
     public AppResponse<String> deleteEmployee(Long id) throws Exception {
@@ -133,10 +133,10 @@ public class EmployeeServiceImpl implements EmployeeService {
      * To login email and password will be need, and it will check employee already exits
      * If employee exists it will allow to log in
      *
-     * @param email
-     * @param password
+     * @param email email
+     * @param password password
      * @return employee details
-     * @throws Exception
+     * @throws Exception Bad credential exception
      */
     @Override
     public AppResponse<LoginResponse> userLogin(String email, String password) throws Exception {

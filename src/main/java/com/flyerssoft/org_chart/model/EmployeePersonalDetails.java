@@ -45,18 +45,17 @@ public class EmployeePersonalDetails {
 
 
     @OneToOne(cascade = CascadeType.ALL)//, orphanRemoval = true
-    @JsonIgnore
     private EmployeeBankDetails employeeBankDetails;
 
-    @OneToMany(cascade = CascadeType.ALL)//, orphanRemoval = true
-    @JoinColumn(name = "employeeId" ,referencedColumnName = "id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)//, orphanRemoval = true
+    @JoinColumn(name = "employeeId", referencedColumnName = "id")
     private List<EmployeeEducationalDetails> educationalDetails;
 
-    @OneToMany( cascade = CascadeType.ALL)//, orphanRemoval = true
-    @JoinColumn(name = "employeeId" ,referencedColumnName = "id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)//, orphanRemoval = true
+    @JoinColumn(name = "employeeId", referencedColumnName = "id")
     private List<EmployeeJobHistory> jobHistories;
 
-    @OneToMany(cascade = CascadeType.ALL)//, orphanRemoval = true
-    @JoinColumn(name = "employeeId" ,referencedColumnName = "id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)//, orphanRemoval = true
+    @JoinColumn(name = "employeeId", referencedColumnName = "id")
     private List<EmployeeAddress> employeeAddresses;
 }
