@@ -91,9 +91,15 @@ public class EmployeeController {
     return ResponseEntity.status(HttpStatus.OK).body(employeeService.userLogin(loginRequestDto.getEmail(),loginRequestDto.getPassword()));
     }
 
+    /**
+     *
+     * fetch all the specified details from the table
+     *
+     * @return list of employee details in custom dto response
+     */
     @GetMapping("/employee/all")
     public ResponseEntity<AppResponse<List<CustomEmployeeResponseDto>>> allEmployeeDtoResponse(){
-        log.info("Find all employee api accessed    ");
+        log.info("Find all employee api accessed");
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.allEmployeeDtoResponse());
     }
 

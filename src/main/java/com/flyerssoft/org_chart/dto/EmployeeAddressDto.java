@@ -24,7 +24,7 @@ public class EmployeeAddressDto {
     private AddressType addressType;
 
     @NotBlank(message = "Field is mandatory")
-    @Size(min = 10, max = 30, message = "Address size must be between 10 to 30")
+    @Size(min = 10, max = 30, message = "Address line 1 size must be between 10 to 30")
     private String Line1;
 
     private String Line2;
@@ -38,11 +38,7 @@ public class EmployeeAddressDto {
     private String state;
 
     @NotBlank(message = "PinCode is mandatory")
-<<<<<<< Updated upstream
     @Size(min = 6, max = 6, message = "PinCode must in 6 digit")
-=======
-    @Size(min = 6, max = 6, message = "Invalid PinCode")
->>>>>>> Stashed changes
     private String pinCode;
 
 }

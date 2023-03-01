@@ -39,8 +39,8 @@ public class EmployeePersonalDetailDto {
     private String lastName;
 
     @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
-    @NotBlank(message = "Email cannot be empty")
     @Column(name = "personal_email", unique = true)
+    @NotBlank(message = "Email cannot be empty")
     private String email;
 
     // @JsonIgnore
@@ -48,13 +48,13 @@ public class EmployeePersonalDetailDto {
     private String password;
 
     @NotBlank(message = "Contact number cannot be blank")
-    @Size(min = 10, max = 10, message = "Contact number size must be 10")
+    @Size(min = 10, max = 12, message = "Contact number size must be 10 to 12 in size")
     @Pattern(regexp = "[0-9]+", message = "Contact number allows only numeric values")
     @Column(name = "contact_num")
     private String contactNumber;
 
     @NotBlank(message = "Emergency contact number cannot be blank")
-    @Size(min = 10, max = 10, message = "Emergency contact size must be 10")
+    @Size(min = 10, max = 12, message = "Emergency contact size must be 10 to 12 in size")
     @Pattern(regexp = "[0-9]+", message = "Emergency contact allows only numeric values")
     @Column(name = "emergency_contact_num")
     private String emergencyContactNumber;
@@ -72,39 +72,25 @@ public class EmployeePersonalDetailDto {
     @Pattern(regexp = "[a-zA-Z]+", message = "Designation must not contain special characters & numerics")
     private String designation;
 
-<<<<<<< Updated upstream
-=======
 //    @NotNull(message = "primary reporting manager shouldn't be null")
     private Long primaryReportingManager;
     private Long reportingManager;
     @Valid
     private EmployeeDepartmentDto employeeDepartment;
-    @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
->>>>>>> Stashed changes
     @NotBlank(message = "Email cannot be empty")
     @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @Column(name = "Office_email", unique = true)
     private String officialEmail;
 
     @NotBlank(message = "EmployeeId cannot be blank")
-    @Column(name = "EmployeeId")
+    @Column(name = "employeeId")
     private String employeeId;
     @Valid
     private List<EmployeeAddressDto> employeeAddresses;
-<<<<<<< Updated upstream
     @Valid
     private List<EmployeeJobHistoryDto> jobHistories;
     @Valid
     private List<EmployeeEducationalDetailsDto> educationalDetails;
-=======
-
-    @Valid
-    private List<EmployeeJobHistoryDto> jobHistories;
-
-    @Valid
-    private List<EmployeeEducationalDetailsDto> educationalDetails;
-
->>>>>>> Stashed changes
     @Valid
     private EmployeeBankDetailsDto employeeBankDetails;
 }

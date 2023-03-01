@@ -21,19 +21,20 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleEntityNotFound(NotFoundException ex) {
-        return new ErrorResponse(false, ex.getMessage());
+        return new ErrorResponse(404,false, ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse handleBadCredential(BadCredentialException ex) {
-        return new ErrorResponse(false, ex.getMessage());
+        return new ErrorResponse(403,false, ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse customValidation(MethodArgumentNotValidException e) {
         ErrorResponse apiError = new ErrorResponse();
+        apiError.setStatus(400);
         apiError.setErrorResults(false);
         String errorMessage = "Request has Invalid input.";
         Optional<FieldError> error = e.getBindingResult().getFieldErrors().stream().findFirst();
@@ -47,14 +48,28 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse notReadableMessageValidation(HttpMessageNotReadableException ex) {
-        return new ErrorResponse(false, ex.getMessage());
+        return new ErrorResponse(400,false, ex.getMessage());
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
     public ErrorResponse resourceAlreadyExistException(ResourceAlreadyExistsException ex) {
-        return new ErrorResponse(false, ex.getMessage());
+        return new ErrorResponse(406,false, ex.getMessage());
+    }
+
+    @ExceptionHandler(AddressAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseBody
+    public ErrorResponse addressNotAcceptableState(AddressAlreadyExistException ex){
+        return new ErrorResponse(406,false, ex.getMessage());
+    }
+
+    @ExceptionHandler(FieldException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseBody
+    public ErrorResponse addressNotAcceptableState(FieldException ex){
+        return new ErrorResponse(406,false, ex.getMessage());
     }
 
 }

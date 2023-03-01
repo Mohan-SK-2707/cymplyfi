@@ -1,6 +1,7 @@
 package com.flyerssoft.org_chart.utility;
 
 import com.flyerssoft.org_chart.dto.*;
+import com.flyerssoft.org_chart.enums.AddressType;
 import com.flyerssoft.org_chart.mapper.EmployeeMapper;
 import com.flyerssoft.org_chart.model.*;
 import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
@@ -10,8 +11,11 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.DateTimeException;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -36,6 +40,7 @@ public class AppUtils {
         personalDetailDto.setEmployeeMartialStatus(employeePersonalDetails.getEmployeeMartialStatus());
         personalDetailDto.setEmployeeGender(employeePersonalDetails.getEmployeeGender());
         personalDetailDto.setRole(employeePersonalDetails.getRole());
+        personalDetailDto.setDesignation(employeePersonalDetails.getDesignation());
         personalDetailDto.setPrimaryReportingManager(employeePersonalDetails.getPrimaryReportingManager());
         personalDetailDto.setReportingManager(employeePersonalDetails.getReportingManager());
         personalDetailDto.setEmployeeDepartment(departmentDto);
@@ -120,5 +125,23 @@ public class AppUtils {
 
     public CustomEmployeeResponseDto mapEntityToCustomDtos(EmployeePersonalDetails employeePersonalDetailsList) {
         return mapper.entityToCustomListDto(employeePersonalDetailsList);
+    }
+
+    public Boolean addressTypesValidation(EmployeePersonalDetails employeePersonalDetails, AddressType type) {
+        List<EmployeeAddress> employeeAddressList = employeePersonalDetails.getEmployeeAddresses().stream().filter(address -> address.getAddressType().equals(type)).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(employeeAddressList)) {
+            if (employeeAddressList.size() >= 2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public static void of(int month) {
+        if (month < 1 || month > 12) {
+            throw new DateTimeException("Invalid value for MonthOfYear: " + month);
+        }
     }
 }

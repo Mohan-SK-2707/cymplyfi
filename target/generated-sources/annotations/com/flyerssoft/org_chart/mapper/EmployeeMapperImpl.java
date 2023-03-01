@@ -20,15 +20,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    date = "2023-02-28T12:58:25+0530",
-=======
-    date = "2023-02-28T12:10:12+0530",
->>>>>>> Stashed changes
-=======
-    date = "2023-03-01T11:38:59+0530",
->>>>>>> Stashed changes
+    date = "2023-03-01T20:01:11+0530",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -75,9 +67,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         employeeBankDetailsDto.setId( employeeBankDetails.getId() );
         employeeBankDetailsDto.setBankName( employeeBankDetails.getBankName() );
-        if ( employeeBankDetails.getBankAccountNumber() != null ) {
-            employeeBankDetailsDto.setBankAccountNumber( String.valueOf( employeeBankDetails.getBankAccountNumber() ) );
-        }
+        employeeBankDetailsDto.setBankAccountNumber( employeeBankDetails.getBankAccountNumber() );
         employeeBankDetailsDto.setBankIfscCode( employeeBankDetails.getBankIfscCode() );
         employeeBankDetailsDto.setBankBranchLocation( employeeBankDetails.getBankBranchLocation() );
         employeeBankDetailsDto.setAadharNumber( employeeBankDetails.getAadharNumber() );
@@ -181,9 +171,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         employeeBankDetails1.setId( employeeBankDetails.getId() );
         employeeBankDetails1.setBankName( employeeBankDetails.getBankName() );
-        if ( employeeBankDetails.getBankAccountNumber() != null ) {
-            employeeBankDetails1.setBankAccountNumber( Long.parseLong( employeeBankDetails.getBankAccountNumber() ) );
-        }
+        employeeBankDetails1.setBankAccountNumber( employeeBankDetails.getBankAccountNumber() );
         employeeBankDetails1.setBankIfscCode( employeeBankDetails.getBankIfscCode() );
         employeeBankDetails1.setBankBranchLocation( employeeBankDetails.getBankBranchLocation() );
         employeeBankDetails1.setAadharNumber( employeeBankDetails.getAadharNumber() );
@@ -359,9 +347,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeAddress.setLine2( employeeAddressDto.getLine2() );
         employeeAddress.setCity( employeeAddressDto.getCity() );
         employeeAddress.setState( employeeAddressDto.getState() );
-        if ( employeeAddressDto.getPinCode() != null ) {
-            employeeAddress.setPinCode( Long.parseLong( employeeAddressDto.getPinCode() ) );
-        }
+        employeeAddress.setPinCode( employeeAddressDto.getPinCode() );
 
         return employeeAddress;
     }
@@ -379,9 +365,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeAddressDto.setLine2( employeeAddress.getLine2() );
         employeeAddressDto.setCity( employeeAddress.getCity() );
         employeeAddressDto.setState( employeeAddress.getState() );
-        if ( employeeAddress.getPinCode() != null ) {
-            employeeAddressDto.setPinCode( String.valueOf( employeeAddress.getPinCode() ) );
-        }
+        employeeAddressDto.setPinCode( employeeAddress.getPinCode() );
 
         return employeeAddressDto;
     }
