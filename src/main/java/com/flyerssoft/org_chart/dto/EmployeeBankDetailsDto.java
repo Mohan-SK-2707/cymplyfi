@@ -22,6 +22,7 @@ public class EmployeeBankDetailsDto {
 
     @NotBlank(message = "Bank name is mandatory")
     @Size(min = 3, max = 30, message = "Bank name size must be between 3 to 30")
+
     @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Bank Name must not contain special characters & numerics")
     private String bankName;
 
@@ -30,9 +31,9 @@ public class EmployeeBankDetailsDto {
     @Pattern(regexp = "[0-9]+", message = "Account number must not contain special characters & alphabets")
     private String bankAccountNumber;
 
-    @NotBlank(message = "IFSC is mandatory")
-    @Size(min = 3, max = 10, message = "IFSC size must be between 3 to 10")
+    @Size(min = 11, max = 11, message = "IFSC size must be 11")
     @Pattern(regexp = "[a-zA-Z0-9]+", message = "IFSC must not contain special characters")
+    @NotBlank(message = "IFSC is mandatory")
     private String bankIfscCode;
 
     @NotBlank(message = "Branch is mandatory")
@@ -45,6 +46,7 @@ public class EmployeeBankDetailsDto {
     private String aadharNumber;
 
     @NotBlank(message = "PAN is mandatory")
+    @Size(min = 10,max = 10, message = "AadhaarNumber should be 12 Digits")
     @Pattern(regexp = "[a-zA-Z0-9]+", message = "PAN must not contain special characters")
     private String panNumber;
 

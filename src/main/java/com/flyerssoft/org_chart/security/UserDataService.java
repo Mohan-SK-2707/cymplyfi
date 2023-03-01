@@ -32,7 +32,7 @@ public class UserDataService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        EmployeePersonalDetails user = employeeDetailRepository.findByEmail(username);
+        EmployeePersonalDetails user = employeeDetailRepository.findByOfficialEmail(username);
         log.info("User from load by username method : {}",user);
         if (ObjectUtils.isNotEmpty(user)) {
             List<GrantedAuthority> authorities = new ArrayList<>();

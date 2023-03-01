@@ -30,6 +30,7 @@ public class EmployeeEducationalDetailsDto {
 
     @NotBlank(message = "Stream is mandatory")
     @Size(min = 3, max = 30, message = "Stream size must be between 3 to 30")
+
     @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Stream must not contain special characters & numerics")
     private String stream;
 
