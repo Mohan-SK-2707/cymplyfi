@@ -37,7 +37,6 @@ public class JwtAuthenticationEntry implements AuthenticationEntryPoint {
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(403);
             response.getWriter().print(new ErrorResponse(403, false, "User Access denied due to Insufficient access"));
-//            response.sendError(HttpServletResponse.SC_FORBIDDEN, "User Access denied due to Insufficient access");
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Resource not found");
         }
@@ -59,5 +58,8 @@ public class JwtAuthenticationEntry implements AuthenticationEntryPoint {
             }
         }
         return false;
+        log.error("403 - Forbidden Error");
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized entry");
+
     }
 }

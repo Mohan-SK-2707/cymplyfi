@@ -1,7 +1,5 @@
 package com.flyerssoft.org_chart.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.flyerssoft.org_chart.enums.EmployeeGender;
 import com.flyerssoft.org_chart.enums.EmployeeMartialStatus;
@@ -14,7 +12,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -74,6 +71,14 @@ public class EmployeePersonalDetailDto {
     @Pattern(regexp = "^[A-Za-z\\s]*$", message = "Designation must not contain special characters & numerics")
     private String designation;
 
+
+//    @NotNull(message = "primary reporting manager shouldn't be null")
+    private Long primaryReportingManager;
+    private Long reportingManager;
+    @Valid
+    private EmployeeDepartmentDto employeeDepartment;
+
+
     @NotBlank(message = "Email cannot be empty")
     @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @Column(name = "Office_email", unique = true)
@@ -85,10 +90,13 @@ public class EmployeePersonalDetailDto {
 
     @Valid
     private List<EmployeeAddressDto> employeeAddresses;
+
     @Valid
     private List<EmployeeJobHistoryDto> jobHistories;
+
     @Valid
     private List<EmployeeEducationalDetailsDto> educationalDetails;
+
     @Valid
     private EmployeeBankDetailsDto employeeBankDetails;
 

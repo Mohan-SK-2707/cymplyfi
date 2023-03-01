@@ -93,6 +93,7 @@ public class EmployeeController {
 
     @GetMapping("/employee/all")
     public ResponseEntity<AppResponse<List<CustomEmployeeResponseDto>>> allEmployeeDtoResponse(){
+        log.info("Find all employee api accessed    ");
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.allEmployeeDtoResponse());
     }
 
