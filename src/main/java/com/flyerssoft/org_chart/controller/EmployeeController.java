@@ -22,7 +22,7 @@ import java.util.List;
 //@RequestMapping("/flyers-soft")
 @Slf4j
 @Validated
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 public class EmployeeController {
 
     @Autowired
