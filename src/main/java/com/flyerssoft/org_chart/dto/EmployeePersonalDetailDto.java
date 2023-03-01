@@ -72,7 +72,7 @@ public class EmployeePersonalDetailDto {
     @Pattern(regexp = "[a-zA-Z]+", message = "Designation must not contain special characters & numerics")
     private String designation;
 
-   @NotNull(message = "primary reporting manager shouldn't be null")
+
     private Long primaryReportingManager;
     private Long reportingManager;
     @Valid

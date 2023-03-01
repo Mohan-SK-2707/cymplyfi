@@ -100,7 +100,19 @@ public class EmployeeController {
 
     @GetMapping("/hierarchy")
     public ResponseEntity<AppResponse<OrganisationDepartmentResponse>> getDepartmentsForHierarchy () {
+        log.info("get all ceos and departments for super admin api accessed");
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getCeoAndAllDepartments());
+    }
+
+    @GetMapping(value = "/hierarchy", params = "departmentId")
+    public ResponseEntity<AppResponse<List<EmployeePersonalDetailDto>>> getListOfManagers (@RequestParam("departmentId") Long departmentId ) {
+        log.info("get all Managers of department for super admin api accessed");
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getManagersOfDepartment(departmentId));
+    }
+
+    @GetMapping(value = "/hierarchy", params = "id")
+    public ResponseEntity<AppResponse<?>> getDepartmentsForHierarchy (@RequestParam("id") Long employeeId) {
         log.info("get all departments for super admin api accessed");
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getChildEmployeesOrReportingManagers(employeeId));
     }
 }

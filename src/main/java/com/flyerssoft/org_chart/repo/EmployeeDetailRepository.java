@@ -19,4 +19,6 @@ public interface EmployeeDetailRepository extends JpaRepository<EmployeePersonal
     EmployeePersonalDetails findByRole(String role);
 
     List<EmployeePersonalDetails> findByDepartmentAndRole(Long departmentId, String role);
+
+    List<EmployeePersonalDetails> findByPrimaryReportingManager(Long primaryReportingManagerId);
 }

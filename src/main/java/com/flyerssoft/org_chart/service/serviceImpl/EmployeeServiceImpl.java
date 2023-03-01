@@ -222,7 +222,7 @@ public class EmployeeServiceImpl implements EmployeeService {
        List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartmentAndRole(departmentId, "ADMIN");
        if (ObjectUtils.isNotEmpty(listOfManagerDetails)) {
            List<EmployeePersonalDetails> managers=employeeRepository.findAll();
-           return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(managers);
+           return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(managers));
        }
         return null;
     }
@@ -231,11 +231,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     public AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId) {
         String role = storeRoleBean.role;
         if(role == "SUPER_ADMIN") {
-
+            List<EmployeePersonalDetails> childEmployees = employeeRepository.findByPrimaryReportingManager(reporteeId);
+            return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(childEmployees));
         } else {
-
+            Optional<EmployeePersonalDetails> optionalEmployeePersonalDetails = employeeRepository.findById(reporteeId);
+            if(optionalEmployeePersonalDetails.isPresent()) {
+                // todo: need to get the details in single query
+                EmployeePersonalDetailDto userDetails = utils.mapEntityToDtos(optionalEmployeePersonalDetails.get());
+                EmployeePersonalDetailDto primaryReporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
+                EmployeePersonalDetailDto reporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
+                return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReporteeManager,reporteeManager, userDetails));
+            } else {
+                log.error("Employee not found");
+                throw new NotFoundException("Employee not found");
+            }
         }
-        return null;
     }
 
 
