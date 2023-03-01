@@ -1,6 +1,7 @@
 package com.flyerssoft.org_chart.service.serviceImpl;
 
 import com.flyerssoft.org_chart.dto.*;
+import com.flyerssoft.org_chart.enums.Role;
 import com.flyerssoft.org_chart.exceptionhandler.BadCredentialException;
 import com.flyerssoft.org_chart.exceptionhandler.NotFoundException;
 import com.flyerssoft.org_chart.exceptionhandler.ResourceAlreadyExistsException;
@@ -206,7 +207,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public AppResponse<OrganisationDepartmentResponse> getCeoAndAllDepartments() {
-        EmployeePersonalDetails ceoDetails = employeeRepository.findByRole("SUPER_ADMIN");
+        EmployeePersonalDetails ceoDetails = employeeRepository.findByRole(Role.SUPER_ADMIN);
         if (ObjectUtils.isNotEmpty(ceoDetails)) {
             List<EmployeeDepartment> departments = employeeDepartmentRepository.findAll();
             List<EmployeeDepartmentDto> departmentDtos = utils.deptEntityListToDto(departments);
@@ -219,13 +220,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId) {
-       List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartmentAndRole(departmentId, "ADMIN");
+       List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartment(departmentId, Role.ADMIN.toString());
        if (ObjectUtils.isNotEmpty(listOfManagerDetails)) {
            List<EmployeePersonalDetails> managers=employeeRepository.findAll();
            return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(managers));
        }
         return null;
     }
+    //    @Query(value = "SELECT * FROM employee_personal_details
+    //    WHERE department_id = :departmentId AND role = :role", nativeQuery = true)
 
     @Override
     public AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId) {

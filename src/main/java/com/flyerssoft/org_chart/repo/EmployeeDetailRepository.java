@@ -1,7 +1,10 @@
 package com.flyerssoft.org_chart.repo;
 
+import com.flyerssoft.org_chart.enums.Role;
 import com.flyerssoft.org_chart.model.EmployeePersonalDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +19,10 @@ public interface EmployeeDetailRepository extends JpaRepository<EmployeePersonal
 
     EmployeePersonalDetails findByContactNumber(String contactNumber);
 
-    EmployeePersonalDetails findByRole(String role);
+    EmployeePersonalDetails findByRole(Role role);
 
-    List<EmployeePersonalDetails> findByDepartmentAndRole(Long departmentId, String role);
+    @Query(value = "SELECT * FROM employee_personal_details e WHERE e.department_id = :departmentId AND e.role = :role", nativeQuery = true)
+    List<EmployeePersonalDetails> findByDepartment(@Param("departmentId") Long departmentId, @Param("role") String role);
 
     List<EmployeePersonalDetails> findByPrimaryReportingManager(Long primaryReportingManagerId);
 }
