@@ -7,7 +7,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * The employee address details dto
@@ -38,11 +37,7 @@ public class EmployeeAddressDto {
     private String state;
 
     @NotBlank(message = "PinCode is mandatory")
-<<<<<<< Updated upstream
     @Size(min = 6, max = 6, message = "PinCode must in 6 digit")
-=======
-    @Size(min = 6, max = 6, message = "Invalid PinCode")
->>>>>>> Stashed changes
     private String pinCode;
 
 }

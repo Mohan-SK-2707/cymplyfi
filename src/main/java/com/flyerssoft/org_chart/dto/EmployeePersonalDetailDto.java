@@ -12,7 +12,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -72,15 +71,14 @@ public class EmployeePersonalDetailDto {
     @Pattern(regexp = "[a-zA-Z]+", message = "Designation must not contain special characters & numerics")
     private String designation;
 
-<<<<<<< Updated upstream
-=======
+
 //    @NotNull(message = "primary reporting manager shouldn't be null")
     private Long primaryReportingManager;
     private Long reportingManager;
     @Valid
     private EmployeeDepartmentDto employeeDepartment;
-    @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
->>>>>>> Stashed changes
+
+
     @NotBlank(message = "Email cannot be empty")
     @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @Column(name = "Office_email", unique = true)
@@ -91,12 +89,6 @@ public class EmployeePersonalDetailDto {
     private String employeeId;
     @Valid
     private List<EmployeeAddressDto> employeeAddresses;
-<<<<<<< Updated upstream
-    @Valid
-    private List<EmployeeJobHistoryDto> jobHistories;
-    @Valid
-    private List<EmployeeEducationalDetailsDto> educationalDetails;
-=======
 
     @Valid
     private List<EmployeeJobHistoryDto> jobHistories;
@@ -104,7 +96,6 @@ public class EmployeePersonalDetailDto {
     @Valid
     private List<EmployeeEducationalDetailsDto> educationalDetails;
 
->>>>>>> Stashed changes
     @Valid
     private EmployeeBankDetailsDto employeeBankDetails;
 }
