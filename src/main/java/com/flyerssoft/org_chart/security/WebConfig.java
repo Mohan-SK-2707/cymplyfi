@@ -41,13 +41,13 @@ public class WebConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf().disable().authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/hierarchy/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/hierarchy/**").hasAnyAuthority("SUPER_ADMIN","ADMIN")
                 .requestMatchers(HttpMethod.POST, "/employee/add**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/employee/login**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/employee/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/employee/update/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/employee/remove/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/employee/all").hasAuthority("SUPER_ADMIN")
+                .requestMatchers(HttpMethod.GET, "/employee/**").hasAnyAuthority("ADMIN","SUPER_ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/employee/update/**").hasAnyAuthority("ADMIN","SUPER_ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/employee/remove/**").hasAnyAuthority("ADMIN","SUPER_ADMIN")
+                .requestMatchers(HttpMethod.GET, "/employee/all").hasAnyAuthority("SUPER_ADMIN","ADMIN")
                 .anyRequest().authenticated().and().exceptionHandling()
                 .authenticationEntryPoint(authenticationEntry)
                 .and()
