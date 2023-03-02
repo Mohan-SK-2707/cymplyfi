@@ -148,19 +148,6 @@ public interface EmployeeMapper {
         }
     }
 
-    List<EmployeeAddress> dtoAddrToEntity(List<EmployeeAddressDto> addressDtos);
-
-    List<EmployeeAddressDto> entityAddrrToDto(List<EmployeeAddress> employeeAddresses);
-
-    EmployeeBankDetails dtoToBankEntity(EmployeeBankDetailsDto employeeBankDetails);
-    EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto);
-
-    CustomEmployeeResponseDto entityToCustomListDto(EmployeePersonalDetails employeePersonalDetailsList);
-
-    EmployeeDepartmentDto departmentEntityToDto(EmployeeDepartment department);
-
-    EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment);
-
     List<EmployeeDepartmentDto> departmentEntityListToDto(List<EmployeeDepartment> departments);
 
     List<EmployeePersonalDetailDto> employeePersonalDetailEntityListToDto(List<EmployeePersonalDetails> employees);

@@ -37,13 +37,14 @@ public class EmployeePersonalDetailDto {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotBlank(message = "Email cannot be empty")
     @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @Column(name = "personal_email", unique = true)
-    @NotBlank(message = "Email cannot be empty")
     private String email;
 
-    // @JsonIgnore
+
     @NotBlank(message = "Password is mandatory")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password should contain 8 characters with (1 lowercase, 1 uppercase, 1 symbol , 1 number)")
     private String password;
 
     @NotBlank(message = "Contact number cannot be blank")
@@ -72,9 +73,9 @@ public class EmployeePersonalDetailDto {
     private String designation;
 
     private Long primaryReportingManager;
+
     private Long reportingManager;
-    @Valid
-    private EmployeeDepartmentDto employeeDepartment;
+
     @NotBlank(message = "Email cannot be empty")
     @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @Column(name = "Office_email", unique = true)
@@ -83,6 +84,9 @@ public class EmployeePersonalDetailDto {
     @NotBlank(message = "EmployeeId cannot be blank")
     @Column(name = "employeeId")
     private String employeeId;
+
+    @Valid
+    private EmployeeDepartmentDto employeeDepartment;
 
     @Valid
     private List<EmployeeAddressDto> employeeAddresses;
