@@ -38,7 +38,7 @@ public class EmployeePersonalDetailDto {
     private String lastName;
 
     @NotBlank(message = "Email cannot be empty")
-    @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+    @Email(message = "Email is not valid", regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
     @Column(name = "personal_email", unique = true)
     private String email;
 
@@ -77,7 +77,7 @@ public class EmployeePersonalDetailDto {
     private Long reportingManager;
 
     @NotBlank(message = "Email cannot be empty")
-    @Email(message = "Email is not valid", regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+    @Email(message = "Email is not valid", regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
     @Column(name = "Office_email", unique = true)
     private String officialEmail;
 

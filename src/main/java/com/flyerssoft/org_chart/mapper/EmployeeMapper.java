@@ -147,7 +147,6 @@ public interface EmployeeMapper {
             });
         }
     }
-
     List<EmployeeDepartmentDto> departmentEntityListToDto(List<EmployeeDepartment> departments);
 
     List<EmployeePersonalDetailDto> employeePersonalDetailEntityListToDto(List<EmployeePersonalDetails> employees);

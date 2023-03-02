@@ -37,7 +37,7 @@ public class UserDataService implements UserDetailsService {
         if (ObjectUtils.isNotEmpty(user)) {
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(String.valueOf(user.getRole())));
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getOfficialEmail(), user.getPassword(), authorities);
         } else {
             log.error("User not found : {}",username);
             throw new UsernameNotFoundException("User doesn't exist with this username - " + username);
