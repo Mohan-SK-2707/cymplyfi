@@ -181,7 +181,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public LoginResponse loginToken(EmployeePersonalDetails user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         Map<String, Object> claims = new HashMap<>();
-        claims.put("name", user.getEmail());
+        claims.put("name", user.getOfficialEmail());
         if (ObjectUtils.isNotEmpty(user.getRole())) {
             authorities.add(new SimpleGrantedAuthority(String.valueOf(user.getRole())));
             claims.put("role", user.getRole());
@@ -190,7 +190,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             claims.put("role", "EMPLOYEE");
             claims.put("userId", user.getId());
         }
-        final String loginToken = jwtTokenUtils.generateToken(new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities), claims);
+        final String loginToken = jwtTokenUtils.generateToken(new org.springframework.security.core.userdetails.User(user.getOfficialEmail(), user.getPassword(), authorities), claims);
         return new LoginResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getRole(), user.getDesignation(), loginToken);
     }
 
