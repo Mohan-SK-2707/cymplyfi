@@ -60,7 +60,7 @@ public interface EmployeeService {
 
  AppResponse<OrganisationDepartmentResponse> getCeoAndAllDepartments();
 
- AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId);
+ AppResponse<List<CustomEmployeeResponseDto>> getManagersOfDepartment(Long departmentId);
 
  AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId);
  }

@@ -111,7 +111,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/hierarchy", params = "departmentId")
-    public ResponseEntity<AppResponse<List<EmployeePersonalDetailDto>>> getListOfManagers (@RequestParam("departmentId") Long departmentId ) {
+    public ResponseEntity<AppResponse<List<CustomEmployeeResponseDto>>> getListOfManagers (@RequestParam("departmentId") Long departmentId ) {
         log.info("get all Managers of department for super admin api accessed");
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.getManagersOfDepartment(departmentId));
     }

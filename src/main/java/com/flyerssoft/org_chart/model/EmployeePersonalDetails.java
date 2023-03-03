@@ -35,7 +35,9 @@ public class EmployeePersonalDetails {
     private Role role;
     private String designation;
     private Long primaryReportingManager;
+    private String primaryReportingManagerName;
     private Long reportingManager;
+    private String reportingManagerName;
     @ManyToOne(cascade = CascadeType.ALL)
     private EmployeeDepartment department;
     private String officialEmail;
