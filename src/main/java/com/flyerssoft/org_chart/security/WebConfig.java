@@ -52,7 +52,7 @@ public class WebConfig {
                 .requestMatchers(HttpMethod.GET, "/hierarchy/**").hasAnyAuthority("SUPER_ADMIN", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/employee/add**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/employee/login**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/employee/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
+                .requestMatchers(HttpMethod.GET, "/employee/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN", "INTERN", "SENIOR", "JUNIOR")
                 .requestMatchers(HttpMethod.PUT, "/employee/update/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/employee/remove/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
                 .requestMatchers(HttpMethod.GET, "/employee/all").hasAnyAuthority("SUPER_ADMIN", "ADMIN")

@@ -79,12 +79,28 @@ public class EmployeeServiceImpl implements EmployeeService {
             EmployeeDepartment department = this.getDepartment(employeeDetailRequest.getDepartment().getDepartmentName());
             log.info("department from DB :{}", department);
             if (ObjectUtils.isEmpty(department)) {
+                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
+                    String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
+                    employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
+                }
+                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getReportingManager())) {
+                    String reportingManagerName = this.getReportingManagerName(employeeDetailRequest.getReportingManager());
+                    employeeDetailRequest.setReportingManagerName(reportingManagerName);
+                }
                 EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
                 log.info("Employee details saved to the db");
                 return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
             } else {
                 log.info("department from DB :{}", department);
                 employeeDetailRequest.setDepartment(department);
+                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
+                    String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
+                    employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
+                }
+                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getReportingManager())) {
+                    String reportingManagerName = this.getReportingManagerName(employeeDetailRequest.getReportingManager());
+                    employeeDetailRequest.setReportingManagerName(reportingManagerName);
+                }
                 EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
                 log.info("Employee details saved to the db");
                 return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
@@ -98,6 +114,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.info("department found in DB :{}", employeeDepartment);
         if (ObjectUtils.isNotEmpty(employeeDepartment)) {
             return employeeDepartment;
+        } else {
+            return null;
+        }
+    }
+
+    private String getReportingManagerName(Long id) {
+        Optional<EmployeePersonalDetails> managerById = employeeRepository.findById(id);
+        if (managerById.isPresent()) {
+            return managerById.get().getFirstName();
         } else {
             return null;
         }
@@ -252,7 +277,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (ObjectUtils.isNotEmpty(ceoDetails)) {
             List<EmployeeDepartment> departments = employeeDepartmentRepository.findAll();
             List<EmployeeDepartmentDto> departmentDtos = utils.deptEntityListToDto(departments);
-            return new AppResponse<>(200, true, new OrganisationDepartmentResponse(utils.mapEntityToDtos(ceoDetails), departmentDtos));
+            return new AppResponse<>(200, true, new OrganisationDepartmentResponse(utils.mapEntityToCustomDtos(ceoDetails), departmentDtos));
         } else {
             log.error("Super admin doesn't exist");
             throw new NotFoundException("Super admin doesn't exist");
@@ -260,9 +285,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId) {
+    public AppResponse<List<CustomEmployeeResponseDto>> getManagersOfDepartment(Long departmentId) {
         List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartment(departmentId, Role.ADMIN.toString());
-        return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(listOfManagerDetails));
+        return new AppResponse<>(200, true, utils.mapEntityListToCustomDtos(listOfManagerDetails));
     }
     //    @Query(value = "SELECT * FROM employee_personal_details
     //    WHERE department_id = :departmentId AND role = :role", nativeQuery = true)

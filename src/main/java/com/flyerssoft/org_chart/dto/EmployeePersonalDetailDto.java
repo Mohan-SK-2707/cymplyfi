@@ -74,7 +74,11 @@ public class EmployeePersonalDetailDto {
 
     private Long primaryReportingManager;
 
+    private String primaryReportingManagerName;
+
     private Long reportingManager;
+
+    private String reportingManagerName;
 
     @NotBlank(message = "Email cannot be empty")
     @Email(message = "Email is not valid", regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
