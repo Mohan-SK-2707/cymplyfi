@@ -233,11 +233,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId) {
        List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartment(departmentId, Role.ADMIN.toString());
-       if (ObjectUtils.isNotEmpty(listOfManagerDetails)) {
-           List<EmployeePersonalDetails> managers=employeeRepository.findAll();
-           return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(managers));
-       }
-        return null;
+       return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(listOfManagerDetails));
     }
     //    @Query(value = "SELECT * FROM employee_personal_details
     //    WHERE department_id = :departmentId AND role = :role", nativeQuery = true)
