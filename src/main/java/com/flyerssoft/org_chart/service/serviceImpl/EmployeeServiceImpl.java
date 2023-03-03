@@ -76,9 +76,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.checkAddressAndPersist(employeeDetailRequest);
         //fetch department Id
         if (ObjectUtils.isNotEmpty(employeeDetailRequest.getDepartment())) {
-            EmployeeDepartment department = this.getDepartment(employeeDetailRequest.getDepartment().getDepartmentName());
+            EmployeeDepartment department = this.employeeDepartmentRepository.findByDepartmentName(employeeDetailRequest.getDepartment().getDepartmentName());
             log.info("department from DB :{}", department);
             if (ObjectUtils.isEmpty(department)) {
+                log.error("Department not found");
+                throw new NotFoundException("Department Not Found");
+                
                 if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
                     String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
                     employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
@@ -295,7 +298,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId) {
         String role = storeRoleBean.role;
-        if (role == "SUPER_ADMIN") {
+        if (Objects.equals(role, "SUPER_ADMIN")) {
             List<EmployeePersonalDetails> childEmployees = employeeRepository.findByPrimaryReportingManager(reporteeId);
             return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(childEmployees));
         } else {
@@ -303,9 +306,21 @@ public class EmployeeServiceImpl implements EmployeeService {
             if (optionalEmployeePersonalDetails.isPresent()) {
                 // todo: need to get the details in single query
                 EmployeePersonalDetailDto userDetails = utils.mapEntityToDtos(optionalEmployeePersonalDetails.get());
-                EmployeePersonalDetailDto primaryReporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
-                EmployeePersonalDetailDto reporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
-                return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReporteeManager, reporteeManager, userDetails));
+                Optional<EmployeePersonalDetails> optionalPrimaryManagerDetails =  employeeRepository.findById(userDetails.getPrimaryReportingManager());
+                if(optionalPrimaryManagerDetails.isEmpty()) {
+                    throw new NotFoundException("Primary Reporting Manager not found");
+                }
+                EmployeePersonalDetailDto primaryReportingManager = utils.mapEntityToDtos(optionalPrimaryManagerDetails.get());
+                if(userDetails.getReportingManager() == null) {
+                    return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReportingManager, null, userDetails));
+                }
+                Optional<EmployeePersonalDetails> optionalEscalationManagerDetails =  employeeRepository.findById(userDetails.getReportingManager());
+                if (optionalEscalationManagerDetails.isEmpty()){
+                    throw new NotFoundException("Escalation Reporting Manager not found");
+                }
+                EmployeePersonalDetailDto reportingManager = utils.mapEntityToDtos(optionalEscalationManagerDetails.get());
+                return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReportingManager, reportingManager, userDetails));
+
             } else {
                 log.error("Employee not found");
                 throw new NotFoundException("Employee not found");
