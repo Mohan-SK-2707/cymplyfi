@@ -75,52 +75,39 @@ public class EmployeeServiceImpl implements EmployeeService {
         //address validation
         this.checkAddressAndPersist(employeeDetailRequest);
         //fetch department Id
+        EmployeePersonalDetails employeeDetailResponse = null;
+        EmployeeDepartment department = null;
         if (ObjectUtils.isNotEmpty(employeeDetailRequest.getDepartment())) {
-            EmployeeDepartment department = this.employeeDepartmentRepository.findByDepartmentName(employeeDetailRequest.getDepartment().getDepartmentName());
+            department = this.employeeDepartmentRepository.findByDepartmentName(employeeDetailRequest.getDepartment().getDepartmentName());
             log.info("department from DB :{}", department);
-            if (ObjectUtils.isEmpty(department)) {
-                log.error("Department not found");
-                throw new NotFoundException("Department Not Found");
-                
-                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
-                    String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
-                    employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
-                }
-                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getReportingManager())) {
-                    String reportingManagerName = this.getReportingManagerName(employeeDetailRequest.getReportingManager());
-                    employeeDetailRequest.setReportingManagerName(reportingManagerName);
-                }
-                EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
-                log.info("Employee details saved to the db");
-                return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
-            } else {
-                log.info("department from DB :{}", department);
-                employeeDetailRequest.setDepartment(department);
-                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
-                    String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
-                    employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
-                }
-                if (ObjectUtils.isNotEmpty(employeeDetailRequest.getReportingManager())) {
-                    String reportingManagerName = this.getReportingManagerName(employeeDetailRequest.getReportingManager());
-                    employeeDetailRequest.setReportingManagerName(reportingManagerName);
-                }
-                EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
-                log.info("Employee details saved to the db");
-                return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
+            if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
+                String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
+                employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
             }
-        }
-        return null;
-    }
-
-    private EmployeeDepartment getDepartment(String departmentName) {
-        EmployeeDepartment employeeDepartment = employeeDepartmentRepository.findByDepartmentName(departmentName);
-        log.info("department found in DB :{}", employeeDepartment);
-        if (ObjectUtils.isNotEmpty(employeeDepartment)) {
-            return employeeDepartment;
+            if (ObjectUtils.isNotEmpty(employeeDetailRequest.getReportingManager())) {
+                String reportingManagerName = this.getReportingManagerName(employeeDetailRequest.getReportingManager());
+                employeeDetailRequest.setReportingManagerName(reportingManagerName);
+            }
+            employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
+            log.info("Employee details saved to the db");
         } else {
-            return null;
+            log.info("department from DB :{}", department);
+            employeeDetailRequest.setDepartment(department);
+            if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
+                String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
+                employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
+            }
+            if (ObjectUtils.isNotEmpty(employeeDetailRequest.getReportingManager())) {
+                String reportingManagerName = this.getReportingManagerName(employeeDetailRequest.getReportingManager());
+                employeeDetailRequest.setReportingManagerName(reportingManagerName);
+            }
+            employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
+            log.info("Employee details saved to the db");
+//            return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
         }
-    }
+        return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
+}
+
 
     private String getReportingManagerName(Long id) {
         Optional<EmployeePersonalDetails> managerById = employeeRepository.findById(id);
@@ -306,16 +293,16 @@ public class EmployeeServiceImpl implements EmployeeService {
             if (optionalEmployeePersonalDetails.isPresent()) {
                 // todo: need to get the details in single query
                 EmployeePersonalDetailDto userDetails = utils.mapEntityToDtos(optionalEmployeePersonalDetails.get());
-                Optional<EmployeePersonalDetails> optionalPrimaryManagerDetails =  employeeRepository.findById(userDetails.getPrimaryReportingManager());
-                if(optionalPrimaryManagerDetails.isEmpty()) {
+                Optional<EmployeePersonalDetails> optionalPrimaryManagerDetails = employeeRepository.findById(userDetails.getPrimaryReportingManager());
+                if (optionalPrimaryManagerDetails.isEmpty()) {
                     throw new NotFoundException("Primary Reporting Manager not found");
                 }
                 EmployeePersonalDetailDto primaryReportingManager = utils.mapEntityToDtos(optionalPrimaryManagerDetails.get());
-                if(userDetails.getReportingManager() == null) {
+                if (userDetails.getReportingManager() == null) {
                     return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReportingManager, null, userDetails));
                 }
-                Optional<EmployeePersonalDetails> optionalEscalationManagerDetails =  employeeRepository.findById(userDetails.getReportingManager());
-                if (optionalEscalationManagerDetails.isEmpty()){
+                Optional<EmployeePersonalDetails> optionalEscalationManagerDetails = employeeRepository.findById(userDetails.getReportingManager());
+                if (optionalEscalationManagerDetails.isEmpty()) {
                     throw new NotFoundException("Escalation Reporting Manager not found");
                 }
                 EmployeePersonalDetailDto reportingManager = utils.mapEntityToDtos(optionalEscalationManagerDetails.get());
