@@ -1,8 +1,11 @@
 package com.flyerssoft.org_chart.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @Configuration
 @EnableWebSecurity
@@ -68,5 +72,13 @@ public class WebConfig {
     public AuthenticationManager authenticationManager(final AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+//    @EventListener
+//    public void handleContextRefresh(ContextRefreshedEvent event) {
+//        ApplicationContext applicationContext = event.getApplicationContext();
+//        applicationContext.getBean(RequestMappingHandlerMapping.class)
+//        applicationContext.getBean(RequestMappingHandlerMapping.class)
+//                .getHandlerMethods().forEach((key, value) -> LOGGER.info("{} {}", key, value));
+//    }
 
 }
