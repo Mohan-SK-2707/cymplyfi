@@ -21,12 +21,12 @@ public class EmployeeJobHistoryDto {
     private Long id;
 
     @NotBlank(message = "Company is mandatory")
-    @Size(min = 5, max = 50, message = "Company size must be between 3 to 30")
+    @Size(min = 5, max = 50, message = "Company size must be between 5 to 30")
     @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Company must not contain special characters & numerics")
     private String Company;
 
-    @NotBlank(message = "Role is mandatory")
-    @Size(min = 5, max = 50, message = "Role size must be between 3 to 30")
+    @NotBlank(message = "Job history Role is mandatory")
+    @Size(min = 5, max = 50, message = "Job history Role size must be between 5 to 30")
     @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Role must not contain special characters & numerics")
     private String role;
 

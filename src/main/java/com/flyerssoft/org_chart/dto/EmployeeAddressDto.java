@@ -35,7 +35,7 @@ public class EmployeeAddressDto {
 
     @NotBlank(message = "State is mandatory")
     @Pattern(regexp = "^[A-Za-z\\s]*$", message = "State name must not contain special characters & numerics")
-    @Size(min = 3, max = 30, message = "State size must be between 10 to 30")
+    @Size(min = 3, max = 30, message = "State size must be between 3 to 30")
     private String state;
 
     @NotBlank(message = "PinCode is mandatory")

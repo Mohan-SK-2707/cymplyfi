@@ -54,38 +54,38 @@ public interface EmployeeMapper {
 
     EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment);
 
-    @BeforeMapping
-    default void validateDateAndMonth(@MappingTarget final EmployeePersonalDetails details) {
-        //Job history date validations
-        if (ObjectUtils.isNotEmpty(details)) {
-            if (CollectionUtils.isNotEmpty(details.getJobHistories())) {
-                details.getJobHistories().stream().forEach(job -> {
-                    if (ObjectUtils.isNotEmpty(job)) {
-                        if (ObjectUtils.isNotEmpty(job.getJobStartDate()) && ObjectUtils.isNotEmpty(job.getJobEndDate())) {
-                            this.checkValidMonth(job);
-                            this.checkValidYear(job.getJobStartDate().getYear(), job.getJobEndDate().getYear());
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    default void checkValidMonth(EmployeeJobHistory jobHistory) {
-        if (jobHistory.getJobStartDate().getMonth() < 1 || jobHistory.getJobStartDate().getMonth() > 12) {
-            throw new FieldException("Invalid value for MonthOfYear");
-        }
-
-        if (jobHistory.getJobStartDate().getMonth() < 1 || jobHistory.getJobEndDate().getMonth() > 12) {
-            throw new FieldException("Invalid value for MonthOfYear");
-        }
-    }
-
-    default void checkValidYear(int startYear, int endYear) {
-        if (startYear < endYear) {
-            throw new FieldException("Job history dates are not valid");
-        }
-    }
+//    @AfterMapping
+//    default void validateDateAndMonth(@MappingTarget final EmployeePersonalDetails details) {
+//        //Job history date validations
+//        if (ObjectUtils.isNotEmpty(details)) {
+//            if (CollectionUtils.isNotEmpty(details.getJobHistories())) {
+//                details.getJobHistories().stream().forEach(job -> {
+//                    if (ObjectUtils.isNotEmpty(job)) {
+//                        if (ObjectUtils.isNotEmpty(job.getJobStartDate()) && ObjectUtils.isNotEmpty(job.getJobEndDate())) {
+//                            this.checkValidMonth(job);
+//                            this.checkValidYear(job.getJobStartDate().getYear(), job.getJobEndDate().getYear());
+//                        }
+//                    }
+//                });
+//            }
+//        }
+//    }
+//
+//    default void checkValidMonth(EmployeeJobHistory jobHistory) {
+//        if (jobHistory.getJobStartDate().getMonth() < 1 || jobHistory.getJobStartDate().getMonth() > 12) {
+//            throw new FieldException("Invalid value for MonthOfYear");
+//        }
+//
+//        if (jobHistory.getJobStartDate().getMonth() < 1 || jobHistory.getJobEndDate().getMonth() > 12) {
+//            throw new FieldException("Invalid value for MonthOfYear");
+//        }
+//    }
+//
+//    default void checkValidYear(int startYear, int endYear) {
+//        if (startYear > endYear) {
+//            throw new FieldException("Job history dates are not valid");
+//        }
+//    }
 
     @AfterMapping
     static void mapEnums(@MappingTarget final EmployeePersonalDetails details) {

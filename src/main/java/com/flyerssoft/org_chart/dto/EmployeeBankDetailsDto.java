@@ -26,7 +26,7 @@ public class EmployeeBankDetailsDto {
     private String bankName;
 
     @NotBlank(message = "Account number is mandatory")
-    @Size(min = 3, max = 20, message = "Account number size must be between 3 to 17")
+    @Size(min = 3, max = 20, message = "Account number size must be between 3 to 20")
     @Pattern(regexp = "[0-9]+", message = "Account number must not contain special characters & alphabets")
     private String bankAccountNumber;
 
@@ -46,7 +46,7 @@ public class EmployeeBankDetailsDto {
     private String aadharNumber;
 
     @NotBlank(message = "PAN is mandatory")
-    @Size(min = 11,max = 11, message = "Pan should be 10 Digits")
+    @Size(min = 11,max = 11, message = "Pan should be 11 Digits")
     @Pattern(regexp = "[a-zA-Z0-9]+", message = "PAN must not contain special characters")
     private String panNumber;
 

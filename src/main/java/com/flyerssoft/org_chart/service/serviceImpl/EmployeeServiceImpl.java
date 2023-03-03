@@ -67,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public AppResponse<EmployeePersonalDetailDto> addEmployeeDetail(EmployeePersonalDetailDto employeePersonalDetailDto) {
         //modelMapper.map(employeePersonalDetailDto, EmployeePersonalDetails.class);
         log.info("Requested details from input : {} ", employeePersonalDetailDto);
-        this.checkEmployeeExistsByCredentials(employeePersonalDetailDto.getEmail(), employeePersonalDetailDto.getContactNumber());
+        this.checkEmployeeExistsByCredentials(employeePersonalDetailDto.getOfficialEmail(), employeePersonalDetailDto.getContactNumber());
         EmployeePersonalDetails employeeDetailRequest = utils.dtoToEntity(employeePersonalDetailDto);
         employeeDetailRequest.setPassword(passwordEncoder.encode(employeePersonalDetailDto.getPassword()));
         employeeDetailRequest.setRole(employeePersonalDetailDto.getRole());
@@ -223,8 +223,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private void checkEmployeeExistsByCredentials(String emailId, String contactNum) {
         EmployeePersonalDetails findEmployeeByEmail = employeeRepository.findByOfficialEmail(emailId);
+        log.info("Employee by email from DB : {}", findEmployeeByEmail);
         if (ObjectUtils.isEmpty(findEmployeeByEmail)) {
             EmployeePersonalDetails findEmployeeByContactNum = employeeRepository.findByContactNumber(contactNum);
+            log.info("Employee by mobile from DB : {}", findEmployeeByContactNum);
             if (ObjectUtils.isNotEmpty(findEmployeeByContactNum)) {
                 //throw message Employee already exists with this contact number
                 log.error("Employee already exist with this contact num : {}", contactNum);
