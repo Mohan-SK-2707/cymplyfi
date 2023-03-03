@@ -23,7 +23,7 @@ import java.util.List;
 //@RequestMapping("/flyers-soft")
 @Slf4j
 @Validated
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class EmployeeController {
 
     @Autowired
