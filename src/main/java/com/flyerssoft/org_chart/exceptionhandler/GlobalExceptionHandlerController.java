@@ -1,5 +1,6 @@
 package com.flyerssoft.org_chart.exceptionhandler;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -82,6 +83,13 @@ public class GlobalExceptionHandlerController {
     @ResponseBody
     public ErrorResponse userNameNotFound(UsernameNotFoundException ex){
         return new ErrorResponse(404,false,ex.getMessage());
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse expiredJwtException(ExpiredJwtException ex){
+        return new ErrorResponse(400,false,ex.getMessage());
     }
 
 
