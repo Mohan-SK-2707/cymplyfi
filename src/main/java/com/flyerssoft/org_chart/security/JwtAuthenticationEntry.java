@@ -32,9 +32,6 @@ import java.util.Objects;
 @Slf4j
 public class JwtAuthenticationEntry implements AuthenticationEntryPoint {
 
-//    @Autowired
-//    private EndpointsListener endpointsListener;
-
     @Autowired
     private DispatcherServlet servlet;
 
@@ -43,12 +40,11 @@ public class JwtAuthenticationEntry implements AuthenticationEntryPoint {
 //        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized entry");
         log.error("403 Forbidden Error :{}", authException.toString());
         try {
-            if (this.isEndpointExist(request)) {
+//            this.isEndpointExist(request);
     //            ObjectMapper mapper = new ObjectMapper();
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(403);
             response.getWriter().print(buildObject());
-            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -58,18 +54,18 @@ public class JwtAuthenticationEntry implements AuthenticationEntryPoint {
         return new JSONObject().put("status", String.valueOf(403)).put("message", "Access denied due to insufficient authorization").put("state", "FORBIDDEN");
     }
 
-    /*    Custom method to check the api(end point) whether is exist or not     */
-    public boolean isEndpointExist(HttpServletRequest request) throws Exception {
-        if (CollectionUtils.isNotEmpty(servlet.getHandlerMappings())) {
-            for (HandlerMapping handlerMapping : Objects.requireNonNull(servlet.getHandlerMappings())) {
-                HandlerExecutionChain foundHandler = handlerMapping.getHandler(request);
-                if (ObjectUtils.isNotEmpty(foundHandler)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
+//    /*    Custom method to check the api(end point) whether is exist or not     */
+//    public Boolean isEndpointExist(HttpServletRequest request) throws Exception {
+//        if (CollectionUtils.isNotEmpty(servlet.getHandlerMappings())) {
+//            for (HandlerMapping handlerMapping : Objects.requireNonNull(servlet.getHandlerMappings())) {
+//                HandlerExecutionChain foundHandler = handlerMapping.getHandler(request);
+//                if (ObjectUtils.isNotEmpty(foundHandler)) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 }

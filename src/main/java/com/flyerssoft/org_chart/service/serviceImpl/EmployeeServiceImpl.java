@@ -19,6 +19,7 @@ import com.flyerssoft.org_chart.utility.AppUtils;
 import com.flyerssoft.org_chart.utility.StoreRoleBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
@@ -71,10 +72,35 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDetailRequest.setPassword(passwordEncoder.encode(employeePersonalDetailDto.getPassword()));
         employeeDetailRequest.setRole(employeePersonalDetailDto.getRole());
         log.info("Requested details for persisting after mapping : {} ", employeeDetailRequest);
+        //address validation
         this.checkAddressAndPersist(employeeDetailRequest);
-        EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
-        log.info("Employee details saved to the db");
-        return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
+        //fetch department Id
+        if (ObjectUtils.isNotEmpty(employeeDetailRequest.getDepartment())) {
+            EmployeeDepartment department = this.getDepartment(employeeDetailRequest.getDepartment().getDepartmentName());
+            log.info("department from DB :{}", department);
+            if (ObjectUtils.isEmpty(department)) {
+                EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
+                log.info("Employee details saved to the db");
+                return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
+            } else {
+                log.info("department from DB :{}", department);
+                employeeDetailRequest.setDepartment(department);
+                EmployeePersonalDetails employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
+                log.info("Employee details saved to the db");
+                return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
+            }
+        }
+        return null;
+    }
+
+    private EmployeeDepartment getDepartment(String departmentName) {
+        EmployeeDepartment employeeDepartment = employeeDepartmentRepository.findByDepartmentName(departmentName);
+        log.info("department found in DB :{}", employeeDepartment);
+        if (ObjectUtils.isNotEmpty(employeeDepartment)) {
+            return employeeDepartment;
+        } else {
+            return null;
+        }
     }
 
     private void checkAddressAndPersist(EmployeePersonalDetails employeePersonalDetails) {
@@ -112,7 +138,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * if it existed it will allow to update the details
      * but update can be done by admin
      *
-     * @param id id
+     * @param id                        id
      * @param employeePersonalDetailDto employeePersonalDetailDto
      * @return updated employee details
      */
@@ -155,8 +181,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * To login email and password will be need, and it will check employee already exits
      * If employee exists it will allow to log in
+     *
      * @param officialEmail officialEmail
-     * @param password password
+     * @param password      password
      * @return employee details
      * @throws Exception Bad credential exception
      */
@@ -232,8 +259,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId) {
-       List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartment(departmentId, Role.ADMIN.toString());
-       return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(listOfManagerDetails));
+        List<EmployeePersonalDetails> listOfManagerDetails = employeeRepository.findByDepartment(departmentId, Role.ADMIN.toString());
+        return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(listOfManagerDetails));
     }
     //    @Query(value = "SELECT * FROM employee_personal_details
     //    WHERE department_id = :departmentId AND role = :role", nativeQuery = true)
@@ -241,17 +268,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId) {
         String role = storeRoleBean.role;
-        if(role == "SUPER_ADMIN") {
+        if (role == "SUPER_ADMIN") {
             List<EmployeePersonalDetails> childEmployees = employeeRepository.findByPrimaryReportingManager(reporteeId);
             return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(childEmployees));
         } else {
             Optional<EmployeePersonalDetails> optionalEmployeePersonalDetails = employeeRepository.findById(reporteeId);
-            if(optionalEmployeePersonalDetails.isPresent()) {
+            if (optionalEmployeePersonalDetails.isPresent()) {
                 // todo: need to get the details in single query
                 EmployeePersonalDetailDto userDetails = utils.mapEntityToDtos(optionalEmployeePersonalDetails.get());
                 EmployeePersonalDetailDto primaryReporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
                 EmployeePersonalDetailDto reporteeManager = utils.mapEntityToDtos(employeeRepository.findById(userDetails.getReportingManager()).get());
-                return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReporteeManager,reporteeManager, userDetails));
+                return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReporteeManager, reporteeManager, userDetails));
             } else {
                 log.error("Employee not found");
                 throw new NotFoundException("Employee not found");
