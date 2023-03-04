@@ -128,11 +128,8 @@ public class AppUtils {
     }
 
     public List<EmployeeDepartmentDto> deptEntityListToDto(List<EmployeeDepartment> departments) {
-        return mapper.departmentEntityListToDto(departments);
-    }
-
-    public List<EmployeeDepartment> deptDtoListToEntity(List<EmployeeDepartmentDto> departments) {
-        return mapper.departmentDtoListToEntity(departments);
+        List<EmployeeDepartmentDto> departmentDtos = mapper.departmentEntityListToDto(departments);
+        return departmentDtos;
     }
 
     public List<EmployeePersonalDetailDto> employeePersonalEntityListToDto(List<EmployeePersonalDetails> employees) {
