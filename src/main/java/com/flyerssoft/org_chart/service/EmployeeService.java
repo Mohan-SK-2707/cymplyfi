@@ -49,7 +49,7 @@ public interface EmployeeService {
 
  /**
   * Login - To view the employee details
-  * @param email
+  * @param email email
   * @param password
   * @return employee details
   * @throws Exception
