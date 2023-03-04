@@ -23,7 +23,7 @@ public class EmployeeAddressDto {
     private AddressType addressType;
 
     @NotBlank(message = "Address line1 field is mandatory")
-    @Size(min = 10, max = 250, message = "Address line 1 size must be between 10 to 30")
+    @Size(min = 10, max = 250, message = "Address line 1 size must be between 10 to 250")
     private String Line1;
 
     private String Line2;

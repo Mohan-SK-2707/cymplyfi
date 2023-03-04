@@ -56,6 +56,7 @@ public class WebConfig {
                 .requestMatchers(HttpMethod.PUT, "/employee/update/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/employee/remove/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
                 .requestMatchers(HttpMethod.GET, "/employee/all").hasAnyAuthority("SUPER_ADMIN", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/employee/departments/all").hasAnyAuthority("SUPER_ADMIN", "ADMIN")
                 .anyRequest().authenticated().and().exceptionHandling()
                 .authenticationEntryPoint(authenticationEntry)
                 .and()

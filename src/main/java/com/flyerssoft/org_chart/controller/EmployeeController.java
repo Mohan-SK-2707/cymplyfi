@@ -1,5 +1,6 @@
 package com.flyerssoft.org_chart.controller;
 
+import com.flyerssoft.org_chart.dto.EmployeeDepartmentCustomDto;
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
 import com.flyerssoft.org_chart.dto.LoginRequestDto;
 import com.flyerssoft.org_chart.dto.OrganisationDepartmentResponse;
@@ -120,5 +121,11 @@ public class EmployeeController {
     public ResponseEntity<AppResponse<?>> getDepartmentsForHierarchy (@RequestParam("id") Long employeeId) {
         log.info("get all departments for super admin api accessed");
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.getChildEmployeesOrReportingManagers(employeeId));
+    }
+
+    @GetMapping("/employee/department/all")
+    public ResponseEntity<AppResponse<List<EmployeeDepartmentCustomDto>>> getAllDepartmentDetails() {
+        log.info("Find all Department api accessed");
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllDepartmentDetails());
     }
 }

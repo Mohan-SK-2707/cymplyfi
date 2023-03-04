@@ -50,9 +50,9 @@ public interface EmployeeMapper {
 
     CustomEmployeeResponseDto entityToCustomListDto(EmployeePersonalDetails employeePersonalDetailsList);
 
-    EmployeeDepartmentDto departmentEntityToDto(EmployeeDepartment department);
+//    EmployeeDepartmentDto departmentEntityToDto(EmployeeDepartment department);
 
-    EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment);
+//    EmployeeDepartment dtoToDepartmentEntity(EmployeeDepartmentDto employeeDepartment);
 
 //    @AfterMapping
 //    default void validateDateAndMonth(@MappingTarget final EmployeePersonalDetails details) {

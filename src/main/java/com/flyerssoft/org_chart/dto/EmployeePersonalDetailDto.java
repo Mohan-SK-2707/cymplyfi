@@ -89,8 +89,8 @@ public class EmployeePersonalDetailDto {
     @Column(name = "employeeId")
     private String employeeId;
 
-    @Valid
-    private EmployeeDepartmentDto employeeDepartment;
+//    @Valid
+//    private EmployeeDepartmentDto employeeDepartment;
 
     @Valid
     private List<EmployeeAddressDto> employeeAddresses;

@@ -28,7 +28,7 @@ public class AppUtils {
     public EmployeePersonalDetailDto mapEntityToDtos(EmployeePersonalDetails employeePersonalDetails) {
         List<EmployeeEducationalDetailsDto> educationalDetailsDto = mapper.educationalEntityToDto(employeePersonalDetails.getEducationalDetails());
         EmployeeBankDetailsDto bankDetailsDetails = mapper.bankEntityToDto(employeePersonalDetails.getEmployeeBankDetails());
-        EmployeeDepartmentDto departmentDto = mapper.departmentEntityToDto(employeePersonalDetails.getDepartment());
+//        EmployeeDepartmentDto departmentDto = mapper.departmentEntityToDto(employeePersonalDetails.getDepartment());
         List<EmployeeJobHistoryDto> jobHistoriesDto = mapper.jobHistoryEntityToDto(employeePersonalDetails.getJobHistories());
         List<EmployeeAddressDto> addressDetails = mapper.entityAddrrToDto(employeePersonalDetails.getEmployeeAddresses());
         EmployeePersonalDetailDto personalDetailDto = new EmployeePersonalDetailDto();
@@ -53,7 +53,7 @@ public class AppUtils {
             personalDetailDto.setReportingManager(null);
             personalDetailDto.setReportingManagerName(null);
         }
-        personalDetailDto.setEmployeeDepartment(departmentDto);
+//        personalDetailDto.setEmployeeDepartment(departmentDto);
         personalDetailDto.setEmployeeAddresses(addressDetails);
         personalDetailDto.setEducationalDetails(educationalDetailsDto);
         personalDetailDto.setEmployeeBankDetails(bankDetailsDetails);
@@ -64,11 +64,11 @@ public class AppUtils {
     public EmployeePersonalDetails dtoToEntity(EmployeePersonalDetailDto employeePersonalDetailDto) {
         List<EmployeeEducationalDetails> employeeEducationalDetails = mapper.dtoToEducationalEntity(employeePersonalDetailDto.getEducationalDetails());
         EmployeeBankDetails employeeBankDetails = mapper.dtoToBankEntity(employeePersonalDetailDto.getEmployeeBankDetails());
-        EmployeeDepartment employeeDepartment = mapper.dtoToDepartmentEntity(employeePersonalDetailDto.getEmployeeDepartment());
+//        EmployeeDepartment employeeDepartment = mapper.dtoToDepartmentEntity(employeePersonalDetailDto.getEmployeeDepartment());
         List<EmployeeJobHistory> employeeJobHistories = mapper.dtoTojobJobHistories(employeePersonalDetailDto.getJobHistories());
         List<EmployeeAddress> employeeAddresses = mapper.dtoAddrToEntity(employeePersonalDetailDto.getEmployeeAddresses());
         EmployeePersonalDetails employeePersonalDetails = mapper.dtoToEntity(employeePersonalDetailDto);
-        employeePersonalDetails.setDepartment(employeeDepartment);
+//        employeePersonalDetails.setDepartment(employeeDepartment);
         employeePersonalDetails.setEducationalDetails(employeeEducationalDetails);
         employeePersonalDetails.setEmployeeBankDetails(employeeBankDetails);
         employeePersonalDetails.setJobHistories(employeeJobHistories);
@@ -168,5 +168,9 @@ public class AppUtils {
     public List<CustomEmployeeResponseDto> mapEntityListToCustomDtos(List<EmployeePersonalDetails> listOfManagerDetails) {
         List<CustomEmployeeResponseDto> customEmployeeResponseDtos = mapper.mapEntityListToCustomDtos(listOfManagerDetails);
         return customEmployeeResponseDtos;
+    }
+
+    public List<EmployeeDepartmentDto> mapDeptEntityListToDto(List<EmployeeDepartment> departments) {
+        return mapper.departmentEntityListToDto(departments);
     }
 }

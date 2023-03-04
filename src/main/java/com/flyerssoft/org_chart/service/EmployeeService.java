@@ -1,5 +1,6 @@
 package com.flyerssoft.org_chart.service;
 
+import com.flyerssoft.org_chart.dto.EmployeeDepartmentCustomDto;
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
 import com.flyerssoft.org_chart.dto.OrganisationDepartmentResponse;
 import com.flyerssoft.org_chart.response.AppResponse;
@@ -63,4 +64,6 @@ public interface EmployeeService {
  AppResponse<List<CustomEmployeeResponseDto>> getManagersOfDepartment(Long departmentId);
 
  AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId);
- }
+
+ AppResponse<List<EmployeeDepartmentCustomDto>> getAllDepartmentDetails();
+}

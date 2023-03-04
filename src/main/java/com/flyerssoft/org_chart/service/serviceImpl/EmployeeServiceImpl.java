@@ -76,9 +76,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.checkAddressAndPersist(employeeDetailRequest);
         //fetch department Id
         EmployeePersonalDetails employeeDetailResponse = null;
-        EmployeeDepartment department = null;
         if (ObjectUtils.isNotEmpty(employeeDetailRequest.getDepartment())) {
-            department = this.employeeDepartmentRepository.findByDepartmentName(employeeDetailRequest.getDepartment().getDepartmentName());
+            EmployeeDepartment department = this.employeeDepartmentRepository.findByDepartmentName(employeeDetailRequest.getDepartment().getDepartmentName());
             log.info("department from DB :{}", department);
             if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
                 String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
@@ -91,8 +90,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
             log.info("Employee details saved to the db");
         } else {
-            log.info("department from DB :{}", department);
-            employeeDetailRequest.setDepartment(department);
+//            log.info("department from DB :{}", department);
+//            employeeDetailRequest.setDepartment(department);
             if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
                 String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
                 employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
@@ -106,7 +105,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 //            return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
         }
         return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
-}
+    }
 
 
     private String getReportingManagerName(Long id) {
@@ -313,6 +312,35 @@ public class EmployeeServiceImpl implements EmployeeService {
                 throw new NotFoundException("Employee not found");
             }
         }
+    }
+
+    @Override
+    public AppResponse<List<EmployeeDepartmentCustomDto>> getAllDepartmentDetails() {
+        List<EmployeeDepartment> departments = employeeDepartmentRepository.findAll();
+        log.info("departments list and size :{} , :{}", departments, departments.size());
+        List<Long> managerIds = departments.stream().map(dept -> dept.getManager_Id()).collect(Collectors.toList());
+        List<EmployeePersonalDetails> managerInfoList = employeeRepository.findAllById(managerIds);
+        log.info("manager employee list and size :{} , :{}", managerInfoList, managerInfoList.size());
+        List<EmployeeDepartmentCustomDto> departmentCustomDtoList = new ArrayList<>();
+        ManagerDtoResponse managerDto = null;
+        EmployeeDepartmentCustomDto departmentCustomDto = null;
+        for (int i = 0; i < departments.size(); i++) {
+            departmentCustomDto = new EmployeeDepartmentCustomDto();
+            departmentCustomDto.setDepartmentId(departments.get(i).getId());
+            departmentCustomDto.setDepartmentName(departments.get(i).getDepartmentName());
+            if (departments.get(i).getManager_Id() == managerInfoList.get(i).getId()) {
+                managerDto = new ManagerDtoResponse();
+                managerDto.setId(managerInfoList.get(i).getId());
+                managerDto.setFirstName(managerInfoList.get(i).getFirstName());
+                managerDto.setOfficialEmail(managerInfoList.get(i).getOfficialEmail());
+                managerDto.setRole(managerInfoList.get(i).getRole());
+            }
+            departmentCustomDto.setManager(managerDto);
+            departmentCustomDtoList.add(departmentCustomDto);
+        }
+        log.info("departments and manager list and size :{}", departmentCustomDtoList.size());
+        return new AppResponse<>(200, true, departmentCustomDtoList);
+
     }
 
 
