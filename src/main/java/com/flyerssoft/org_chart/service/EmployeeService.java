@@ -49,7 +49,7 @@ public interface EmployeeService {
 
  /**
   * Login - To view the employee details
-  * @param email email
+  * @param email
   * @param password
   * @return employee details
   * @throws Exception
@@ -60,7 +60,7 @@ public interface EmployeeService {
 
  AppResponse<OrganisationDepartmentResponse> getCeoAndAllDepartments();
 
- AppResponse<List<EmployeePersonalDetailDto>> getManagersOfDepartment(Long departmentId);
+ AppResponse<List<CustomEmployeeResponseDto>> getManagersOfDepartment(Long departmentId);
 
  AppResponse<?> getChildEmployeesOrReportingManagers(Long reporteeId);
  }

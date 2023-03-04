@@ -151,7 +151,7 @@ public interface EmployeeMapper {
 
     List<EmployeePersonalDetailDto> employeePersonalDetailEntityListToDto(List<EmployeePersonalDetails> employees);
 
-    List<EmployeeDepartment> departmentDtoListToEntity(List<EmployeeDepartmentDto> departments);
+    List<CustomEmployeeResponseDto> mapEntityListToCustomDtos(List<EmployeePersonalDetails> listOfManagerDetails);
 
 //    List<EmployeePersonalDetailDto> entityListToDtoList(List<EmployeePersonalDetails> ceoDetails);
 }

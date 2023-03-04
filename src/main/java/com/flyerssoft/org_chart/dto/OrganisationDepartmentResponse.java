@@ -1,5 +1,6 @@
 package com.flyerssoft.org_chart.dto;
 
+import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class OrganisationDepartmentResponse {
 
-    private EmployeePersonalDetailDto ceo;
+    private CustomEmployeeResponseDto ceo;
     private List<EmployeeDepartmentDto> departments;
 }

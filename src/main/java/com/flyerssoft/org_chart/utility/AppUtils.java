@@ -8,6 +8,7 @@ import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,8 +42,17 @@ public class AppUtils {
         personalDetailDto.setEmployeeGender(employeePersonalDetails.getEmployeeGender());
         personalDetailDto.setRole(employeePersonalDetails.getRole());
         personalDetailDto.setDesignation(employeePersonalDetails.getDesignation());
-        personalDetailDto.setPrimaryReportingManager(employeePersonalDetails.getPrimaryReportingManager());
-        personalDetailDto.setReportingManager(employeePersonalDetails.getReportingManager());
+        if (ObjectUtils.isNotEmpty(employeePersonalDetails.getPrimaryReportingManager()) && StringUtils.isNotEmpty(employeePersonalDetails.getPrimaryReportingManagerName())) {
+            personalDetailDto.setPrimaryReportingManager(employeePersonalDetails.getPrimaryReportingManager());
+            personalDetailDto.setPrimaryReportingManagerName(employeePersonalDetails.getPrimaryReportingManagerName());
+        }
+        if (ObjectUtils.isNotEmpty(employeePersonalDetails.getReportingManager()) && StringUtils.isNotEmpty(employeePersonalDetails.getReportingManagerName())) {
+            personalDetailDto.setReportingManager(employeePersonalDetails.getReportingManager());
+            personalDetailDto.setReportingManagerName(employeePersonalDetails.getReportingManagerName());
+        } else {
+            personalDetailDto.setReportingManager(null);
+            personalDetailDto.setReportingManagerName(null);
+        }
         personalDetailDto.setEmployeeDepartment(departmentDto);
         personalDetailDto.setEmployeeAddresses(addressDetails);
         personalDetailDto.setEducationalDetails(educationalDetailsDto);
@@ -128,15 +138,12 @@ public class AppUtils {
     }
 
     public List<EmployeeDepartmentDto> deptEntityListToDto(List<EmployeeDepartment> departments) {
-        return mapper.departmentEntityListToDto(departments);
-    }
-
-    public List<EmployeeDepartment> deptDtoListToEntity(List<EmployeeDepartmentDto> departments) {
-        return mapper.departmentDtoListToEntity(departments);
+        List<EmployeeDepartmentDto> departmentDtos = mapper.departmentEntityListToDto(departments);
+        return departmentDtos;
     }
 
     public List<EmployeePersonalDetailDto> employeePersonalEntityListToDto(List<EmployeePersonalDetails> employees) {
-        List<EmployeePersonalDetailDto> employeesDto= mapper.employeePersonalDetailEntityListToDto(employees);
+        List<EmployeePersonalDetailDto> employeesDto = mapper.employeePersonalDetailEntityListToDto(employees);
         return employeesDto;
     }
 
@@ -156,5 +163,10 @@ public class AppUtils {
         if (month < 1 || month > 12) {
             throw new DateTimeException("Invalid value for MonthOfYear: " + month);
         }
+    }
+
+    public List<CustomEmployeeResponseDto> mapEntityListToCustomDtos(List<EmployeePersonalDetails> listOfManagerDetails) {
+        List<CustomEmployeeResponseDto> customEmployeeResponseDtos = mapper.mapEntityListToCustomDtos(listOfManagerDetails);
+        return customEmployeeResponseDtos;
     }
 }
