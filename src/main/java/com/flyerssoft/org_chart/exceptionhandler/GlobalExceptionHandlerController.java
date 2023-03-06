@@ -92,5 +92,12 @@ public class GlobalExceptionHandlerController {
         return new ErrorResponse(400,false,ex.getMessage());
     }
 
+    @ExceptionHandler(AuthorizationMissingException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse authorizationMissingException(AuthorizationMissingException ex){
+        return new ErrorResponse(400,false,ex.getMessage());
+    }
+
 
 }

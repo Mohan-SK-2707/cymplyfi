@@ -5,9 +5,12 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -35,6 +38,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (ObjectUtils.isEmpty(request.getHeader("Authorization"))) {
             if (request.getMethod().equalsIgnoreCase("PUT") || request.getMethod().equalsIgnoreCase("GET") || request.getMethod().equalsIgnoreCase("DELETE")) {
                 logger.error("Token Is missing");
+                response.setContentType("application/json;charset=UTF-8");
+                response.setStatus(403);
+                response.getWriter().print(buildObject(response.getStatus(), "Authorization token is missing", "FORBIDDEN"));
             }
         }
 
@@ -46,19 +52,36 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             userName = jwtTokenUtils.getUsernameFromToken(token);
             if (ObjectUtils.isEmpty(userName)) {
                 logger.error("Invalid Token");
-                throw new AccessDeniedException("Invalid Token");
+//                throw new AccessDeniedException("Invalid Token");
+                response.setContentType("application/json;charset=UTF-8");
+                response.setStatus(403);
+                response.getWriter().print(buildObject(404, "token doesn't have valid user details - " + userName, "NOT_FOUND"));
             }
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDataService.loadUserByUsername(userName);// if token is valid configure Spring Security to manually set// authentication
-            storeRoleBean.role = userDetails.getAuthorities().iterator().next().getAuthority();
-            if (jwtTokenUtils.validateToken(token, userDetails)) {
+            UserDetails userDetails = null;
+            try {
+                userDetails = userDataService.loadUserByUsername(userName);
+            } catch (Exception e) {
+                response.setContentType("application/json;charset=UTF-8");
+                response.setStatus(404);
+                response.getWriter().print(buildObject(404, "User doesn't exist with this username - " + userName, "NOT_FOUND"));
+            }
+            if (ObjectUtils.isNotEmpty(userDetails) && CollectionUtils.isNotEmpty(userDetails.getAuthorities())) {
+                storeRoleBean.role = userDetails.getAuthorities().iterator().next().getAuthority();
+            }
+            if (ObjectUtils.isNotEmpty(userDetails) && jwtTokenUtils.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));// After setting the Authentication in the context, we specify// that the current user is authenticated. So it passes the// Spring Security Configurations successfully.
+                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
         filterChain.doFilter(request, response);
     }
+
+    private JSONObject buildObject(Integer status, String errMsg, String state) {
+        return new JSONObject().put("status", status).put("message", errMsg).put("state", state);
+    }
+
 }

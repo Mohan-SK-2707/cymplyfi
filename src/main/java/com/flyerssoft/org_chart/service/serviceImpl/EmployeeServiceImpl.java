@@ -42,16 +42,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     private AppUtils utils;
 
     @Autowired
-    UserDataService userDataService;
+    private UserDataService userDataService;
 
     @Autowired
-    EmployeeDepartmentRepository employeeDepartmentRepository;
+    private EmployeeDepartmentRepository employeeDepartmentRepository;
 
     @Autowired
-    JwtTokenUtils jwtTokenUtils;
+    private JwtTokenUtils jwtTokenUtils;
 
     @Autowired
-    StoreRoleBean storeRoleBean;
+    private StoreRoleBean storeRoleBean;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -90,8 +90,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
             log.info("Employee details saved to the db");
         } else {
-//            log.info("department from DB :{}", department);
-//            employeeDetailRequest.setDepartment(department);
             if (ObjectUtils.isNotEmpty(employeeDetailRequest.getPrimaryReportingManager())) {
                 String primaryReportingManagerName = this.getReportingManagerName(employeeDetailRequest.getPrimaryReportingManager());
                 employeeDetailRequest.setPrimaryReportingManagerName(primaryReportingManagerName);
@@ -102,7 +100,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
             employeeDetailResponse = employeeRepository.save(employeeDetailRequest);
             log.info("Employee details saved to the db");
-//            return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
         }
         return new AppResponse<>(201, true, utils.mapEntityToDtos(employeeDetailResponse));
     }

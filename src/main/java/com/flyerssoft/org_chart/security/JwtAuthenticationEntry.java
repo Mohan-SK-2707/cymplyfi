@@ -39,19 +39,18 @@ public class JwtAuthenticationEntry implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 //        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized entry");
         log.error("403 Forbidden Error :{}", authException.toString());
-        try {
-//            this.isEndpointExist(request);
-    //            ObjectMapper mapper = new ObjectMapper();
+        if (ObjectUtils.isEmpty(response.getWriter())) {
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(403);
-            response.getWriter().print(buildObject());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            response.getWriter().print(buildObject(authException));
+        } else {
+            response.setContentType("application/json;charset=UTF-8");
+            response.setStatus(403);
         }
     }
 
-    private JSONObject buildObject() {
-        return new JSONObject().put("status", String.valueOf(403)).put("message", "Access denied due to insufficient authorization").put("state", "FORBIDDEN");
+    private JSONObject buildObject(AuthenticationException authException) {
+        return new JSONObject().put("status", 403).put("message", authException.getLocalizedMessage()).put("state", "FORBIDDEN");
     }
 
 //    /*    Custom method to check the api(end point) whether is exist or not     */
