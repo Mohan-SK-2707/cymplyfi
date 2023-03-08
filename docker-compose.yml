@@ -1,7 +1,27 @@
 version: "3"
+#services:
+#  springboot-app:
+#    image: springboot-app
+#    build: .
+#    ports:
+#      - 8081:8081
+
 services:
-  springboot-app:
-    image: springboot-app
-    build: .
+  docker-mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=flyerssoft
+      - MYSQL_DATABASE=flyersconnect
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=flyerssoft
     ports:
-      - 8081:8081
+      - 3307:3306
+
+  app:
+    image: app:latest
+    ports:
+      - 8090:8081
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://flyersconnect.cdwr1auqbojn.ap-southeast-1.rds.amazonaws.com:3306/flyersconnect
+    depends_on:
+      - docker-mysql
