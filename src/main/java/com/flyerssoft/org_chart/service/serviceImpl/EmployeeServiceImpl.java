@@ -3,10 +3,7 @@ package com.flyerssoft.org_chart.service.serviceImpl;
 import com.flyerssoft.org_chart.dto.*;
 import com.flyerssoft.org_chart.enums.Role;
 import com.flyerssoft.org_chart.enums.AddressType;
-import com.flyerssoft.org_chart.exceptionhandler.AddressAlreadyExistException;
-import com.flyerssoft.org_chart.exceptionhandler.BadCredentialException;
-import com.flyerssoft.org_chart.exceptionhandler.NotFoundException;
-import com.flyerssoft.org_chart.exceptionhandler.ResourceAlreadyExistsException;
+import com.flyerssoft.org_chart.exceptionhandler.*;
 import com.flyerssoft.org_chart.model.*;
 import com.flyerssoft.org_chart.repo.*;
 import com.flyerssoft.org_chart.response.AppResponse;
@@ -212,7 +209,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         } else {
             log.error("User not exist with this username : {}", officialEmail);
-            throw new BadCredentialException("Bad Credentials");
+            throw new InvalidUserException("User doesn't exists");
         }
     }
 
