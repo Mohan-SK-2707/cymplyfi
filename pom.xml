@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.flyerssoft</groupId>
-    <artifactId>CYMPLYFI-Org-chart-POC</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>CYMPLYFI-Org-chart-POC</name>
+    <artifactId>cymplyfiapp</artifactId>
+    <version>0.0.1</version>
+    <name>cymplyfiapp</name>
     <description>Project for creating org chart application proof of concept</description>
     <properties>
         <java.version>19</java.version>
