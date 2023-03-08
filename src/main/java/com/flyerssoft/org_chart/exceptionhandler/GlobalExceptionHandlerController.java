@@ -35,6 +35,12 @@ public class GlobalExceptionHandlerController {
         return new ErrorResponse(403, false, ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidUserException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse invalidUser(InvalidUserException ex) {
+        return new ErrorResponse(400, false, ex.getMessage());
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
