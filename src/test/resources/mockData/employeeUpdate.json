@@ -1,0 +1,69 @@
+{
+  "id": 1,
+  "firstName": "pppp",
+  "lastName": "wwww",
+  "email": "udaykanth@gmail.com",
+  "contactNumber": "7110388851",
+  "emergencyContactNumber": "9344050719",
+  "employeeGender": "MALE",
+  "employeeMartialStatus": "MARRIED",
+  "role": "ADMIN",
+  "designation": "MANAGER",
+  "employeeAddresses": [
+    {
+      "id": 1,
+      "addressType": "CURRENT",
+      "city": "CHENNAI",
+      "state": "TamilNadu",
+      "pinCode": "600028",
+      "line1": "23",
+      "line2": "chennai-600028"
+    }
+  ],
+  "jobHistories": [
+    {
+      "id": 1,
+      "role": "iuyhh",
+      "jobStartDate": "10-2021",
+      "jobEndDate": "01-2023",
+      "company": "ioutypu"
+    },
+    {
+      "id": 2,
+      "role": "java one",
+      "jobStartDate": "10-2021",
+      "jobEndDate": "01-2023",
+      "company": "flyerssoft"
+    }
+  ],
+  "educationalDetails": [
+    {
+      "id": 1,
+      "qualification": "iwi",
+      "stream": "computer science",
+      "percentage": "887",
+      "courseStartDate": "10-2026",
+      "courseEndDate": "10-2028",
+      "employeeEducationalType": "UNDERGRADUATE"
+    },
+    {
+      "id": 2,
+      "qualification": "MiouiE",
+      "stream": "software engineering",
+      "percentage": "77.000000000000",
+      "courseStartDate": "10-2026",
+      "courseEndDate": "10-2028",
+      "employeeEducationalType": "POSTGRADUATE"
+    }
+  ],
+  "employeeBankDetails": {
+    "id": 1,
+    "bankName": "IOB Bank",
+    "bankAccountNumber": "1234567890",
+    "bankIfscCode": "12345678901",
+    "bankBranchLocation": "CHENNAI",
+    "aadharNumber": "919384757413",
+    "panNumber": "93847574111",
+    "employeeBankAccountType": "PERSONAL"
+  }
+}

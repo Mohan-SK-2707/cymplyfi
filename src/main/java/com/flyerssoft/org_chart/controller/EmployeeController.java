@@ -56,10 +56,10 @@ public class EmployeeController {
     /**
      * Update api,To update Employee details, employee should already exist
      * Employee details can be updated by Admin
-     * @param id
-     * @param employeePersonalDetailDto
+     * @param id id
+     * @param employeePersonalDetailDto employeePersonalDetailDto
      * @return Updated employee credentials
-     * @throws Exception
+     * @throws Exception employee not found
      */
     @PutMapping("/employee/update")
     public ResponseEntity<AppResponse<EmployeePersonalDetailDto>> updateEmployee(@Valid @RequestParam(required = true) Long id, @RequestBody EmployeePersonalDetailDto employeePersonalDetailDto) throws Exception {
