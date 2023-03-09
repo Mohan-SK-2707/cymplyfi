@@ -1,0 +1,53 @@
+{
+  "id": 1,
+  "firstName": "Uday",
+  "lastName": "Kanth",
+  "email": "udaykanth@gmail.com",
+  "contactNumber": "9003277899",
+  "emergencyContactNumber": "9874887262",
+  "employeeGender": "MALE",
+  "employeeMartialStatus": "MARRIED",
+  "role": "ADMIN",
+  "designation": "MANAGER",
+  "employeeAddresses": [
+    {
+      "id": 1,
+      "addressType": "CURRENT",
+      "city": "CHENNAI",
+      "state": "TamilNadu",
+      "pinCode": "600028",
+      "line1": "23",
+      "line2": "chennai-600028"
+    }
+  ],
+  "jobHistories": [
+    {
+      "id": 1,
+      "role": "junior",
+      "jobStartDate": "03-2020",
+      "jobEndDate": "03-2023",
+      "company": "HCL"
+    }
+  ],
+  "educationalDetails": [
+    {
+      "id": 1,
+      "qualification": "BE",
+      "stream": "CSE",
+      "percentage": "80",
+      "courseStartDate": "03-2015",
+      "courseEndDate": "03-2019",
+      "employeeEducationalType": "UNDERGRADUATE"
+    }
+  ],
+  "employeeBankDetails": {
+    "id": 1,
+    "bankName": "IOB",
+    "bankAccountNumber": "3434567",
+    "bankIfscCode": "IOB0004256",
+    "bankBranchLocation": "CHENNAI",
+    "aadharNumber": "232343434543",
+    "panNumber": "66666666666",
+    "employeeBankAccountType": "PERSONAL"
+  }
+}

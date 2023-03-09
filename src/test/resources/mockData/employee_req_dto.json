@@ -1,0 +1,80 @@
+{
+  "id": 1,
+  "firstName": "pppp",
+  "lastName": "wwww",
+  "email": "mohan11@gmail.com",
+  "contactNumber": "7110388851",
+  "emergencyContactNumber": "9344050719",
+  "employeeGender": "MALE",
+  "employeeMartialStatus": "SINGLE",
+  "role": "ADMIN",
+  "designation": "dfghgfyd",
+  "primaryReportingManager": 8,
+  "primaryReportingManagerName": "Arivan",
+  "employeeAddresses": [
+    {
+      "id": 9,
+      "addressType": "PERMANENT",
+      "city": "uytyui",
+      "state": "hjjh",
+      "pinCode": "767676",
+      "line2": "",
+      "line1": "utjnbkuyjv"
+    },
+    {
+      "id": 10,
+      "addressType": "CURRENT",
+      "city": "CHENNAI",
+      "state": "Tamilnadu",
+      "pinCode": "600028",
+      "line2": "west street",
+      "line1": "No : 102/2 ward"
+    }
+  ],
+  "jobHistories": [
+    {
+      "id": 9,
+      "role": "iuyhh",
+      "jobStartDate": "10-2021",
+      "jobEndDate": "01-2023",
+      "company": "ioutypu"
+    },
+    {
+      "id": 10,
+      "role": "java one",
+      "jobStartDate": "10-2021",
+      "jobEndDate": "01-2023",
+      "company": "flyerssoft"
+    }
+  ],
+  "educationalDetails": [
+    {
+      "id": 9,
+      "qualification": "iwi",
+      "stream": "computer science",
+      "percentage": "887",
+      "courseStartDate": "10-2026",
+      "courseEndDate": "10-2028",
+      "employeeEducationalType": "UNDERGRADUATE"
+    },
+    {
+      "id": 10,
+      "qualification": "MiouiE",
+      "stream": "software engineering",
+      "percentage": "77.000000000000",
+      "courseStartDate": "10-2026",
+      "courseEndDate": "10-2028",
+      "employeeEducationalType": "POSTGRADUATE"
+    }
+  ],
+  "employeeBankDetails": {
+    "id": 9,
+    "bankName": "HDFC Bank",
+    "bankAccountNumber": "1234567890",
+    "bankIfscCode": "12345678901",
+    "bankBranchLocation": "CHENNAI",
+    "aadharNumber": "919384757413",
+    "panNumber": "93847574111",
+    "employeeBankAccountType": "PERSONAL"
+  }
+}
