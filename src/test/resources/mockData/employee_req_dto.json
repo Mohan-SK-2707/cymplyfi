@@ -1,80 +1,61 @@
 {
-  "id": 1,
-  "firstName": "pppp",
-  "lastName": "wwww",
-  "email": "mohan11@gmail.com",
-  "contactNumber": "7110388851",
-  "emergencyContactNumber": "9344050719",
+  "firstName": "Mohan",
+  "lastName": "senthilkumar",
+  "email": "mohansenthilkumar@protonmail.com",
+  "password": "Mohanlal@2021",
+  "role": "SUPER_ADMIN",
+  "officialEmail": "mohanlal.s@flyerssoft.com",
+  "designation": "DEVELOPER",
+  "primaryReportingManager": 3,
+  "reportingManager": null,
+  "employeeId": "FS-001",
+  "contactNumber": "9384757413",
+  "emergencyContactNumber": "9384757413",
   "employeeGender": "MALE",
   "employeeMartialStatus": "SINGLE",
-  "role": "ADMIN",
-  "designation": "dfghgfyd",
-  "primaryReportingManager": 8,
-  "primaryReportingManagerName": "Arivan",
   "employeeAddresses": [
     {
-      "id": 9,
       "addressType": "PERMANENT",
-      "city": "uytyui",
-      "state": "hjjh",
-      "pinCode": "767676",
-      "line2": "",
-      "line1": "utjnbkuyjv"
-    },
-    {
-      "id": 10,
-      "addressType": "CURRENT",
       "city": "CHENNAI",
       "state": "Tamilnadu",
       "pinCode": "600028",
-      "line2": "west street",
-      "line1": "No : 102/2 ward"
+      "line1": "No : 102/2 ward",
+      "line2": "west street"
     }
   ],
   "jobHistories": [
     {
-      "id": 9,
-      "role": "iuyhh",
+      "role": "Java engineer",
       "jobStartDate": "10-2021",
       "jobEndDate": "01-2023",
-      "company": "ioutypu"
-    },
-    {
-      "id": 10,
-      "role": "java one",
-      "jobStartDate": "10-2021",
-      "jobEndDate": "01-2023",
-      "company": "flyerssoft"
+      "company": "Dolphinskart pvt Ltd"
     }
   ],
   "educationalDetails": [
     {
-      "id": 9,
-      "qualification": "iwi",
+      "qualification": "B E",
       "stream": "computer science",
-      "percentage": "887",
-      "courseStartDate": "10-2026",
-      "courseEndDate": "10-2028",
+      "percentage": "88.000000000000",
+      "courseStartDate": "08-2016",
+      "courseEndDate": "05-2020",
       "employeeEducationalType": "UNDERGRADUATE"
     },
     {
-      "id": 10,
-      "qualification": "MiouiE",
+      "qualification": "M E",
       "stream": "software engineering",
       "percentage": "77.000000000000",
-      "courseStartDate": "10-2026",
-      "courseEndDate": "10-2028",
+      "courseStartDate": "10-2022",
+      "courseEndDate": "05-2024",
       "employeeEducationalType": "POSTGRADUATE"
     }
   ],
   "employeeBankDetails": {
-    "id": 9,
     "bankName": "HDFC Bank",
     "bankAccountNumber": "1234567890",
     "bankIfscCode": "12345678901",
     "bankBranchLocation": "CHENNAI",
     "aadharNumber": "919384757413",
-    "panNumber": "93847574111",
+    "panNumber": "93847574130",
     "employeeBankAccountType": "PERSONAL"
   }
 }

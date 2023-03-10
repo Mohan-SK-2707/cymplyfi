@@ -1,0 +1,16 @@
+{
+  "status": 200,
+  "success": true,
+  "data": [
+    {
+      "id": 9,
+      "firstName": "Mohan",
+      "lastName": "senthilkumar",
+      "officialEmail": "mohanlal.s@flyerssoft.com",
+      "role": "SUPER_ADMIN",
+      "designation": "DEVELOPER",
+      "employeeId": "FS-001",
+      "contactNumber": "9384757413"
+    }
+  ]
+}
