@@ -34,6 +34,16 @@ VALUES (1,"Uday","Kanth","udaykanth@gmail.com","udaykanth@flyerssoft.com","MALE"
        (7,"Ananthu","ananthu","ananthu@gmail.com","ananthu@flyerssoft.com","MALE","9003218899","9345264567","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",6,7),
        (8,"Arivan","ramesh","aramesh@gmail.com","aramesh@flyerssoft.com","MALE","9003218899","9890990890","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",7,8);
 
+----Queries to generate static data in the employee table--
+--INSERT INTO employee_personal_detail  (id,first_name,last_name,email,official_email,employee_gender,contact_number,emergency_contact_number,employee_martial_status,primary_reporting_manager,primary_reporting_manager_name,reporting_manager,reporting_manager_name,designation,role,department_id,employee_bank_details_id)
+--VALUES (1,"Uday","Kanth","udaykanth@gmail.com","udaykanth@flyerssoft.com","MALE","9003277899","9874887262","MARRIED",null,null,null,null,"MANAGER","ADMIN",null,1),
+--        (2,"Ali","Afroze","afroze@gmail.com","afroze@flyerssoft.com","MALE","9003218899","9874627262","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",1,2),
+--        (3,"Chakravarthy","chowdry","mourya@flyerssoft.com","mourya@flyerssoft.com","MALE","9003218899","7898765671","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",2,3),
+--        (4,"Abhinav","abhinav","abhinav@gmail.com","abhinav@flyerssoft.com","MALE","9003218899","9898989898","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",3,4),
+--        (5,"Subhash","subhash","subhash@gmail.com","subhash@flyerssoft.com","MALE","9003218899","9893546767","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",4,5),
+--        (6,"Vignesh","sekhar","vsekhar@gmail.com","vsekhar@flyerssoft.com","MALE","9003218899","5656786567","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",5,6),
+--        (7,"Ananthu","ananthu","ananthu@gmail.com","ananthu@flyerssoft.com","MALE","9003218899","9345264567","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",6,7),
+--        (8,"Arivan","ramesh","aramesh@gmail.com","aramesh@flyerssoft.com","MALE","9003218899","9890990890","SINGLE",1,"Uday",null,null,"MANAGER","ADMIN",7,8);
 
 
 --Queries to generate static data in the job history table--
