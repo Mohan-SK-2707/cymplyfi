@@ -1,0 +1,23 @@
+{
+  "status": 200,
+  "success": true,
+  "data": {
+    "ceo": {
+      "firstName": "Mohan",
+      "lastName": "senthilkumar",
+      "email": "mohansenthilkumar@protonmail.com",
+      "password": "Mohanlal@2021",
+      "role": "SUPER_ADMIN",
+      "officialEmail": "mohanlal.s@flyerssoft.com",
+      "designation": "DEVELOPER",
+      "employeeId": "FS-001",
+      "contactNumber": "9384757413"
+    },
+    "departments": [
+      {
+        "id": 1,
+        "departmentName": "Front-end"
+      }
+      }
+    ]
+  }

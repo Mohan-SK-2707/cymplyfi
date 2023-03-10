@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
 import com.flyerssoft.org_chart.dto.LoginRequestDto;
+import com.flyerssoft.org_chart.dto.OrganisationDepartmentResponse;
 import com.flyerssoft.org_chart.response.AppResponse;
+import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
 import com.flyerssoft.org_chart.response.LoginResponse;
 import com.flyerssoft.org_chart.security.JwtAuthenticationFilter;
 import com.flyerssoft.org_chart.security.JwtTokenUtils;
@@ -38,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -49,10 +52,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class EmployeeControllerTest {
 
     @MockBean
-    EmployeeService employeeService;
-
+    private EmployeeService employeeService;
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+
+    private AppResponse<List<CustomEmployeeResponseDto>> customListEmployeeResponseDto;
     private EmployeePersonalDetailDto employeeRequestDto;
     private LoginResponse response;
     private LoginRequestDto requestDto;
@@ -71,20 +75,19 @@ class EmployeeControllerTest {
                 });
         requestDto = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/loginRequestDto.json"), new TypeReference<LoginRequestDto>() {
         });
+        customListEmployeeResponseDto = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/CustomListOfEmployeeResponse.json"), new TypeReference<AppResponse<List<CustomEmployeeResponseDto>>>() {
+        });
     }
 
     @Test
-    void addEmployeeDetail() {
-
+    void addEmployeeDetail() throws Exception {
+        AppResponse<EmployeePersonalDetailDto> addEmployeeAppResponse = new AppResponse<>(201, true, employeeRequestDto);
+        Mockito.when(employeeService.addEmployeeDetail(employeeRequestDto)).thenReturn(addEmployeeAppResponse);
+        String addApiReq = new ObjectMapper().writeValueAsString(employeeRequestDto);
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/employee/add")
+                .contentType(MediaType.APPLICATION_JSON).content(addApiReq).characterEncoding("UTF-8")
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
     }
-
-//    @WithMockUser(value = "spring")
-//    @Test
-//    void test() throws Exception {
-//        this.mockMvc.perform(MockMvcRequestBuilders.get("/employee"))
-//                .andExpect(status().isOk());
-//    }
-
 
     @WithMockUser(value = "spring")
     @Test
@@ -97,13 +100,23 @@ class EmployeeControllerTest {
     }
 
     @Test
-    void updateEmployee() {
-
+    void updateEmployee() throws Exception {
+        AppResponse<EmployeePersonalDetailDto> appResponse = new AppResponse<>(202, true, employeeRequestDto);
+        Mockito.when(employeeService.updateEmployee(response.getUserId(), employeeRequestDto)).thenReturn(appResponse);
+        String updateEmpReq = new ObjectMapper().writeValueAsString(employeeRequestDto);
+        String longValue = new ObjectMapper().writeValueAsString(1L);
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/employee/update").param("id", longValue)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(employeeRequestDto))).andExpect(status().isAccepted());
     }
 
     @Test
-    void deleteEmployee() {
-
+    void deleteEmployee() throws Exception {
+        AppResponse<String> deleteRes =
+                new AppResponse<>(204, true, "Employee Deleted Successfully");
+        Mockito.when(employeeService.deleteEmployee(anyLong())).thenReturn(deleteRes);
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/employee/remove/{id}", anyLong()).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -120,11 +133,15 @@ class EmployeeControllerTest {
     }
 
     @Test
-    void allEmployeeDtoResponse() {
+    void allEmployeeDtoResponse() throws Exception {
+        AppResponse<List<CustomEmployeeResponseDto>> listOfCustomEmployeeResponseDto = new AppResponse<>(200, true, customListEmployeeResponseDto.getData());
+        Mockito.when(employeeService.allEmployeeDtoResponse()).thenReturn(listOfCustomEmployeeResponseDto);
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/employee/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
     void getDepartmentsForHierarchy() {
+        AppResponse<OrganisationDepartmentResponse> orgDeptresponse = new AppResponse<>();
     }
 
     @Test
