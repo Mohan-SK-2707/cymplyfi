@@ -1,0 +1,19 @@
+{
+    "departments":{
+        "id": 1,
+        "departmentName": "Front-End",
+        "manager_Id": 2
+      },
+  "Managers": [
+    {
+      "id": 8,
+      "firstName": "dfd",
+      "lastName": "lyhdgdfjjhdddf",
+      "contactNumber": "0412711346",
+      "role": "SUPER_ADMIN",
+      "designation": "hello",
+      "officialEmail": "ADMIN@gmail.com",
+      "employeeId": "123"
+    }
+]
+}

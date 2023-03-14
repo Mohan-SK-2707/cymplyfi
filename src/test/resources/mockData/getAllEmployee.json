@@ -1,0 +1,101 @@
+[{
+  "id": 1,
+  "firstName": "Uday",
+  "lastName": "Kanth",
+  "officialEmail": "udaykanth@flyerssoft.com",
+  "designation": "MANAGER",
+  "role": "ADMIN",
+  "employeeId": null,
+  "contactNumber": "9003277899"
+},
+{
+"id": 2,
+"firstName": "Ali",
+"lastName": "Afroze",
+"officialEmail": "afroze@flyerssoft.com",
+"designation": "MANAGER",
+"role": "ADMIN",
+"employeeId": null,
+"contactNumber": "9003218899"
+},
+{
+"id": 3,
+"firstName": "Chakravarthy",
+"lastName": "chowdry",
+"officialEmail": "mourya@flyerssoft.com",
+"designation": "MANAGER",
+"role": "ADMIN",
+"employeeId": null,
+"contactNumber": "9003218899"
+},
+{
+"id": 4,
+"firstName": "Abhinav",
+"lastName": "abhinav",
+"officialEmail": "abhinav@flyerssoft.com",
+"designation": "MANAGER",
+"role": "ADMIN",
+"employeeId": null,
+"contactNumber": "9003218899"
+},
+{
+"id": 5,
+"firstName": "Subhash",
+"lastName": "subhash",
+"officialEmail": "subhash@flyerssoft.com",
+"designation": "MANAGER",
+"role": "ADMIN",
+"employeeId": null,
+"contactNumber": "9003218899"
+},
+{
+"id": 6,
+"firstName": "Vignesh",
+"lastName": "sekhar",
+"officialEmail": "vsekhar@flyerssoft.com",
+"designation": "MANAGER",
+"role": "ADMIN",
+"employeeId": null,
+"contactNumber": "9003218899"
+},
+{
+"id": 7,
+"firstName": "Ananthu",
+"lastName": "ananthu",
+"officialEmail": "ananthu@flyerssoft.com",
+"designation": "MANAGER",
+"role": "ADMIN",
+"employeeId": null,
+"contactNumber": "9003218899"
+},
+{
+"id": 8,
+"firstName": "Arivan",
+"lastName": "ramesh",
+"officialEmail": "aramesh@flyerssoft.com",
+"designation": "MANAGER",
+"role": "ADMIN",
+"employeeId": null,
+"contactNumber": "9003218899"
+},
+{
+"id": 9,
+"firstName": "pppp",
+"lastName": "wwww",
+"officialEmail": "intern2@email.com",
+"designation": "dfghgfyd",
+"role": "SUPER_ADMIN",
+"employeeId": "FS-001",
+"contactNumber": "7110388851"
+},
+{
+"id": 10,
+"firstName": "pppp",
+"lastName": "wwww",
+"officialEmail": "intern1@email.com",
+"designation": "dfghgfyd",
+"role": "JUNIOR",
+"employeeId": "FS-001",
+"contactNumber": "7110381851"
+}
+]

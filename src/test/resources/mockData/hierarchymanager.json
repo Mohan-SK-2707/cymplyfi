@@ -1,0 +1,66 @@
+{
+  "status": 200,
+  "success": true,
+  "data": [
+    {
+      "id": 8,
+      "firstName": "dfd",
+      "lastName": "lyhdgdfjjhdddf",
+      "email": "sa1r@gmail.com",
+      "password": "$2a$10$i1UemMmqySiNoCuC2MGXoOIqxfEpF6efNebK9WTtOzqn0dMcnceLO",
+      "contactNumber": "0412711346",
+      "emergencyContactNumber": "9384750703",
+      "employeeGender": "MALE",
+      "employeeMartialStatus": "SINGLE",
+      "role": "SUPER_ADMIN",
+      "designation": "hello",
+      "primaryReportingManager": 2,
+      "primaryReportingManagerName": "Chakravarthy",
+      "reportingManager": 1,
+      "reportingManagerName": "Ali",
+      "officialEmail": "ADMIN@gmail.com",
+      "employeeId": "123",
+      "employeeAddresses": [
+        {
+          "id": 1,
+          "addressType": "CURRENT",
+          "city": "CHENNAI",
+          "state": "Tamil Nadu",
+          "pinCode": "600034",
+          "line2": "0",
+          "line1": "12line1ghhwsgdwuhajj"
+        }
+      ],
+      "jobHistories": [
+        {
+          "id": 1,
+          "role": "javha",
+          "jobStartDate": "10-2026",
+          "jobEndDate": "01-2023",
+          "company": "flyerssoft"
+        }
+      ],
+      "educationalDetails": [
+        {
+          "id": 1,
+          "qualification": "BEe",
+          "stream": "CSC",
+          "percentage": "223453.6",
+          "courseStartDate": "07-2021",
+          "courseEndDate": "10-2028",
+          "employeeEducationalType": "UNDERGRADUATE"
+        }
+      ],
+      "employeeBankDetails": {
+        "id": 1,
+        "bankName": "ddd",
+        "bankAccountNumber": "23433",
+        "bankIfscCode": "98756737364",
+        "bankBranchLocation": "CHENNAI",
+        "aadharNumber": "919384757413",
+        "panNumber": "93847574131",
+        "employeeBankAccountType": "PERSONAL"
+      }
+    }
+  ]
+}

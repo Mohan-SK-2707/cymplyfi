@@ -1,0 +1,16 @@
+{
+  "status": 200,
+  "success": true,
+  "data": [
+    {
+      "id": 2,
+      "firstName": "Ali",
+      "lastName": "Afroze",
+      "officialEmail": "afroze@flyerssoft.com",
+      "designation": "MANAGER",
+      "role": "ADMIN",
+      "employeeId": null,
+      "contactNumber": "9003218899"
+    }
+  ]
+}

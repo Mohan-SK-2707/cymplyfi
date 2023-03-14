@@ -1,0 +1,16 @@
+{
+  "status": 200,
+  "success": true,
+  "data": [
+    {
+      "id": 8,
+      "firstName": "dfd",
+      "lastName": "lyhdgdfjjhdddf",
+      "contactNumber": "0412711346",
+      "role": "ADMIN",
+      "designation": "hello",
+      "officialEmail": "ADMIN@gmail.com",
+      "employeeId": "123"
+    }
+  ]
+}
