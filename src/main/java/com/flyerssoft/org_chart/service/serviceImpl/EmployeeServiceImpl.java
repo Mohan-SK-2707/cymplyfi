@@ -309,7 +309,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }
                 EmployeePersonalDetailDto reportingManager = utils.mapEntityToDtos(optionalEscalationManagerDetails.get());
                 return new AppResponse<>(200, true, new ReporteeManagersResponse(primaryReportingManager, reportingManager, userDetails));
-
             } else {
                 log.error("Employee not found");
                 throw new NotFoundException("Employee not found");
@@ -345,6 +344,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new AppResponse<>(200, true, departmentCustomDtoList);
 
     }
-
 
 }

@@ -1,0 +1,49 @@
+{
+  "ceo": {
+    "id": 10,
+    "firstName": "pppp",
+    "lastName": "wwww",
+    "officialEmail": "inter11@email.com",
+    "designation": "dfghgfyd",
+    "role": "SUPER_ADMIN",
+    "employeeId": "FS-001",
+    "contactNumber": "7110111851"
+  },
+  "departments": [
+    {
+      "id": 1,
+      "departmentName": "Front-End",
+      "manager_Id": 2
+    },
+    {
+      "id": 2,
+      "departmentName": "Back-End",
+      "manager_Id": 3
+    },
+    {
+      "id": 3,
+      "departmentName": "Sales",
+      "manager_Id": 4
+    },
+    {
+      "id": 4,
+      "departmentName": "QA",
+      "manager_Id": 5
+    },
+    {
+      "id": 5,
+      "departmentName": "Game-Development",
+      "manager_Id": 6
+    },
+    {
+      "id": 6,
+      "departmentName": "Design",
+      "manager_Id": 7
+    },
+    {
+      "id": 7,
+      "departmentName": "Infra",
+      "manager_Id": 8
+    }
+  ]
+}

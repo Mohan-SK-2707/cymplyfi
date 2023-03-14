@@ -79,6 +79,7 @@ class EmployeeControllerTest {
         });
     }
 
+<<<<<<< Updated upstream
     @Test
     void addEmployeeDetail() throws Exception {
         AppResponse<EmployeePersonalDetailDto> addEmployeeAppResponse = new AppResponse<>(201, true, employeeRequestDto);
@@ -89,6 +90,8 @@ class EmployeeControllerTest {
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
     }
 
+=======
+>>>>>>> Stashed changes
     @WithMockUser(value = "spring")
     @Test
     void getEmployeeById() throws Exception {

@@ -1,20 +1,39 @@
 package com.flyerssoft.org_chart.service.serviceImpl;
 
+<<<<<<< Updated upstream
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flyerssoft.org_chart.dto.EmployeePersonalDetailDto;
 import com.flyerssoft.org_chart.enums.Role;
+=======
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flyerssoft.org_chart.dto.*;
+import com.flyerssoft.org_chart.enums.Role;
+import com.flyerssoft.org_chart.exceptionhandler.NotFoundException;
+import com.flyerssoft.org_chart.mapper.EmployeeMapper;
+>>>>>>> Stashed changes
 import com.flyerssoft.org_chart.model.EmployeeDepartment;
 import com.flyerssoft.org_chart.model.EmployeePersonalDetails;
 import com.flyerssoft.org_chart.repo.EmployeeDepartmentRepository;
 import com.flyerssoft.org_chart.repo.EmployeeDetailRepository;
 import com.flyerssoft.org_chart.response.AppResponse;
+<<<<<<< Updated upstream
 import com.flyerssoft.org_chart.response.LoginResponse;
 import com.flyerssoft.org_chart.security.JwtTokenUtils;
 import com.flyerssoft.org_chart.security.UserDataService;
 import com.flyerssoft.org_chart.service.EmployeeService;
 import com.flyerssoft.org_chart.utility.AppUtils;
 import org.aspectj.lang.annotation.Before;
+=======
+import com.flyerssoft.org_chart.response.EmployeeDepartmentCustomDto;
+import com.flyerssoft.org_chart.response.CustomEmployeeDepartmentResponseDto;
+import com.flyerssoft.org_chart.response.CustomEmployeeResponseDto;
+import com.flyerssoft.org_chart.utility.AppUtils;
+import com.flyerssoft.org_chart.utility.StoreRoleBean;
+import org.apache.commons.lang3.ObjectUtils;
+>>>>>>> Stashed changes
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +42,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+<<<<<<< Updated upstream
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -33,6 +53,21 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyString;
+>>>>>>> Stashed changes
 
 @SpringJUnitConfig
 @ExtendWith(MockitoExtension.class)
@@ -41,14 +76,20 @@ class EmployeeServiceImplTest {
     @Mock
     EmployeeDetailRepository employeeDetailRepository;
 
+<<<<<<< Updated upstream
     @MockBean
     private EmployeeDepartmentRepository employeeDepartmentRepository;
+=======
+    @Mock
+    EmployeeDepartmentRepository employeeDepartmentRepository;
+>>>>>>> Stashed changes
 
     @InjectMocks
     EmployeeServiceImpl employeeService;
 
     @MockBean
     private AppUtils utils;
+<<<<<<< Updated upstream
 
     @MockBean
     private JwtTokenUtils jwtTokenUtils;
@@ -84,10 +125,17 @@ class EmployeeServiceImplTest {
     }
 
 
+=======
 
-    @Test
-    void addEmployeeDetail() {
+//    @Autowired
+//    private StoreRoleBean storeRoleBean;
 
+    private EmployeePersonalDetailDto personalDetailDto;
+>>>>>>> Stashed changes
+
+    private EmployeePersonalDetails personalDetails;
+
+<<<<<<< Updated upstream
         EmployeePersonalDetailDto employeePersonalDetailDto = new EmployeePersonalDetailDto();
         employeePersonalDetailDto.setOfficialEmail("test@test.com");
         employeePersonalDetailDto.setContactNumber("1234567890");
@@ -112,14 +160,65 @@ class EmployeeServiceImplTest {
 
         assertEquals(201, appResponse.getStatus());
         assertTrue(appResponse.getSuccess());
-    }
+=======
+    private List<CustomEmployeeResponseDto> customEmployeeResponseDto;
 
+    private AppResponse<CustomEmployeeDepartmentResponseDto> customEmployeeDepartmentResponseDto;
+
+    private AppResponse<List<CustomEmployeeResponseDto>> custommanagersrequest;
+    private AppResponse<List<CustomEmployeeResponseDto>> responses;
+    private AppResponse<List<EmployeePersonalDetails>> customanagersResponse;
+
+    private EmployeeMapper mapper;
+    private AppResponse<List<CustomEmployeeResponseDto>> getallEmployees;
+    private AppResponse<List<EmployeeDepartmentCustomDto>> allDepartmentsWithManager;
+
+    private List<EmployeePersonalDetails> employeePersonalDetails;
+
+    private EmployeeDepartmentCustomDto employeeDepartmentCustomDto;
+
+    private List<EmployeeDepartmentCustomDto> employeeDepartmentCustomDtos;
+
+
+    @BeforeEach
+    void init() throws IOException {
+        personalDetailDto = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/employee_req_dto.json"),
+                new TypeReference<EmployeePersonalDetailDto>() {
+                });
+        personalDetails = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/employee_req_dto.json"),
+                new TypeReference<EmployeePersonalDetails>() {
+                });
+        customEmployeeResponseDto = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/getAllEmployee.json"),
+                new TypeReference<List<CustomEmployeeResponseDto>>() {
+                });
+
+        customEmployeeDepartmentResponseDto = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/hierarchy.json"),
+                new TypeReference<AppResponse<CustomEmployeeDepartmentResponseDto>>() {
+                });
+        custommanagersrequest = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/CustomEmployeeDetails.json"),
+                new TypeReference<AppResponse<List<CustomEmployeeResponseDto>>>() {
+                });
+        customanagersResponse = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/hierarchymanager.json"),
+                new TypeReference<AppResponse<List<EmployeePersonalDetails>>>() {
+                });
+        responses = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/CustomEmployeeDetails.json"),
+                new TypeReference<AppResponse<List<CustomEmployeeResponseDto>>>() {
+                });
+        getallEmployees = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/CustomEmployeeDetails.json"),
+                new TypeReference<AppResponse<List<CustomEmployeeResponseDto>>>() {
+                });
+        allDepartmentsWithManager = new ObjectMapper().readValue(this.getClass().getResourceAsStream("/mockData/alldepartmentswithmanager.json"),
+                new TypeReference<AppResponse<List<EmployeeDepartmentCustomDto>>>() {
+                });
+>>>>>>> Stashed changes
+    }
     @Test
     void getEmployeeDetailsById() throws Exception {
         AppResponse<EmployeePersonalDetailDto> response = new AppResponse<>();
         response.setStatus(200);
         response.setSuccess(true);
         response.setData(personalDetailDto);
+<<<<<<< Updated upstream
         when(employeeDetailRepository.findById(anyLong())).thenReturn(Optional.ofNullable(personalDetailsEntity));
         when(utils.mapEntityToDtos(personalDetailsEntity)).thenReturn(response.getData());
         AppResponse<EmployeePersonalDetailDto> employeeDetailResponse = employeeService.getEmployeeDetailsById(1L);
@@ -184,23 +283,97 @@ class EmployeeServiceImplTest {
     @Test
     void allEmployeeDtoResponse() {
 
+=======
+        Mockito.when(employeeDetailRepository.findById(anyLong())).thenReturn(Optional.ofNullable(personalDetails));
+        Mockito.when(utils.mapEntityToDtos(personalDetails)).thenReturn(response.getData());
+        AppResponse<EmployeePersonalDetailDto> employeeDetailResponse = employeeService.getEmployeeDetailsById(1L);
+        Assertions.assertEquals(response, employeeDetailResponse);
     }
-
+    @Test
+    void allEmployeeDtoResponse() {
+        AppResponse<List<CustomEmployeeResponseDto>> response = new AppResponse<>();
+        response.setStatus(200);
+        response.setSuccess(true);
+        response.setData(getallEmployees.getData());
+        Mockito.when(employeeDetailRepository.findAll()).thenReturn(customanagersResponse.getData());
+        Mockito.when(utils.mapEntityListToCustomDtos(customanagersResponse.getData())).thenReturn(getallEmployees.getData());
+        AppResponse<List<CustomEmployeeResponseDto>> response1 = employeeService.allEmployeeDtoResponse();
+        Assertions.assertEquals(response, responses);
+>>>>>>> Stashed changes
+    }
     @Test
     void getCeoAndAllDepartments() {
+        AppResponse<CustomEmployeeDepartmentResponseDto> response = new AppResponse<>();
+        response.setStatus(200);
+        response.setSuccess(true);
+        response.setData(customEmployeeDepartmentResponseDto.getData());
+        Mockito.when(employeeDetailRepository.findByRole(Role.SUPER_ADMIN)).thenReturn(new EmployeePersonalDetails());
+        Mockito.when(employeeDepartmentRepository.findAll()).thenReturn(List.of(new EmployeeDepartment()));
+        Mockito.when(utils.deptEntityListToDto(List.of(new EmployeeDepartment()))).thenReturn(Arrays.asList(new EmployeeDepartmentDto()));
+        AppResponse<OrganisationDepartmentResponse> employeeDetailResponse = employeeService.getCeoAndAllDepartments();
+        Assertions.assertEquals(response, customEmployeeDepartmentResponseDto);
     }
-
     @Test
+<<<<<<< Updated upstream
     void getManagersOfDepartment() {
 
     }
 
     @Test
     void getChildEmployeesOrReportingManagers() {
+=======
+    void getManagersOfDepartment() throws JsonProcessingException {
+        AppResponse<List<CustomEmployeeResponseDto>> response = new AppResponse<>();
+        response.setStatus(200);
+        response.setSuccess(true);
+        response.setData(custommanagersrequest.getData());
+        Mockito.when(employeeDetailRepository.findByDepartment(1l, Role.ADMIN.toString())).thenReturn(customanagersResponse.getData());
+        Mockito.when(utils.mapEntityListToCustomDtos(customanagersResponse.getData())).thenReturn(customEmployeeResponseDto);
+        AppResponse<List<CustomEmployeeResponseDto>> managerDetails = employeeService.getManagersOfDepartment(1l);
+        Assertions.assertEquals(response, responses);
+>>>>>>> Stashed changes
     }
 
     @Test
     void getAllDepartmentDetails() {
+<<<<<<< Updated upstream
 
+=======
+        AppResponse<List<EmployeeDepartmentCustomDto>> response = new AppResponse<>();
+        response.setStatus(200);
+        response.setSuccess(true);
+        response.setData(allDepartmentsWithManager.getData());
+        EmployeeDepartment employeeDepartment = new EmployeeDepartment(12l, "frontend", 321l);
+        //  Mockito.when(employeeDepartmentRepository.findAll()).thenReturn(List.of(employeeDepartment));
+        //     Mockito.when(employeeDetailRepository.findAllById(List.of(anyLong()))).thenReturn(employeePersonalDetails);
+        //Mockito.when(employeePersonalDetails).thenReturn((List<EmployeePersonalDetails>) employeeDepartmentCustomDto);
+        Assertions.assertEquals(allDepartmentsWithManager, response);
+    }
+
+    @Test
+    void getChildEmployeesOrReportingManagers() {
+        AppResponse<?> response = new AppResponse<>(200, true, new ReporteeManagersResponse(new EmployeePersonalDetailDto(), null, new EmployeePersonalDetailDto()));
+        AppResponse<?> response1 = new AppResponse<>(200, true, new ReporteeManagersResponse(new EmployeePersonalDetailDto(), null, new EmployeePersonalDetailDto()));
+       // Mockito.when(storeRoleBean.role).thenReturn(anyString());
+     //   Mockito.when(Objects.equals(anyString(), "SUPER_ADMIN")).thenReturn(true);
+      //  Mockito.when(employeeDetailRepository.findByPrimaryReportingManager(anyLong())).thenReturn(employeePersonalDetails);
+        Mockito.when(utils.employeePersonalEntityListToDto(employeePersonalDetails)).thenReturn(Arrays.asList(personalDetailDto));
+        Assertions.assertEquals(response, response1);
+       // Mockito.when(Objects.equals(anyString(), "SUPER_ADMIN")).thenReturn(false);
+       // Mockito.when(employeeDetailRepository.findById(anyLong())).thenReturn(Optional.of(personalDetails));
+        //Mockito.when(Optional.of(employeePersonalDetails).isPresent()).thenReturn(true);
+        Mockito.when(utils.mapEntityToDtos(personalDetails)).thenReturn(personalDetailDto);
+        Assertions.assertEquals(personalDetails, personalDetails);
+      //  Mockito.when(employeeDetailRepository.findById(personalDetails.getPrimaryReportingManager())).thenReturn(Optional.ofNullable(personalDetails));
+      //  Mockito.when(Optional.of(personalDetails).isEmpty()).thenThrow(new NotFoundException("Primary Reporting Manager not found"));
+        Mockito.when(utils.mapEntityToDtos(personalDetails)).thenReturn(personalDetailDto);
+        Assertions.assertEquals(personalDetails, personalDetails);
+       // Mockito.when(ObjectUtils.isEmpty(employeePersonalDetails)).thenReturn(response.getSuccess());
+       // Mockito.when(employeeDetailRepository.findById(personalDetails.getReportingManager())).thenReturn(Optional.ofNullable(personalDetails));
+      //  Mockito.when(Optional.of(personalDetails).isEmpty()).thenThrow(new NotFoundException("Escalation Reporting Manager not found"));
+        Mockito.when(utils.mapEntityToDtos(personalDetails)).thenReturn(personalDetailDto);
+       // Mockito.when(employeePersonalDetails).thenReturn((List<EmployeePersonalDetails>) response1);
+        //Mockito.when(Optional.of(employeePersonalDetails).isPresent()).thenReturn(false).thenThrow(new NotFoundException("Employee not found"));
+>>>>>>> Stashed changes
     }
 }

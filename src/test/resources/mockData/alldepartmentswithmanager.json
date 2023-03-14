@@ -1,0 +1,76 @@
+{
+  "status": 200,
+  "success": true,
+  "data": [
+    {
+      "departmentId": 1,
+      "departmentName": "Front-End",
+      "manager": {
+        "id": 2,
+        "firstName": "Ali",
+        "officialEmail": "afroze@flyerssoft.com",
+        "role": "ADMIN"
+      }
+    },
+    {
+      "departmentId": 2,
+      "departmentName": "Back-End",
+      "manager": {
+        "id": 3,
+        "firstName": "Chakravarthy",
+        "officialEmail": "mourya@flyerssoft.com",
+        "role": "ADMIN"
+      }
+    },
+    {
+      "departmentId": 3,
+      "departmentName": "Sales",
+      "manager": {
+        "id": 4,
+        "firstName": "Abhinav",
+        "officialEmail": "abhinav@flyerssoft.com",
+        "role": "ADMIN"
+      }
+    },
+    {
+      "departmentId": 4,
+      "departmentName": "QA",
+      "manager": {
+        "id": 5,
+        "firstName": "Subhash",
+        "officialEmail": "subhash@flyerssoft.com",
+        "role": "ADMIN"
+      }
+    },
+    {
+      "departmentId": 5,
+      "departmentName": "Game-Development",
+      "manager": {
+        "id": 6,
+        "firstName": "Vignesh",
+        "officialEmail": "vsekhar@flyerssoft.com",
+        "role": "ADMIN"
+      }
+    },
+    {
+      "departmentId": 6,
+      "departmentName": "Design",
+      "manager": {
+        "id": 7,
+        "firstName": "Ananthu",
+        "officialEmail": "ananthu@flyerssoft.com",
+        "role": "ADMIN"
+      }
+    },
+    {
+      "departmentId": 7,
+      "departmentName": "Infra",
+      "manager": {
+        "id": 8,
+        "firstName": "Arivan",
+        "officialEmail": "aramesh@flyerssoft.com",
+        "role": "ADMIN"
+      }
+    }
+  ]
+}
