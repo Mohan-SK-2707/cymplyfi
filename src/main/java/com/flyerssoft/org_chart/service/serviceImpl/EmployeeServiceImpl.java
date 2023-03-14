@@ -15,10 +15,10 @@ import com.flyerssoft.org_chart.service.EmployeeService;
 import com.flyerssoft.org_chart.utility.AppUtils;
 import com.flyerssoft.org_chart.utility.StoreRoleBean;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static ch.qos.logback.core.joran.spi.ConsoleTarget.findByName;
+
 
 @Service
 @Slf4j
@@ -66,7 +66,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.info("Requested details from input : {} ", employeePersonalDetailDto);
         this.checkEmployeeExistsByCredentials(employeePersonalDetailDto.getOfficialEmail(), employeePersonalDetailDto.getContactNumber());
         EmployeePersonalDetails employeeDetailRequest = utils.dtoToEntity(employeePersonalDetailDto);
-        employeeDetailRequest.setPassword(passwordEncoder.encode(employeePersonalDetailDto.getPassword()));
+        String encodedPassword = passwordEncoder.encode(employeePersonalDetailDto.getPassword());
+        employeeDetailRequest.setPassword(encodedPassword);
         employeeDetailRequest.setRole(employeePersonalDetailDto.getRole());
         log.info("Requested details for persisting after mapping : {} ", employeeDetailRequest);
         //address validation
@@ -225,6 +226,14 @@ public class EmployeeServiceImpl implements EmployeeService {
             claims.put("role", "EMPLOYEE");
             claims.put("userId", user.getId());
         }
+        if (StringUtils.isEmpty(user.getOfficialEmail()) || StringUtils.isEmpty(user.getPassword())) {
+            throw new IllegalArgumentException("Username and/or password cannot be null or empty");
+        }
+
+        // Check if authorities list is not null or empty
+        if (CollectionUtils.isEmpty(authorities)) {
+            throw new IllegalArgumentException("Authorities list cannot be null or empty");
+        }
         final String loginToken = jwtTokenUtils.generateToken(new org.springframework.security.core.userdetails.User(user.getOfficialEmail(), user.getPassword(), authorities), claims);
         return new LoginResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getRole(), user.getDesignation(), loginToken);
     }
@@ -281,7 +290,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (Objects.equals(role, "SUPER_ADMIN")) {
             List<EmployeePersonalDetails> childEmployees = employeeRepository.findByPrimaryReportingManager(reporteeId);
             return new AppResponse<>(200, true, utils.employeePersonalEntityListToDto(childEmployees));
-        } else {
+        }
             Optional<EmployeePersonalDetails> optionalEmployeePersonalDetails = employeeRepository.findById(reporteeId);
             if (optionalEmployeePersonalDetails.isPresent()) {
                 // todo: need to get the details in single query
@@ -305,7 +314,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 log.error("Employee not found");
                 throw new NotFoundException("Employee not found");
             }
-        }
+
     }
 
     @Override

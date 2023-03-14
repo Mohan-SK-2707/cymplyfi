@@ -48,14 +48,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringJUnitConfig
 @WebMvcTest(EmployeeController.class)
-@MockBean({JwtTokenUtils.class, UserDataService.class, StoreRoleBean.class, WebConfig.class})
+@MockBean({JwtTokenUtils.class, UserDataService.class, StoreRoleBean.class})
 class EmployeeControllerTest {
 
     @MockBean
     private EmployeeService employeeService;
     @Autowired
     private MockMvc mockMvc;
-
     private AppResponse<List<CustomEmployeeResponseDto>> customListEmployeeResponseDto;
     private EmployeePersonalDetailDto employeeRequestDto;
     private LoginResponse response;
@@ -140,20 +139,30 @@ class EmployeeControllerTest {
     }
 
     @Test
-    void getDepartmentsForHierarchy() {
-        AppResponse<OrganisationDepartmentResponse> orgDeptresponse = new AppResponse<>();
+    void getDepartmentsForHierarchy() throws Exception {
+        AppResponse<List<CustomEmployeeResponseDto>> listOfCustomEmployeeResponseDto = new AppResponse<>(200, true, customListEmployeeResponseDto.getData());
+        Mockito.when(employeeService.allEmployeeDtoResponse()).thenReturn(listOfCustomEmployeeResponseDto);
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/employee/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    void getListOfManagers() {
+    void getListOfManagers() throws Exception {
+        AppResponse<List<CustomEmployeeResponseDto>> listOfCustomEmployeeResponseDto = new AppResponse<>(200, true, customListEmployeeResponseDto.getData());
+        Mockito.when(employeeService.allEmployeeDtoResponse()).thenReturn(listOfCustomEmployeeResponseDto);
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/employee/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    void testGetDepartmentsForHierarchy() {
+    void testGetDepartmentsForHierarchy() throws Exception {
+        AppResponse<List<CustomEmployeeResponseDto>> listOfCustomEmployeeResponseDto = new AppResponse<>(200, true, customListEmployeeResponseDto.getData());
+        Mockito.when(employeeService.allEmployeeDtoResponse()).thenReturn(listOfCustomEmployeeResponseDto);
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/employee/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
     @Test
-    void getAllDepartmentDetails() {
-        Assertions.assertTrue(true);
+    void getAllDepartmentDetails() throws Exception {
+        AppResponse<List<CustomEmployeeResponseDto>> listOfCustomEmployeeResponseDto = new AppResponse<>(200, true, customListEmployeeResponseDto.getData());
+        Mockito.when(employeeService.allEmployeeDtoResponse()).thenReturn(listOfCustomEmployeeResponseDto);
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/employee/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 }
